@@ -1,10 +1,10 @@
 ---
 import ImageMod from "@/components/ImageMod.astro";
-import Social from "@/components/Social.astro";
+import DynamicIcon from "@/helpers/DynamicIcon";
 import { markdownify } from "@/lib/utils/textConverter";
 const { listing } = Astro.props;
-console.log(listing.data);  
 ---
+
 {
   listing.data.enable && (
     <section class="pt-30 pb-15 px-[30px]">
@@ -25,40 +25,52 @@ console.log(listing.data);
               img: string;
               text: string;
             }) => (
-              <a href="/" class="text-text-dark pb-8 cursor-pointer relative">
-                <ImageMod
-                  height={150}
-                  width={150}
-                  class="rounded-2xl w-full h-[346px]"
-                  src={item.img}
-                  alt={item.text}
-                  format="webp"
-                />
+              <a 
+                href="/" 
+                class="group text-text-dark pb-8 cursor-pointer relative overflow-hidden rounded-2xl"
+              >
+                <div class="overflow-hidden rounded-2xl">
+                  <ImageMod
+                    height={346}
+                    width={500}
+                    class="w-full h-[346px] object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+                    src={item.img}
+                    alt={item.text}
+                    format="webp"
+                  />
+                </div>
+
                 <p class="py-1 px-3 bg-light absolute top-3 left-3 rounded-[10px] leading-7">{item.text}</p>
-                <div class="mt-6">
-                  <span class="text-text">${item.pricing}</span>
-                  <h5 class="text-text-dark leading-[-1px]">{item.title}</h5>
-                  <div class="mt-6 flex gap-4">
-                     <p class="flex items-center gap-2">
-                      {/* <Social source={listing.data.icon} /> */}
-                        <img src="../../../public/images/listing/icon/sqft.svg" alt="sqfit">
-                        {item.sqfit}sq. ft.</p>
-                     <p class="flex items-center gap-2">
-                        <img src="../../../public/images/listing/icon/bed.svg" alt="sqfit">
-                        {item.bed} Bed</p>
-                     <p class="flex items-center gap-2">
-                        <img src="../../../public/images/listing/icon/bath.svg" alt="sqfit">
-                        {item.bath} Bath</p>
+                
+                <div class="mt-6 px-3">
+                  <span class="text-text font-semibold">${item.pricing}</span>
+                  <h5 class="text-text-dark mt-2 text-lg font-medium">{item.title}</h5>
+                  <div class="mt-4 flex gap-4">
+                    <p class="flex items-center gap-2">
+                      <DynamicIcon icon="BsArrowsFullscreen" className="w-5 h-5 text-primary" />
+                      {item.sqfit} sq. ft.
+                    </p>
+                    <p class="flex items-center gap-2">
+                      <DynamicIcon icon="LuBedSingle" className="w-5 h-5 text-primary" />
+                      {item.bed} Bed
+                    </p>
+                    <p class="flex items-center gap-2">
+                      <DynamicIcon icon="BiBath" className="w-5 h-5 text-primary" />
+                      {item.bath} Bath
+                    </p>
                   </div>
                 </div>
               </a>
             ),
           )}
         </div>
-       <div class="flex justify-center">
+
+        <div class="flex justify-center">
           <a class="btn btn-secondary mt-10 text-center flex justify-center w-fit" href="/">{listing.data.btn}</a>
-       </div>
+        </div>
       </div>
     </section>
   )
 }
+
+

@@ -3,10 +3,13 @@ import Base from "@/layouts/Base.astro";
 import { markdownify } from "@/lib/utils/textConverter";
 import CallToAction from "@/partials/CallToAction.astro";
 import Listing from "@/partials/Listing.astro";
+import FAQSection from "@/partials/FAQSection.astro";
 import PropertySection from "@/partials/PropertySection.astro";
-import type { Button, Feature } from "@/types";
+import type { Button } from "@/types";
 import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
+import Testimonial from "@/partials/Testimonial.astro";
+import { string } from "astro:schema";
 
 interface Homepage {
   banner: {
@@ -15,93 +18,195 @@ interface Homepage {
     image: string;
     button: Button;
   };
-  brandimg:{
-    text:string;
-    image: string
+  brandimg?: {
+    text?: string;
+    images?: string[];
+  };
+  getintouch?:{
+    title?: string;
+    description?: string;
+    img?: string;
+    btn?: string;
   }
-  features: Feature[];
+  ceoinfo?:{
+    title: string;
+    description:string;
+    vediolink: string;
+    heading: string;
+    ceoname:string;
+    designation:string;
+    img: string;
+    playbtn: string;
+  }
 }
-
-const homepage = (await getEntry(
-  "homepage",
-  "-index",
-)) as CollectionEntry<"homepage">;
-
 const testimonial = (await getEntry(
   "testimonialSection",
-  "testimonial",
+  "testimonial"
 )) as CollectionEntry<"testimonialSection">;
 
-const listing = (await getEntry(
-  "listingSection",
-  "listing",
-)) as CollectionEntry<"listingSection">;
+const homepage = (await getEntry("homepage", "-index")) as CollectionEntry<"homepage">;
+const listing = (await getEntry("listingSection", "listing")) as CollectionEntry<"listingSection">;
+const call_to_action = (await getEntry("ctaSection", "call-to-action")) as CollectionEntry<"ctaSection">;
+const property = (await getEntry("propertySection", "property-cards")) as CollectionEntry<"propertySection">;
+const faqsection = (await getEntry("faqsection", "faq")) as CollectionEntry<"faqsection">;
 
-const call_to_action = (await getEntry(
-  "ctaSection",
-  "call-to-action",
-)) as CollectionEntry<"ctaSection">;
+const { banner, brandimg, getintouch, ceoinfo } = homepage.data as Homepage;
 
-const { banner, features, brandimg } = homepage.data as Homepage;
+const logos = brandimg?.images ?? [];
+const brandText = brandimg?.text ?? "";
 ---
 
 <Base>
   <!-- Banner -->
-  <section class="section pt-55 pb-65 bg-[url('/images/banner.avif')] cover bg-no-repeat">
-    <div class="container">
-      <div class="">
-        <div class="lg:col-8 md:col-9">
-          <h1
-            set:html={markdownify(banner.title)}
-            class="mb-[10px] text-h3 lg:text-[80px] leading-[92px] tracking-[-3.5px]"
-          />
-          <p set:html={markdownify(banner.content)} class="lg:col-10 text-xl md:col-9 mb-10 leading-9 text-text-light/80" />
-          {
-            banner.button.enable && (
-              <div class="pl-6 pr-3 py-3 bg-light lg:col-8 text-xl md:col-9 rounded-2xl flex justify-between">
-                  <input class="outline-none border-none bg-transparent focus:outline-none focus:border-none focus:text-text-dark" type="text" placeholder="Search with a location"/>
-              <a
-                class="btn btn-secondary px-6 py-[10px] rounded-xl font-normal text-base"
-                href={banner.button.link}
-                target={
-                  banner.button.link.startsWith("http") ? "_blank" : "_self"
-                }
-                rel="noopener"
-              >
-                {banner.button.label}
-              </a>
-              </div>
-            )
-          }
-        </div>
+  <section
+    class="relative section pt-55 pb-65 bg-no-repeat bg-center bg-cover bg-gradient"
+    style={`background-image: url('${banner.image}');`}
+  >
+    <div class="absolute inset-0 bg-gradient-to-b from-dark/30 to-dark/30 z-10"></div>
+    <div class="container relative z-10">
+      <div class="lg:col-8 md:col-9">
+        <h1
+          set:html={markdownify(banner.title)}
+          class="mb-[10px] text-h3 lg:text-[80px] leading-[92px] tracking-[-3.5px] text-text-light"
+        />
+        <p
+          set:html={markdownify(banner.content)}
+          class="lg:col-10 text-xl md:col-9 mb-10 leading-9 text-text-light/80"
+        />
+        {banner.button.enable && (
+          <div class="pl-6 pr-3 py-3 bg-light lg:col-8 text-xl md:col-9 rounded-2xl flex justify-between">
+            <input
+              type="text"
+              placeholder="Search with a location"
+              aria-label="search"
+              data-search-trigger
+              class="outline-none focus:outline-none border-none focus:border-none focus:ring-0 bg-transparent cursor-pointer"
+            />
+            <a
+              class="btn btn-secondary px-6 py-[10px] rounded-xl font-normal text-base"
+              href={banner.button.link}
+              target={banner.button.link.startsWith("http") ? "_blank" : "_self"}
+              rel="noopener"
+            >
+              {banner.button.label}
+            </a>
+          </div>
+        )}
       </div>
     </div>
   </section>
-  <!-- /Banner -->
-   <!-- Trasted Company Brand logo -->
-      <section class="section-sm bg-primary rounded-t-4xl -mt-10">
-        <div class="container">
-          <!-- <p set:html={markdownify(brandimg.text)}></p> -->
-          <div>
-            <!-- {
-              brandimg.image && (
-                 <ImageMod
-                src={brandimg.image}
-                height={480}
-                width={520}
-                // alt={brandimg.text}
-                format="webp"
-              />
-              )
-            } -->
-          </div>
-        </div>
-      </section>
-   <!-- Trasted Company Brand logo -->
-   <Listing listing={listing} />
 
-  <!-- <Testimonial testimonial={testimonial} /> -->
+  <!-- Trusted Company Brand Logos -->
+  {(brandText || logos.length > 0) && (
+    <section class="section-sm bg-primary rounded-t-4xl -mt-10">
+      <div class="container flex flex-col items-center space-y-6">
+        {brandText && (
+          <p class="text-center text-lg md:text-xl font-medium text-white">
+            {brandText}
+          </p>
+        )}
+        {logos.length > 0 && (
+          <div class="flex flex-wrap justify-center items-center gap-6 md:gap-10">
+            {logos.map((img, i) => (
+              <div class="flex-shrink-0 h-12 md:h-16">
+                <img
+                  src={img}
+                  alt={`Brand ${i + 1}`}
+                  class="h-full object-contain"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  )}
+
+  <!-- Listing Section -->
+  <Listing listing={listing} />
+
+  <!-- CEO info -->
+
+<section class="section-sm">
+  <div class="container relative w-full max-w-4xl mx-auto">
+    <div class="relative">
+      <!-- Video -->
+      <video
+        id="ceoVideo"
+        src={ceoinfo?.vediolink ?? ""}
+        class="w-full rounded-lg"
+        playsinline
+        muted
+        style="display: none;"
+      ></video>
+
+      <!-- Cover Image & Overlay -->
+      <div id="ceoCoverWrapper" class="relative w-full">
+        <img
+          id="ceoCover"
+          src={ceoinfo?.img ?? "/path-to-default-cover.jpg"}
+          alt="CEO Cover"
+          class="w-full rounded-lg object-cover"
+        />
+
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-center text-white bg-black bg-opacity-50 rounded-lg">
+          <h3 class="text-2xl font-semibold">{ceoinfo?.ceoname ?? "CEO Name"}</h3>
+          <p class="text-lg">{ceoinfo?.designation ?? "CEO"}</p>
+          <button
+            id="playButton"
+            class="mt-4 w-16 h-16 flex items-center justify-center bg-white rounded-full text-black text-2xl hover:scale-110 transition-transform shadow-lg"
+          >
+            ▶
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Call To Action -->
   <CallToAction call_to_action={call_to_action} />
+
   <!-- Property Section -->
-   <PropertySection />
+  <PropertySection property={property} />
+  <!-- Testimonials -->
+   <Testimonial testimonial={testimonial} />
+  <!-- Testimonials -->
+  <FAQSection faqsection={faqsection} />
+<section class="relative section pt-40 pb-52 bg-no-repeat bg-center bg-cover bg-gradient"
+    style={`background-image: url('${getintouch?.img}');`}>
+      <div class="container text-center">
+         <h1
+          set:html={markdownify(getintouch?.title ?? "")}
+          class="mb-[10px] text-text-light"
+        />
+        <p
+          set:html={markdownify(getintouch?.description??"")}
+          class="lg:col-10 text-xl md:col-9 mx-auto mb-10 leading-9 text-text-light/80"
+        />
+        <a class="btn btn-primary rounded-full" href="/">{getintouch?.btn}</a>
+      </div>
+</section>
+
+
+
 </Base>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const playButton = document.getElementById("playButton");
+    const video = document.getElementById("ceoVideo") as HTMLVideoElement | null;
+    const coverWrapper = document.getElementById("ceoCoverWrapper");
+
+    if (playButton && video && coverWrapper) {
+      playButton.addEventListener("click", () => {
+        coverWrapper.style.display = "none";
+        video.style.display = "block";
+        video.play().catch(err => console.error("Video play error:", err));
+      });
+    }
+  });
+</script>
+
+

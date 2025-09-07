@@ -1,30 +1,51 @@
 ---
-import { FaArrowUp } from "react-icons/fa6";
+import DynamicIcon from "@/helpers/DynamicIcon";
+import { markdownify } from "@/lib/utils/textConverter";
+const { property } = Astro.props;
 ---
 
+{property?.data?.enable && (
 <section class="pt-20 px-[30px] pb-36 rounded-t-2xl bg-light -mt-10">
-   <div class="container text-center">
-      <h1 class="mb-16">Your trusted real estate partner</h1>
-      <div class="flex flex-col md:flex-row gap-6">
-         <div class="relative cursor-pointer">
-            <img class="h-[562px] rounded-2xl" src="../../../public/images/property/buying.avif" alt="">
-            <div class="text-text-dark absolute top-5 p-3 bg-light rounded-full right-5 rotate-45">
-               <FaArrowUp />
+  <div class="container text-center">
+    <h1 class="mb-16">{markdownify(property.data.title)}</h1>
+    <div class="flex flex-col md:flex-row gap-6">
+      {property.data.cards.map((card: any) => (
+        <div class="relative cursor-pointer flex-1 group overflow-hidden rounded-2xl">
+          {/* Image with zoom effect */}
+          <img
+            class="h-[562px] w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+            src={card.img}
+            alt={card.title}
+          />
+
+          {/* Arrow icon with animation */}
+          <div class="absolute top-5 right-5 p-3 bg-light rounded-full text-text-dark overflow-hidden">
+            <div class="relative w-5 h-5">
+              {/* Default icon (moves out at 45° top-right) */}
+              <DynamicIcon
+                icon={card.arrow_icon}
+                className="absolute w-5 h-5 rotate-45 transition-all duration-500 ease-in-out opacity-100 group-hover:-translate-y-6 group-hover:translate-x-6 group-hover:opacity-0"
+              />
+
+              {/* Incoming icon (comes in from 45° bottom-left) */}
+              <DynamicIcon
+                icon={card.arrow_icon}
+                className="absolute w-5 h-5 rotate-45 translate-y-6 -translate-x-6 opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:translate-x-0 group-hover:opacity-100"
+              />
             </div>
-            <div class="px-6 py-7 bg-dark/90 absolute w-full bottom-0 text-text-light flex items-center gap-5 rounded-b-2xl">
-               <img class="p-3 bg-light/50 rounded-full" src="../../../public/images/property/icon.svg" alt="">
-            <div class="text-left"> 
-               <h5>Property Buying</h5>
-               <p class="text-text-light/50">Price starts from $5500</p>
+          </div>
+
+          {/* Bottom card content */}
+          <div class="px-6 py-7 bg-[#4E4F50]/90 backdrop-blur-sm absolute w-full bottom-0 text-text-light flex items-center gap-5 rounded-b-2xl">
+            <img class="p-3 bg-light/50 rounded-full" src={card.icon} alt="icon" />
+            <div class="text-left">
+              <h5>{markdownify(card.title)}</h5>
+              <p class="text-text-light/50">{markdownify(card.description)}</p>
             </div>
-            </div>
-         </div>
-         <div>
-            <img class="h-[562px]" src="../../../public/images/property/selling.avif" alt="">
-         </div>
-         <div>
-            <img class="h-[562px]" src="../../../public/images/property/services.avif" alt="">
-         </div>
-      </div>
-   </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
 </section>
+)}

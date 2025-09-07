@@ -195,5 +195,9 @@ const { title, meta_title, description, image, noindex, canonical } =
       <slot />
     </main>
     <Footer />
+      <script type="module">
+      import { initLenis } from '/src/components/SmoothScroll.js';
+      initLenis();
+    </script>
   </body>
 </html>

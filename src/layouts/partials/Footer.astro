@@ -1,39 +1,70 @@
 ---
 import Logo from "@/components/Logo.astro";
 import Social from "@/components/Social.astro";
-import config from "@/config/config.json";
 import menu from "@/config/menu.json";
 import social from "@/config/social.json";
 import { markdownify } from "@/lib/utils/textConverter";
 
-const { footer }: { footer: { name: string; url: string }[] } = menu;
+const footerData = menu.footer;
+const socialData = social.main;
 ---
 
-<footer class="bg-light">
-  <div class="container">
-    <div class="row items-center py-10">
-      <div class="mb-8 text-center lg:col-3 lg:mb-0 lg:text-left">
-        <Logo />
+<footer class="bg-light py-10 xl:py-20 text-center md:text-left">
+  <div class="container max-w-[1280px] mx-auto flex flex-col xl:flex-row justify-between gap-10 xl:gap-0">
+    <div class="w-full md:max-w-[520px] flex flex-col gap-8">
+      <div class="flex justify-center md:justify-start">
+       <img src={footerData.logo} alt="">
       </div>
-      <div class="mb-8 text-center lg:col-6 lg:mb-0">
-        <ul>
-          {
-            footer.map((menu) => (
-              <li class="m-3 inline-block">
-                <a href={menu.url}>{menu.name}</a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-      <div class="mb-8 text-center lg:col-3 lg:mb-0 lg:mt-0 lg:text-right">
-        <Social source={social.main} className="social-icons" />
+      <p class="text-text" set:html={markdownify(footerData.description ?? "")}></p>
+      <div class="flex gap-4 justify-center md:justify-start">
+        <Social source={socialData} className="transition hover:opacity-80" />
       </div>
     </div>
+
+    <!-- Right: Footer sections -->
+    <div class="flex flex-col md:flex-row justify-between w-full xl:max-w-[560px] gap-10 lg:gap-0">
+      {footerData.sections?.map((section) => (
+        <div class={`w-full ${section.title === "Address" ? "lg:min-w-[150px] lg:max-w-[218px]" : "lg:max-w-[150px]"} flex flex-col gap-4`}>
+          {section.title && <h6 class="text-lg leading-7">{section.title}</h6>}
+
+          {section.links && (
+            <ul class="flex flex-col gap-4">
+              {section.links.map((link) => (
+                <li>
+                  <a href={link.url} class="hover:text-primary transition">{link.name}</a>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {section.address && (
+            <ul class="flex flex-col gap-[30px]">
+              <li class="max-w-[250px]">{section.address}</li>
+              {section.phone && (
+                <li>
+                  <a href={`tel:${section.phone.replace(/\s/g,"")}`} class="hover:underline">Phone: {section.phone}</a>
+                </li>
+              )}
+            </ul>
+          )}
+        </div>
+      ))}
+    </div>
   </div>
-  <div class="border-t border-border py-7">
-    <div class="container text-center text-text-light">
-      <p set:html={markdownify(config.params.copyright)} />
+
+  <!-- Bottom links & copyright -->
+  <div class="border-t border-border pt-6 flex flex-col-reverse md:flex-row justify-between items-center">
+    <span class="opacity-50 text-sm font-normal">
+      Copyright © {new Date().getFullYear()} 
+      <a href="https://themefisher.com" target="_blank" rel="noopener noreferrer">Themefisher</a>. All Rights Reserved.
+    </span>
+    <div class="flex gap-9 items-center justify-center pb-5 md:pb-0">
+      {footerData.bottomLinks?.map((link, i) => (
+        <>
+          <a href={link.url} class="hover:text-primary transition">{link.name}</a>
+          {i < footerData.bottomLinks.length - 1 && <span class="w-[1px] h-2 bg-default opacity-50"></span>}
+        </>
+      ))}
     </div>
   </div>
 </footer>

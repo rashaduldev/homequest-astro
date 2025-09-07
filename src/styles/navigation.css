@@ -19,7 +19,7 @@
 }
 
 .nav-link {
-  @apply text-text-light block p-3 lg:px-4 lg:py-1 cursor-pointer transition duration-1000 hover:border rounded-full;
+  @apply text-text-light block p-3 lg:px-4 lg:py-1 cursor-pointer border-transparent hover:border hover:border-border transition-all duration-300 rounded-full;
 }
 
 .nav-dropdown {
@@ -43,7 +43,7 @@
 }
 
 .nav-dropdown-link {
-  @apply text-text-dark hover:text-primary   block py-1 font-semibold transition;
+  @apply text-text-dark hover:text-primary  block py-1 font-semibold transition;
 }
 
 /* theme-switcher */

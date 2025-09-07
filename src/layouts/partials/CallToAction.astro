@@ -1,42 +1,42 @@
 ---
-import ImageMod from "@/components/ImageMod.astro";
 import { markdownify } from "@/lib/utils/textConverter";
+import FeatureAccordion from "@/components/FeatureAccordion";
 const { call_to_action } = Astro.props;
 ---
 
-{
-  call_to_action.data.enable && (
-    <section class="h-[900px] bg-[url('/images/call-to-action.avif')] bg-cover relative">
-      <div class="container">
-        <div class="pt-12 px-10 pb-10 bg-light w-[560px] rounded-2xl absolute top-20">
-          <div>
-            <h1 class="leading-15 tracking-[-2.5px] mb-4">
-              Turning your real estate dreams true!
-            </h1>
-            <p class="mb-8">
-              Have questions or ready to take the next step? Whether you’re
-              buying, selling, or just exploring options.
-            </p>
+{call_to_action?.data?.enable && (
+  <section
+    class="h-[900px] bg-cover bg-center relative"
+    style={`background-image: url('${call_to_action.data.image || '/images/call-to-action.avif'}')`}
+  >
+    <div class="container">
+      <div class="pt-12 px-10 pb-10 bg-light w-[560px] rounded-2xl absolute top-20">
+        <div>
+          <h1
+            class="leading-15 tracking-[-2.5px] mb-4 text-4xl md:text-5xl font-bold"
+            set:html={markdownify(call_to_action.data.title)}
+          />
+          <p
+            class="mb-8 text-text-dark/80"
+            set:html={markdownify(call_to_action.data.description)}
+          />
+          {call_to_action.data.button?.enable && (
             <a
-              class="py-[10px] px-6 border-2 border-border rounded-full hover:bg-primary"
-              href="/"
+              class="py-[10px] px-6 border-2 border-border rounded-full hover:bg-primary transition"
+              href={call_to_action.data.button.link || "/"}
             >
-              Get a Quote
+              {call_to_action.data.button.label || "Get a Quote"}
             </a>
-          </div>
-          <div class="mt-22 flex gap-5 border-b-2 border-border pb-2">
-            <p class="text-xl mt-1 text-text-dark/30">01</p>
-            <div>
-              <h5>Expert Local Knowledge</h5>
-              <p class="text-text-dark/50">
-                Expert Local Knowledge Our team of agents has extensive
-                knowledge of the local real estate market.
-              </p>
-            </div>
-          </div>
+          )}
         </div>
+
+        {/* FAQ Accordion for Features */}
+        {call_to_action.data.features?.length > 0 && (
+          <FeatureAccordion features={call_to_action.data.features} client:load />
+        )}
       </div>
-      <div class="absolute bg-light h-20 w-full bottom-0 rounded-t-3xl"></div>
-    </section>
-  )
-}
+    </div>
+
+    <div class="absolute bg-light h-20 w-full bottom-0 rounded-t-3xl"></div>
+  </section>
+)}

@@ -77,8 +77,8 @@ const contactCollection = defineCollection({
   }),
 });
 
-// Homepage collection schema
-const homepageCollection = defineCollection({
+// Homepage collection
+export const homepageCollection = defineCollection({
   loader: glob({ pattern: "**/-*.{md,mdx}", base: "src/content/homepage" }),
   schema: z.object({
     banner: z.object({
@@ -91,6 +91,12 @@ const homepageCollection = defineCollection({
         link: z.string(),
       }),
     }),
+    brandimg: z
+      .object({
+        text: z.string(),
+        images: z.array(z.string()),
+      })
+      .optional(),
     features: z.array(
       z.object({
         title: z.string(),
@@ -102,12 +108,33 @@ const homepageCollection = defineCollection({
           label: z.string(),
           link: z.string(),
         }),
-      }),
+      })
     ),
+    getintouch: z
+      .object({
+        title: z.string(),
+        description: z.string(),
+        img: z.string(),
+        btn: z.string(),
+      })
+      .optional(),
+    ceoinfo: z
+      .object({
+        title: z.string(),
+        description: z.string(),
+        vediolink: z.string(),
+        heading: z.string(),
+        ceoname: z.string(),
+        designation: z.string(),
+        img: z.string(),
+        playbtn: z.string().optional(),
+      })
+      .optional(),
   }),
 });
 
-// Call to Action collection schema
+
+// cta
 const ctaSectionCollection = defineCollection({
   loader: glob({
     pattern: "call-to-action.{md,mdx}",
@@ -123,6 +150,34 @@ const ctaSectionCollection = defineCollection({
       label: z.string(),
       link: z.string(),
     }),
+    features: z
+      .array(
+        z.object({
+          title: z.string(),
+          description: z.string(),
+        })
+      )
+      .optional(), 
+  }),
+});
+// propertySectionCollection
+const propertySectionCollection = defineCollection({
+  loader: glob({
+    pattern: "property-cards.{md,mdx}",
+    base: "src/content/sections",
+  }),
+  schema: z.object({
+    enable: z.boolean(),
+    title: z.string(),
+    cards: z.array(
+      z.object({
+        title: z.string(),
+        description: z.string(),
+        img: z.string(),
+        icon: z.string(),
+        arrow_icon: z.string(),
+      })
+    ),
   }),
 });
 
@@ -175,6 +230,25 @@ const listingSectionCollection = defineCollection({
   }),
 });
 
+// faq collection schema
+const faqCollection = defineCollection({
+   loader: glob({
+    pattern: "faq.{md,mdx}",
+    base: "src/content/sections",
+  }),
+  schema: z.object({
+    title: z.string(),
+    date: z.date(),
+    faqs: z.array(
+      z.object({
+        question: z.string(),
+        answer: z.string(),
+      })
+    ).optional(),
+  }),
+});
+
+
 // Export collections
 export const collections = {
   // Pages
@@ -189,4 +263,6 @@ export const collections = {
   ctaSection: ctaSectionCollection,
   testimonialSection: testimonialSectionCollection,
   listingSection: listingSectionCollection,
+  propertySection:propertySectionCollection,
+  faqsection:faqCollection,
 };

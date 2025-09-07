@@ -2,7 +2,26 @@
   "main": [
     {
       "name": "Home",
-      "url": "/"
+      "url": "/",
+      "hasChildren": true,
+      "children": [
+        { "name": "Company", "url": "/company" },
+        { "name": "Services", "url": "/services" },
+        { "name": "Services Details", "url": "/services-details" },
+        { "name": "Contact", "url": "/contact" },
+        { "name": "Testimonials", "url": "/testimonials" },
+        { "name": "Blogs", "url": "/blogs" },
+        { "name": "Blogs Details", "url": "/blogs-details" },
+        { "name": "Property Listing", "url": "/property-listing" },
+        { "name": "Property Details", "url": "/property-details" },
+        { "name": "Agent Listing", "url": "/agent-listing" },
+        { "name": "Agent Details", "url": "/agent-details" },
+        { "name": "How It Works", "url": "/how-it-works" },
+        { "name": "Terms & Conditions", "url": "/terms" },
+        { "name": "Privacy Policy", "url": "/privacy-policy" },
+        { "name": "Faqs", "url": "/faqs" },
+        { "name": "404", "url": "/404" }
+      ]
     },
     {
       "name": "About",
@@ -11,47 +30,42 @@
     {
       "name": "Elements",
       "url": "/elements"
-    },
-    {
-      "name": "Pages",
-      "url": "",
-      "hasChildren": true,
-      "children": [
-        {
-          "name": "Contact",
-          "url": "/contact"
-        },
-        {
-          "name": "Blog",
-          "url": "/blog"
-        },
-        {
-          "name": "Authors",
-          "url": "/authors"
-        },
-        {
-          "name": "Categories",
-          "url": "/categories"
-        },
-        {
-          "name": "Tags",
-          "url": "/tags"
-        },
-        {
-          "name": "404 Page",
-          "url": "/404"
-        }
-      ]
     }
   ],
-  "footer": [
-    {
-      "name": "Elements",
-      "url": "/elements"
-    },
-    {
-      "name": "Privacy Policy",
-      "url": "/privacy-policy"
-    }
-  ]
+  "footer": {
+    "logo": "/images/dark-logo.svg",
+    "description": "We help you find your dream home with ease and confidence.",
+    "socials": [
+      { "name": "Facebook", "url": "https://facebook.com", "icon": "/icons/facebook.svg" },
+      { "name": "Twitter", "url": "https://twitter.com", "icon": "/icons/twitter.svg" },
+      { "name": "Instagram", "url": "https://instagram.com", "icon": "/icons/instagram.svg" }
+    ],
+    "sections": [
+      {
+        "title": "Company",
+        "links": [
+          { "name": "About Us", "url": "/about" },
+          { "name": "Services", "url": "/services" },
+          { "name": "Contact", "url": "/contact" }
+        ]
+      },
+      {
+        "title": "Support",
+        "links": [
+          { "name": "Faqs", "url": "/faqs" },
+          { "name": "Privacy Policy", "url": "/privacy-policy" },
+          { "name": "Terms & Conditions", "url": "/terms" }
+        ]
+      },
+      {
+        "title": "Address",
+        "address": "123 Real Estate St, Dhaka, Bangladesh",
+        "phone": "+880 123 4567"
+      }
+    ],
+    "bottomLinks": [
+      { "name": "Elements", "url": "/elements" },
+      { "name": "Privacy Policy", "url": "/privacy-policy" }
+    ]
+  }
 }
