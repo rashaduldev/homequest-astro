@@ -1,0 +1,64 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import Social from "@/components/Social.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+const { listing } = Astro.props;
+console.log(listing.data);  
+---
+{
+  listing.data.enable && (
+    <section class="pt-30 pb-15 px-[30px]">
+      <div class="container">
+        <h2
+          set:html={markdownify(listing.data.title)}
+          class="mb-16 text-text-dark text-center text-5xl leading-15"
+        />
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {listing.data.listing.map(
+            (item: {
+              title: string;
+              pricing: string;
+              month: string;
+              sqfit: string;
+              bed: number;
+              bath: number;
+              img: string;
+              text: string;
+            }) => (
+              <a href="/" class="text-text-dark pb-8 cursor-pointer relative">
+                <ImageMod
+                  height={150}
+                  width={150}
+                  class="rounded-2xl w-full h-[346px]"
+                  src={item.img}
+                  alt={item.text}
+                  format="webp"
+                />
+                <p class="py-1 px-3 bg-light absolute top-3 left-3 rounded-[10px] leading-7">{item.text}</p>
+                <div class="mt-6">
+                  <span class="text-text">${item.pricing}</span>
+                  <h5 class="text-text-dark leading-[-1px]">{item.title}</h5>
+                  <div class="mt-6 flex gap-4">
+                     <p class="flex items-center gap-2">
+                      {/* <Social source={listing.data.icon} /> */}
+                        <img src="../../../public/images/listing/icon/sqft.svg" alt="sqfit">
+                        {item.sqfit}sq. ft.</p>
+                     <p class="flex items-center gap-2">
+                        <img src="../../../public/images/listing/icon/bed.svg" alt="sqfit">
+                        {item.bed} Bed</p>
+                     <p class="flex items-center gap-2">
+                        <img src="../../../public/images/listing/icon/bath.svg" alt="sqfit">
+                        {item.bath} Bath</p>
+                  </div>
+                </div>
+              </a>
+            ),
+          )}
+        </div>
+       <div class="flex justify-center">
+          <a class="btn btn-secondary mt-10 text-center flex justify-center w-fit" href="/">{listing.data.btn}</a>
+       </div>
+      </div>
+    </section>
+  )
+}

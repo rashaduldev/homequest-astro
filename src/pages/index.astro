@@ -1,0 +1,107 @@
+---
+import Base from "@/layouts/Base.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import CallToAction from "@/partials/CallToAction.astro";
+import Listing from "@/partials/Listing.astro";
+import PropertySection from "@/partials/PropertySection.astro";
+import type { Button, Feature } from "@/types";
+import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
+
+interface Homepage {
+  banner: {
+    title: string;
+    content: string;
+    image: string;
+    button: Button;
+  };
+  brandimg:{
+    text:string;
+    image: string
+  }
+  features: Feature[];
+}
+
+const homepage = (await getEntry(
+  "homepage",
+  "-index",
+)) as CollectionEntry<"homepage">;
+
+const testimonial = (await getEntry(
+  "testimonialSection",
+  "testimonial",
+)) as CollectionEntry<"testimonialSection">;
+
+const listing = (await getEntry(
+  "listingSection",
+  "listing",
+)) as CollectionEntry<"listingSection">;
+
+const call_to_action = (await getEntry(
+  "ctaSection",
+  "call-to-action",
+)) as CollectionEntry<"ctaSection">;
+
+const { banner, features, brandimg } = homepage.data as Homepage;
+---
+
+<Base>
+  <!-- Banner -->
+  <section class="section pt-55 pb-65 bg-[url('/images/banner.avif')] cover bg-no-repeat">
+    <div class="container">
+      <div class="">
+        <div class="lg:col-8 md:col-9">
+          <h1
+            set:html={markdownify(banner.title)}
+            class="mb-[10px] text-h3 lg:text-[80px] leading-[92px] tracking-[-3.5px]"
+          />
+          <p set:html={markdownify(banner.content)} class="lg:col-10 text-xl md:col-9 mb-10 leading-9 text-text-light/80" />
+          {
+            banner.button.enable && (
+              <div class="pl-6 pr-3 py-3 bg-light lg:col-8 text-xl md:col-9 rounded-2xl flex justify-between">
+                  <input class="outline-none border-none bg-transparent focus:outline-none focus:border-none focus:text-text-dark" type="text" placeholder="Search with a location"/>
+              <a
+                class="btn btn-secondary px-6 py-[10px] rounded-xl font-normal text-base"
+                href={banner.button.link}
+                target={
+                  banner.button.link.startsWith("http") ? "_blank" : "_self"
+                }
+                rel="noopener"
+              >
+                {banner.button.label}
+              </a>
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /Banner -->
+   <!-- Trasted Company Brand logo -->
+      <section class="section-sm bg-primary rounded-t-4xl -mt-10">
+        <div class="container">
+          <!-- <p set:html={markdownify(brandimg.text)}></p> -->
+          <div>
+            <!-- {
+              brandimg.image && (
+                 <ImageMod
+                src={brandimg.image}
+                height={480}
+                width={520}
+                // alt={brandimg.text}
+                format="webp"
+              />
+              )
+            } -->
+          </div>
+        </div>
+      </section>
+   <!-- Trasted Company Brand logo -->
+   <Listing listing={listing} />
+
+  <!-- <Testimonial testimonial={testimonial} /> -->
+  <CallToAction call_to_action={call_to_action} />
+  <!-- Property Section -->
+   <PropertySection />
+</Base>
