@@ -6,7 +6,7 @@ icon:
   - bedicon: LuBedSingle
   - bathicon: BiBath
   - select: BsArrowsFullscreen
-#Listing
+#Listingg
 listing:
   - title: "Modern 2-Bedroom Condo in Marina Bay, Singapore"
     pricing: 11000
