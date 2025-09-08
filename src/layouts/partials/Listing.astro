@@ -7,7 +7,7 @@ const { listing } = Astro.props;
 
 {
   listing.data.enable && (
-    <section class="pt-30 pb-15 px-[30px]">
+    <section data-aos="fade-up" data-aos-duration="1000" class="pt-30 pb-15 lg:px-[30px] mt-72 lg:mt-56 xl:mt-44">
       <div class="container">
         <h2
           set:html={markdownify(listing.data.title)}

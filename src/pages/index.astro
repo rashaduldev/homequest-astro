@@ -10,6 +10,7 @@ import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
 import Testimonial from "@/partials/Testimonial.astro";
 import { string } from "astro:schema";
+import { FaPlay } from "react-icons/fa6";
 
 interface Homepage {
   banner: {
@@ -22,33 +23,48 @@ interface Homepage {
     text?: string;
     images?: string[];
   };
-  getintouch?:{
+  getintouch?: {
     title?: string;
     description?: string;
     img?: string;
     btn?: string;
-  }
-  ceoinfo?:{
+  };
+  ceoinfo?: {
     title: string;
-    description:string;
+    description: string;
     vediolink: string;
     heading: string;
-    ceoname:string;
-    designation:string;
+    ceoname: string;
+    designation: string;
     img: string;
     playbtn: string;
-  }
+  };
 }
 const testimonial = (await getEntry(
   "testimonialSection",
-  "testimonial"
+  "testimonial",
 )) as CollectionEntry<"testimonialSection">;
 
-const homepage = (await getEntry("homepage", "-index")) as CollectionEntry<"homepage">;
-const listing = (await getEntry("listingSection", "listing")) as CollectionEntry<"listingSection">;
-const call_to_action = (await getEntry("ctaSection", "call-to-action")) as CollectionEntry<"ctaSection">;
-const property = (await getEntry("propertySection", "property-cards")) as CollectionEntry<"propertySection">;
-const faqsection = (await getEntry("faqsection", "faq")) as CollectionEntry<"faqsection">;
+const homepage = (await getEntry(
+  "homepage",
+  "-index",
+)) as CollectionEntry<"homepage">;
+const listing = (await getEntry(
+  "listingSection",
+  "listing",
+)) as CollectionEntry<"listingSection">;
+const call_to_action = (await getEntry(
+  "ctaSection",
+  "call-to-action",
+)) as CollectionEntry<"ctaSection">;
+const property = (await getEntry(
+  "propertySection",
+  "property-cards",
+)) as CollectionEntry<"propertySection">;
+const faqsection = (await getEntry(
+  "faqsection",
+  "faq",
+)) as CollectionEntry<"faqsection">;
 
 const { banner, brandimg, getintouch, ceoinfo } = homepage.data as Homepage;
 
@@ -62,151 +78,165 @@ const brandText = brandimg?.text ?? "";
     class="relative section pt-55 pb-65 bg-no-repeat bg-center bg-cover bg-gradient"
     style={`background-image: url('${banner.image}');`}
   >
-    <div class="absolute inset-0 bg-gradient-to-b from-dark/30 to-dark/30 z-10"></div>
-    <div class="container relative z-10">
-      <div class="lg:col-8 md:col-9">
+    <div class="absolute inset-0 bg-gradient-to-b from-dark/20 to-dark/30">
+    </div>
+    <div class="container relative">
+      <div data-aos="fade-up" data-aos-duration="1000" class="lg:col-8 md:col-9">
         <h1
           set:html={markdownify(banner.title)}
-          class="mb-[10px] text-h3 lg:text-[80px] leading-[92px] tracking-[-3.5px] text-text-light"
+          class="mb-[10px] text-h3 lg:text-[80px] lg:leading-[92px] lg:tracking-[-3.5px] text-text-light text-center md:text-left"
         />
         <p
           set:html={markdownify(banner.content)}
-          class="lg:col-10 text-xl md:col-9 mb-10 leading-9 text-text-light/80"
+          class="lg:col-10 text-base md:text-xl md:col-9 mb-10 leading-9 text-text-light/80 text-center md:text-left"
         />
-        {banner.button.enable && (
-          <div class="pl-6 pr-3 py-3 bg-light lg:col-8 text-xl md:col-9 rounded-2xl flex justify-between">
-            <input
-              type="text"
-              placeholder="Search with a location"
-              aria-label="search"
-              data-search-trigger
-              class="outline-none focus:outline-none border-none focus:border-none focus:ring-0 bg-transparent cursor-pointer"
-            />
-            <a
-              class="btn btn-secondary px-6 py-[10px] rounded-xl font-normal text-base"
-              href={banner.button.link}
-              target={banner.button.link.startsWith("http") ? "_blank" : "_self"}
-              rel="noopener"
-            >
-              {banner.button.label}
-            </a>
-          </div>
-        )}
+        {
+          banner.button.enable && (
+            <div class="pl-6 pr-3 py-3 bg-light lg:col-8 text-xl md:col-9 rounded-2xl flex justify-between">
+              <input
+                type="text"
+                placeholder="Search with a location"
+                aria-label="search"
+                data-search-trigger
+                class="outline-none focus:outline-none border-none focus:border-none focus:ring-0 bg-transparent cursor-pointer"
+              />
+              <a
+                class="btn btn-secondary px-6 py-[10px] rounded-xl font-normal text-base"
+                href={banner.button.link}
+                target={
+                  banner.button.link.startsWith("http") ? "_blank" : "_self"
+                }
+                rel="noopener"
+              >
+                {banner.button.label}
+              </a>
+            </div>
+          )
+        }
       </div>
     </div>
   </section>
 
   <!-- Trusted Company Brand Logos -->
-  {(brandText || logos.length > 0) && (
-    <section class="section-sm bg-primary rounded-t-4xl -mt-10">
-      <div class="container flex flex-col items-center space-y-6">
-        {brandText && (
-          <p class="text-center text-lg md:text-xl font-medium text-white">
-            {brandText}
-          </p>
-        )}
-        {logos.length > 0 && (
-          <div class="flex flex-wrap justify-center items-center gap-6 md:gap-10">
-            {logos.map((img, i) => (
-              <div class="flex-shrink-0 h-12 md:h-16">
-                <img
-                  src={img}
-                  alt={`Brand ${i + 1}`}
-                  class="h-full object-contain"
-                  loading="lazy"
-                />
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </section>
-  )}
+  {
+    (brandText || logos.length > 0) && (
+      <section class="section-sm bg-primary rounded-t-4xl -mt-10 mb-20  absolute w-full">
+        <div data-aos="fade-up" data-aos-duration="1000" class="container flex flex-col lg:flex-row items-center justify-between">
+          {brandText && (
+            <p class="text-center text-xl leading-9 mb-10 lg:mb-0">
+              {brandText}
+            </p>
+          )}
+          {logos.length > 0 && (
+            <div class="flex flex-wrap justify-center items-center gap-6 md:gap-10">
+              {logos.map((img, i) => (
+                <div class="flex-shrink-0 h-12 md:h-16 w-[142px]">
+                  <img
+                    src={img}
+                    alt={`Brand ${i + 1}`}
+                    class="h-full w-full object-contain"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+    )
+  }
 
   <!-- Listing Section -->
   <Listing listing={listing} />
-
   <!-- CEO info -->
+  <section data-aos="fade-up" data-aos-duration="1000" class="section-sm pb-28">
+    <div class="container relative w-full max-w-4xl mx-auto text-center">
+      <h1 class="leading-15 mb-4">{ceoinfo?.title}</h1>
+      <p class="leading-7 max-w-[755px] mx-auto text-text/80">
+        {ceoinfo?.description}
+      </p>
+      <div class="relative mt-14 max-w-[1100px] mx-auto">
+        <!-- Video -->
+        <video
+          id="ceoVideo"
+          src={ceoinfo?.vediolink ?? ""}
+          class="w-full rounded-3xl"
+          playsinline
+          muted
+          style="display: none;"></video>
 
-<section class="section-sm">
-  <div class="container relative w-full max-w-4xl mx-auto">
-    <div class="relative">
-      <!-- Video -->
-      <video
-        id="ceoVideo"
-        src={ceoinfo?.vediolink ?? ""}
-        class="w-full rounded-lg"
-        playsinline
-        muted
-        style="display: none;"
-      ></video>
+        <!-- Cover Image & Overlay -->
+        <div id="ceoCoverWrapper" class="relative w-full">
+          <img
+            id="ceoCover"
+            src={ceoinfo?.img}
+            alt="CEO Cover"
+            class="w-full rounded-3xl object-cover"
+          />
 
-      <!-- Cover Image & Overlay -->
-      <div id="ceoCoverWrapper" class="relative w-full">
-        <img
-          id="ceoCover"
-          src={ceoinfo?.img ?? "/path-to-default-cover.jpg"}
-          alt="CEO Cover"
-          class="w-full rounded-lg object-cover"
-        />
-
-        <div class="absolute inset-0 flex flex-col items-center justify-center text-center text-white bg-black bg-opacity-50 rounded-lg">
-          <h3 class="text-2xl font-semibold">{ceoinfo?.ceoname ?? "CEO Name"}</h3>
-          <p class="text-lg">{ceoinfo?.designation ?? "CEO"}</p>
-          <button
-            id="playButton"
-            class="mt-4 w-16 h-16 flex items-center justify-center bg-white rounded-full text-black text-2xl hover:scale-110 transition-transform shadow-lg"
+          <div
+            class="absolute bottom-10 text-light bg-opacity-50 rounded-lg flex items-center justify-between w-full px-10"
           >
-            ▶
-          </button>
+            <div class="text-left">
+              <h5 class="mb-2">{ceoinfo?.heading}</h5>
+              <div
+                class="flex items-center text-lg md:leading-8 text-text-light/60 gap-4"
+              >
+                <p class="">{ceoinfo?.ceoname ?? "CEO Name"}</p>
+                <li class="">{ceoinfo?.designation ?? "CEO"}</li>
+              </div>
+            </div>
+            <button
+              id="playButton"
+              class="mt-4 w-20 h-20 flex items-center justify-center bg-light rounded-xl text-dark text-3xl hover:scale-110 transition-transform shadow-lg cursor-pointer"
+            >
+              <FaPlay />
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-
+  </section>
   <!-- Call To Action -->
   <CallToAction call_to_action={call_to_action} />
-
   <!-- Property Section -->
   <PropertySection property={property} />
   <!-- Testimonials -->
-   <Testimonial testimonial={testimonial} />
-  <!-- Testimonials -->
+  <!-- <Testimonial testimonial={testimonial} /> -->
   <FAQSection faqsection={faqsection} />
-<section class="relative section pt-40 pb-52 bg-no-repeat bg-center bg-cover bg-gradient"
-    style={`background-image: url('${getintouch?.img}');`}>
-      <div class="container text-center">
-         <h1
-          set:html={markdownify(getintouch?.title ?? "")}
-          class="mb-[10px] text-text-light"
-        />
-        <p
-          set:html={markdownify(getintouch?.description??"")}
-          class="lg:col-10 text-xl md:col-9 mx-auto mb-10 leading-9 text-text-light/80"
-        />
-        <a class="btn btn-primary rounded-full" href="/">{getintouch?.btn}</a>
-      </div>
-</section>
-
-
-
+  <!--  -->
+  <section
+    class="relative section pt-40 pb-52 bg-no-repeat bg-center bg-cover bg-gradient rounded-t-3xl"
+    style={`background-image: url('${getintouch?.img}');`}
+  >
+    <div data-aos="fade-up" data-aos-duration="1000" class="container text-center">
+      <h1
+        set:html={markdownify(getintouch?.title ?? "")}
+        class="mb-[10px] text-text-light md:col-6 col-12 mx-auto leading-15"
+      />
+      <p
+        set:html={markdownify(getintouch?.description ?? "")}
+        class="col-12 md:col-6 text-lg mx-auto mb-10 leading-8 text-text-light/70"
+      />
+      <a class="btn btn-primary rounded-full" href="/">{getintouch?.btn}</a>
+    </div>
+      <div class="h-5 bg-light absolute w-full bottom-0 rounded-t-3xl"></div>
+  </section>
 </Base>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const playButton = document.getElementById("playButton");
-    const video = document.getElementById("ceoVideo") as HTMLVideoElement | null;
+    const video = document.getElementById(
+      "ceoVideo",
+    ) as HTMLVideoElement | null;
     const coverWrapper = document.getElementById("ceoCoverWrapper");
 
     if (playButton && video && coverWrapper) {
       playButton.addEventListener("click", () => {
         coverWrapper.style.display = "none";
         video.style.display = "block";
-        video.play().catch(err => console.error("Video play error:", err));
+        video.play().catch((err) => console.error("Video play error:", err));
       });
     }
   });
-</script>
-
-
+</script> 

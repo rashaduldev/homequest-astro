@@ -2,59 +2,55 @@
 import { markdownify } from "@/lib/utils/textConverter";
 import ImageMod from "@/components/ImageMod.astro";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { MdKeyboardArrowRight } from "react-icons/md";
 const { testimonial } = Astro.props;
 interface TestimonialItem {
   name: string;
   designation: string;
   content: string;
   avatar: string;
+  link: string;
 }
 const testimonials: TestimonialItem[] = testimonial.data.testimonials;
-
 ---
 
 {testimonial.data.enable && (
-  <section class="section">
-    <div class="container">
-      <div class="row">
-        <div class="mx-auto mb-12 text-center md:col-10 lg:col-8 xl:col-6">
-          <h2 set:html={markdownify(testimonial.data.title)} class="mb-4" />
-          <p set:html={markdownify(testimonial.data.description)} />
+      <section class="row rounded-t-3xl">
+        <div class="mb-12 flex flex-col lg:flex-row items-center justify-between mt-20 container lg:px-7">
+          <h2 set:html={markdownify(testimonial.data.title)} class="mb-4 lg:text-5xl lg:leading-15 lg:tracking-[-2.5px]" />
+          <a class="flex items-center gap-2 hover:text-text-dark/60" href="/">{testimonial.data.link} <span class="text-xl"><MdKeyboardArrowRight /></span></a>
         </div>
-
-        <div class="col-12 relative">
+        <div class="relative">
           <div class="swiper testimonial-slider">
             <div class="swiper-wrapper">
               {testimonials.map((item: TestimonialItem, idx: number) => (
                 <div
-                  class="swiper-slide"
+                  class="swiper-slide mt-20"
                   style={`transform: translateY(${idx % 2 === 0 ? "0px" : "-40px"}); transition: transform 0.3s ease;`}
                 >
-                  <div class="rounded-lg bg-light px-7 py-10">
-                    <div class="text-text-dark">
-                      <!-- SVG quote or icon here -->
-                    </div>
-                    <blockquote
-                      set:html={markdownify(item.content)}
-                      class="mt-8"
-                    />
-                    <div class="mt-11 flex items-center">
-                      <div class="text-text-dark">
+                  <div class="rounded-3xl bg-light p-8">
+                     <div class="text-text-dark">
                         <ImageMod
-                          height={50}
-                          width={50}
+                          height={104}
+                          width={104}
                           class="rounded-full"
                           src={item.avatar}
                           alt={item.name}
                           format="webp"
                         />
                       </div>
+                    <blockquote
+                      set:html={markdownify(item.content)}
+                      class="mt-14 h-[180px] text-xl leading-9"
+                    />
+                    <div class="mt-12 flex items-center">
+                     
                       <div class="ml-4">
                         <h3
                           set:text={item.name}
-                          class="h5 font-primary font-semibold"
+                          class="text-xl leading-9 font-primary"
                         />
-                        <p set:text={item.designation} class="text-text-dark" />
+                        <p set:text={item.designation} class="text-lg leading-8 text-text-dark" />
                       </div>
                     </div>
                   </div>
@@ -64,18 +60,16 @@ const testimonials: TestimonialItem[] = testimonial.data.testimonials;
 
             {/* Navigation buttons */}
             <div class="flex justify-center gap-4 mt-6">
-              <button class="testimonial-prev p-3 bg-white rounded-full shadow-md">
+              <button class="testimonial-prev p-3 rounded-full cursor-pointer">
                 <FaArrowLeft />
               </button>
-              <button class="testimonial-next p-3 bg-white rounded-full shadow-md">
+              <button class="testimonial-next p-3 rounded-full cursor-pointer">
                 <FaArrowRight />
               </button>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
+      </section>
 )}
 
 <script>

@@ -24,6 +24,7 @@
     "@digi4care/astro-google-tagmanager": "^1.4.0",
     "@justinribeiro/lite-youtube": "^1.8.0",
     "@studio-freight/lenis": "^1.0.42",
+    "aos": "^2.3.4",
     "astro": "5.7.8",
     "astro-auto-import": "^0.4.4",
     "astro-font": "^1.1.0",

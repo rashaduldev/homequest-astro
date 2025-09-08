@@ -9,7 +9,7 @@ interface FAQ {
 
 interface FAQAccordionProps {
   faqs: FAQ[];
-  icon?: string; // icon name from frontmatter
+  icon?: string;
 }
 
 const FAQAccordion: FC<FAQAccordionProps> = ({ faqs, icon }) => {
@@ -29,22 +29,22 @@ const FAQAccordion: FC<FAQAccordionProps> = ({ faqs, icon }) => {
   }, [openIndex]);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-1 container">
       {faqs.map((faq, index) => {
         const isOpen = index === openIndex;
         return (
           <div
             key={index}
-            className="bg-light rounded-xl overflow-hidden transition-all"
+            className="overflow-hidden transition-all"
           >
             <button
-              className="flex justify-between items-center w-full text-left px-4 py-5 font-semibold text-text-dark cursor-pointer"
+              className="flex justify-between items-center w-full text-left px-4 py-5 text-text-dark cursor-pointer bg-light rounded-2xl"
               onClick={() => toggle(index)}
             >
-              <span dangerouslySetInnerHTML={{ __html: markdownify(faq.title) }} />
+              <span className="text-lg leading-8" dangerouslySetInnerHTML={{ __html: markdownify(faq.title) }} />
               <DynamicIcon
                 icon={icon ?? "MdKeyboardArrowRight"}
-                className={`w-5 h-5 transition-transform duration-500 ease-in-out ${
+                className={`w-7 h-7 transition-transform duration-500 ease-in-out text-text-dark/50 ${
                   isOpen ? "rotate-90" : "rotate-0"
                 }`}
               />
@@ -58,7 +58,7 @@ const FAQAccordion: FC<FAQAccordionProps> = ({ faqs, icon }) => {
               style={{ maxHeight: index === 0 ? "auto" : "0px" }}
             >
               <div
-                className="pt-2"
+                className="pt-2 text-text-dark/70 mr-7 mb-5 tracking-[-0.4px]"
                 dangerouslySetInnerHTML={{ __html: markdownify(faq.answer) }}
               />
             </div>

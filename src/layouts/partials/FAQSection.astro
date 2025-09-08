@@ -3,7 +3,7 @@ import FAQAccordion from "@/components/FAQAccordion.tsx";
 import type { CollectionEntry } from "astro:content";
 
 const { faqsection } = Astro.props;
-const icon = faqsection.data.icon; // get icon from frontmatter
+const icon = faqsection.data.icon;
 const markdownBody = (faqsection as CollectionEntry<"faqsection">).body ?? "";
 
 // Parse Markdown body into FAQ items
@@ -19,7 +19,7 @@ const faqs = markdownBody
   });
 ---
 
-<section class="max-w-4xl mx-auto py-16 px-4">
-  <h1 class="mb-16 text-4xl font-bold text-center">{faqsection.data.title}</h1>
+<section data-aos="fade-up" data-aos-duration="1000" class="max-w-4xl mx-auto pt-20 pb-32">
+  <h1 class="mb-16 text-3xl lg:text-5xl leading-15 text-center lg:tracking-[-2.5px]">{faqsection.data.title}</h1>
   <FAQAccordion faqs={faqs} icon={icon} client:load />
 </section>

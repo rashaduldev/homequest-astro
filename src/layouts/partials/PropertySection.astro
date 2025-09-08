@@ -5,10 +5,10 @@ const { property } = Astro.props;
 ---
 
 {property?.data?.enable && (
-<section class="pt-20 px-[30px] pb-36 rounded-t-2xl bg-light -mt-10">
-  <div class="container text-center">
-    <h1 class="mb-16">{markdownify(property.data.title)}</h1>
-    <div class="flex flex-col md:flex-row gap-6">
+<section class="pt-20 lg:px-[30px] pb-36 rounded-t-2xl bg-light -mt-10 relative">
+  <div data-aos="fade-up" data-aos-duration="1000" class="container text-center">
+    <h1 class="mb-16 h2 md:h1">{markdownify(property.data.title)}</h1>
+    <div class="flex flex-col lg:flex-row gap-6">
       {property.data.cards.map((card: any) => (
         <div class="relative cursor-pointer flex-1 group overflow-hidden rounded-2xl">
           {/* Image with zoom effect */}
@@ -47,5 +47,6 @@ const { property } = Astro.props;
       ))}
     </div>
   </div>
+      {/* <div class="h-5 bg-white absolute w-full bottom-0 rounded-t-3xl"></div> */}
 </section>
 )}

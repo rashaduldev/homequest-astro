@@ -1,5 +1,5 @@
 .btn {
-  @apply inline-block rounded border border-transparent px-5 py-2 capitalize transition;
+  @apply inline-block rounded border border-transparent px-6 py-[10px] leading-7 capitalize transition;
 }
 
 .btn-sm {
@@ -7,10 +7,10 @@
 }
 
 .btn-primary {
-  @apply border-primary bg-primary text-text-dark;
+  @apply border-primary bg-primary text-text-dark hover:bg-gradient-to-r hover:from-dark/10 hover:to-dark/10 transform duration-1000 lg:tracking-[-0.2px];
 }
 .btn-secondary {
-  @apply bg-secondary text-text-light;
+  @apply bg-secondary text-text-light hover:bg-gradient-to-r hover:from-light/10 hover:to-light/10 transform duration-1000 lg:tracking-[-0.2px];
 }
 
 .btn-outline-primary {

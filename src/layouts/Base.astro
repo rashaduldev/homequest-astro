@@ -54,6 +54,7 @@ const { title, meta_title, description, image, noindex, canonical } =
         <GoogleTagmanager id={config.google_tag_manager.gtm_id} />
       )
     }
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <!-- favicon -->
     <link rel="shortcut icon" href={config.site.favicon} />
     <!-- theme meta -->
@@ -187,7 +188,6 @@ const { title, meta_title, description, image, noindex, canonical } =
         <GoogleTagmanagerNoscript id={config.google_tag_manager.gtm_id} />
       )
     }
-
     <TwSizeIndicator />
     <Header />
     <SearchModal client:load />
@@ -196,8 +196,15 @@ const { title, meta_title, description, image, noindex, canonical } =
     </main>
     <Footer />
       <script type="module">
+        
       import { initLenis } from '/src/components/SmoothScroll.js';
       initLenis();
+    </script>
+    <script is:inline src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script is:inline>
+      AOS.init({
+        once: true,
+      });
     </script>
   </body>
 </html>

@@ -51,6 +51,6 @@ ceoinfo:
   heading: "Owning a home is a keystone of wealth..."
   ceoname: "Sarah Thompson"
   designation: "CEO & Founder"
-  img: "images/ceo.avif"
+  img: "/images/ceo.avif"
   playbtn: ""
 ---

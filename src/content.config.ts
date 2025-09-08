@@ -191,6 +191,7 @@ const testimonialSectionCollection = defineCollection({
     enable: z.boolean(),
     title: z.string(),
     description: z.string(),
+    link: z.string(),
     testimonials: z.array(
       z.object({
         name: z.string(),

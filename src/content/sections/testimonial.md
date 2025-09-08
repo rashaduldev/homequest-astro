@@ -1,27 +1,28 @@
 ---
 enable: true
-title: "What Users Are Saying About Astroplate"
+title: "Your Trusted Real Estate Partner"
 description: "Don't just take our word for it - hear from some of our satisfied users!  Check out some of our testimonials below to see what others are saying about Astroplate."
+link: "Read all stories"
 
 # Testimonials
 testimonials:
-  - name: "Marvin McKinney"
+  - name: "Hannah Raquel"
     designation: "Web Designer"
-    avatar: "/images/avatar-sm.png"
+    avatar: "/images/testimonial/avatar1.avif"
     content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui iusto illo molestias, assumenda expedita commodi inventore non itaque molestiae voluptatum dolore, facilis sapiente, repellat veniam."
 
-  - name: "Marvin McKinney"
+  - name: "Brenda Joyce"
     designation: "Web Designer"
-    avatar: "/images/avatar-sm.png"
+    avatar: "/images/testimonial/avater2.avif"
     content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui iusto illo molestias, assumenda expedita commodi inventore non itaque molestiae voluptatum dolore, facilis sapiente, repellat veniam."
 
-  - name: "Marvin McKinney"
+  - name: "Rebecca Sue"
     designation: "Web Designer"
-    avatar: "/images/avatar-sm.png"
+    avatar: "/images/testimonial/avater3.avif"
     content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui iusto illo molestias, assumenda expedita commodi inventore non itaque molestiae voluptatum dolore, facilis sapiente, repellat veniam."
 
-  - name: "Marvin McKinney"
+  - name: "Jonathan Lewis"
     designation: "Web Designer"
-    avatar: "/images/avatar-sm.png"
+    avatar: "/images/testimonial/avater1.avif"
     content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui iusto illo molestias, assumenda expedita commodi inventore non itaque molestiae voluptatum dolore, facilis sapiente, repellat veniam."
 ---

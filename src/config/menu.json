@@ -1,7 +1,7 @@
 {
   "main": [
     {
-      "name": "Home",
+      "name": "AllPages",
       "url": "/",
       "hasChildren": true,
       "children": [
@@ -24,47 +24,51 @@
       ]
     },
     {
-      "name": "About",
-      "url": "/about"
+      "name": "Properties",
+      "url": "/properties"
     },
     {
-      "name": "Elements",
-      "url": "/elements"
+      "name": "Contact",
+      "url": "/contact"
     }
   ],
   "footer": {
     "logo": "/images/dark-logo.svg",
     "description": "We help you find your dream home with ease and confidence.",
+    "phone": "+880 123 4567",
+    "email": "contact@themefisher.com",
     "socials": [
       { "name": "Facebook", "url": "https://facebook.com", "icon": "/icons/facebook.svg" },
       { "name": "Twitter", "url": "https://twitter.com", "icon": "/icons/twitter.svg" },
       { "name": "Instagram", "url": "https://instagram.com", "icon": "/icons/instagram.svg" }
     ],
     "sections": [
-      {
-        "title": "Company",
+      { 
+        "title": "Navigation",
         "links": [
-          { "name": "About Us", "url": "/about" },
+          { "name": "About Us", "url": "/about" },  
+          { "name": "Properties", "url": "/properties" },
           { "name": "Services", "url": "/services" },
-          { "name": "Contact", "url": "/contact" }
+          { "name": "Contact Us", "url": "/contactus" }
         ]
       },
       {
-        "title": "Support",
+        "title": "Resources",
         "links": [
-          { "name": "Faqs", "url": "/faqs" },
-          { "name": "Privacy Policy", "url": "/privacy-policy" },
-          { "name": "Terms & Conditions", "url": "/terms" }
+          { "name": "Pricing", "url": "/pricing" },
+          { "name": "FAQs", "url": "/faq" },
+          { "name": "How it works", "url": "/how-to-work" },
+          { "name": "Blog", "url": "/blog" }
         ]
       },
       {
-        "title": "Address",
-        "address": "123 Real Estate St, Dhaka, Bangladesh",
-        "phone": "+880 123 4567"
+        "title": "Office Location",
+        "address": "Emily Hattson 940 Goldendale Dr, Wasilla, Alaska 99654, USA",
+        "map": "See on Map"
       }
     ],
     "bottomLinks": [
-      { "name": "Elements", "url": "/elements" },
+      { "name": "Terms & Conditions", "url": "/terms-condition" },
       { "name": "Privacy Policy", "url": "/privacy-policy" }
     ]
   }
