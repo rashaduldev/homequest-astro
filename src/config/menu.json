@@ -1,7 +1,7 @@
 {
   "main": [
     {
-      "name": "AllPages",
+      "name": "All Pages",
       "url": "/",
       "hasChildren": true,
       "children": [

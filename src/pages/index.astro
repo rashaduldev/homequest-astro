@@ -11,6 +11,7 @@ import { getEntry } from "astro:content";
 import Testimonial from "@/partials/Testimonial.astro";
 import { string } from "astro:schema";
 import { FaPlay } from "react-icons/fa6";
+import ContactSection from "@/partials/ContactSection.astro";
 
 interface Homepage {
   banner: {
@@ -202,7 +203,8 @@ const brandText = brandimg?.text ?? "";
   <!-- Property Section -->
   <PropertySection property={property} />
   <!-- Testimonials -->
-  <!-- <Testimonial testimonial={testimonial} /> -->
+  <Testimonial testimonial={testimonial} />
+  <ContactSection />
   <FAQSection faqsection={faqsection} />
   <!--  -->
   <section

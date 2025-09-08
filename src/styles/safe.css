@@ -1,4 +1,4 @@
-/* navbar toggler */
+
 input#nav-toggle:checked + label #show-button {
   @apply hidden;
 }
@@ -18,4 +18,23 @@ input#nav-toggle:checked ~ #nav-menu {
 
 .swiper-pagination-bullet-active {
   @apply !h-4 !w-4 !bg-primary;
+}
+/* contactsection */
+.custom-input {
+  background: transparent;     
+  border: none;                 
+  border-bottom: 2px solid #cccccc65;
+  outline: none;               
+  padding: 0.5rem 0;           
+  width: 100%;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.custom-input:focus {
+  border-bottom-color: #dafb1ebe; 
+}
+input:focus, select:focus, textarea:focus {
+  outline: none !important;
+  box-shadow: none !important;
 }

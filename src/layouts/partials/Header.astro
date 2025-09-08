@@ -3,7 +3,7 @@ import Logo from "@/components/Logo.astro";
 import config from "@/config/config.json";
 import menu from "@/config/menu.json";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { IoSearch } from "react-icons/io5";
+import { IoClose, IoSearch } from "react-icons/io5";
 
 export interface ChildNavigationLink {
   name: string;
@@ -24,98 +24,96 @@ const { pathname } = Astro.url;
 
 <header class="w-full absolute z-50">
   <nav class="container flex items-center justify-between pt-8 w-full">
-    <!-- Logo + Hamburger -->
+    <!-- Logo + Desktop Menu -->
     <div class="flex items-center">
-      <div class="flex">
-        <Logo />
-          <!-- Desktop Menu -->
-    <ul class="hidden lg:flex items-center space-x-2 ml-16">
-      {main.map((menu) => (
-        <li class="relative group">
-          {menu.hasChildren && menu.children?.length ? (
-            <>
-              <div class="inline-flex items-center border border-transparent rounded-full px-4 py-2 cursor-pointer transition-all duration-300 group-hover:border-border text-text-light">
-                <span>{menu.name}</span>
-                <span class="ml-1 flex items-center transition-transform duration-300 group-hover:rotate-180">
-                  <MdKeyboardArrowDown />
-                </span>
-              </div>
-
-              <!-- Mega Dropdown -->
-              <div class="hidden lg:block absolute top-full left-0 mt-2 w-[554px] z-50 rounded-xl p-8 leading-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible bg-light text-text-dark transition-all duration-300">
-                <div class="flex gap-12">
-                  {[0, 1, 2].map((col) => (
-                    <div class="flex flex-col gap-[10px] leading-7">
-                      {menu.children?.slice(col * 6, col * 6 + (col === 2 ? 5 : 6)).map((child) => (
-                        <a
-                          href={child.url}
-                          class={`transition ${pathname === child.url ? "active" : ""}`}
-                        >
-                          {child.name}
-                        </a>
-                      ))}
-                    </div>
-                  ))}
+      <Logo />
+      <!-- Desktop Menu -->
+      <ul class="hidden lg:flex items-center space-x-2 ml-16">
+        {main.map((menu) => (
+          <li class="relative group">
+            {menu.hasChildren && menu.children?.length ? (
+              <>
+                <div class="inline-flex items-center border border-transparent rounded-full px-4 py-2 cursor-pointer transition-all duration-300 group-hover:border-border text-text-light whitespace-nowrap">
+                  <span>{menu.name}</span>
+                  <span class="ml-1 flex items-center transition-transform duration-300 group-hover:rotate-180">
+                    <MdKeyboardArrowDown />
+                  </span>
                 </div>
-              </div>
-            </>
-          ) : (
-            <a href={menu.url} class="inline-block border border-transparent rounded-full px-4 py-2 transition-all duration-300 hover:border-border text-text-light">
-              {menu.name}
-            </a>
-          )}
-        </li>
-      ))}
-    </ul>
+
+                <!-- Mega Dropdown -->
+                <div class="hidden lg:block absolute top-full left-0 mt-2 w-[554px] z-50 rounded-xl p-8 leading-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible bg-light text-text-dark transition-all duration-300">
+                  <div class="flex gap-12">
+                    {[0, 1, 2].map((col) => (
+                      <div class="flex flex-col gap-[10px] leading-7">
+                        {menu.children?.slice(col * 6, col * 6 + (col === 2 ? 5 : 6)).map((child) => (
+                          <a href={child.url} class={`transition ${pathname === child.url ? "active" : ""}`}>
+                            {child.name}
+                          </a>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <a
+                href={menu.url}
+                class="inline-block border border-transparent rounded-full px-4 py-2 transition-all duration-300 hover:border-border text-text-light"
+              >
+                {menu.name}
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
     </div>
-        </div>
-      <div class="flex flex-row-reverse gap-5 lg:hidden">
-        <input id="nav-toggle" type="checkbox" class="hidden peer" />
-      <label for="nav-toggle" class="cursor-pointer flex items-center lg:hidden ml-auto">
-        <svg class="h-6 fill-current block peer-checked:hidden" viewBox="0 0 20 20">
-          <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z" />
-        </svg>
-        <svg class="h-6 fill-current hidden peer-checked:block" viewBox="0 0 20 20">
-          <polygon
-            points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2"
-            transform="rotate(45 10 10)"
-          />
+
+    <!-- Mobile Hamburger & Search -->
+    <div class="lg:hidden relative flex items-center gap-5">
+      <!-- Hidden Checkbox for Peer -->
+      <input id="nav-toggle" type="checkbox" class="hidden peer" />
+
+      <!-- Hamburger / Close -->
+       <label for="nav-toggle" class="cursor-pointer flex items-center z-50">
+        <IoClose className="h-6 w-6 text-text-light hidden peer-checked:block" />
+        <svg class="h-6 w-6 fill-current block peer-checked:hidden" viewBox="0 0 24 24">
+          <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
       </label>
-       {settings.search && (
+
+      {settings.search && (
         <button class="inline-flex items-center justify-center rounded-full bg-light/20 p-2 text-xl text-light flex-shrink-0 cursor-pointer" aria-label="search" data-search-trigger>
           <IoSearch />
         </button>
       )}
-      </div>
 
       <!-- Mobile Menu -->
-      <ul class="absolute left-0 top-[64px] z-20 hidden w-full flex-col gap-2 bg-light peer-checked:flex lg:hidden">
-       {main.map((menu) => (
-  <li class="px-4 py-2">
-    <a
-      href={menu.url}
-      class="block text-sm text-text-light border border-transparent rounded-full transition-all duration-300 hover:border-border"
-    >
-      {menu.name}
-    </a>
-
-    {menu.hasChildren && menu.children?.length ? (
-      <ul class="mt-1 flex flex-col gap-1 pl-4">
-        {menu.children.map((child) => (
-          <li>
+      <ul class="fixed  top-[64px] z-20 hidden w-full flex-col gap-2 bg-dark peer-checked:flex lg:hidden">
+        {main.map((menu) => (
+          <li class="px-4 py-2">
             <a
-              href={child.url}
+              href={menu.url}
               class="block text-sm text-text-light border border-transparent rounded-full transition-all duration-300 hover:border-border"
             >
-              {child.name}
+              {menu.name}
             </a>
+            {menu.hasChildren && menu.children?.length ? (
+              <ul class="mt-1 flex flex-col gap-1 pl-4">
+                {menu.children.map((child) => (
+                  <li>
+                    <a
+                      href={child.url}
+                      class="block text-sm text-text-light border border-transparent rounded-full transition-all duration-300 hover:border-border"
+                    >
+                      {child.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </li>
         ))}
-      </ul>
-    ) : null}
-  </li>
-))}
+
         <!-- Mobile Bottom Section -->
         <li class="flex flex-col gap-3 px-4 py-4 border-t border-border">
           <a href={`tel:${site.phone}`} class="text-sm text-text-light whitespace-nowrap cursor-pointer px-3 py-1 rounded-full border border-transparent hover:border-border transition-all duration-300">
@@ -133,10 +131,11 @@ const { pathname } = Astro.url;
           )}
         </li>
       </ul>
+    </div>
 
     <!-- Desktop Right Section -->
     <div class="hidden lg:flex items-center space-x-3 flex-nowrap">
-      <a href={`tel:${site.phone}`} class="text-text-light whitespace-nowrap cursor-pointer px-4 py-2 rounded-full border border-transparent hover:border-border transition-all duration-300 ">
+      <a href={`tel:${site.phone}`} class="text-text-light whitespace-nowrap cursor-pointer px-4 py-2 rounded-full border border-transparent hover:border-border transition-all duration-300">
         {site.phone}
       </a>
       {settings.search && (
