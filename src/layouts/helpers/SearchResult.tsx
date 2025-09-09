@@ -127,7 +127,7 @@ const SearchResult = ({
   };
 
   return (
-    <div className="search-wrapper-body">
+    <div>
       {searchString ? (
         <div className="search-result">
           {finalResult.length > 0 ? (
@@ -251,7 +251,8 @@ const SearchResult = ({
           )}
         </div>
       ) : (
-        <div className="py-8 text-center">Type something to search...</div>
+        // <div className="py-8 text-center">Type something to search...</div>
+        ""
       )}
     </div>
   );

@@ -3,7 +3,7 @@ html {
 }
 
 body {
-  @apply bg-body text-base text-text font-primary font-normal leading-relaxed tracking-wide overflow-x-hidden;
+  @apply bg-body text-base text-text font-primary font-normal leading-relaxed overflow-x-hidden;
 }
 
 h1,
@@ -17,7 +17,7 @@ h6 {
 
 h1,
 .h1 {
-  @apply text-h1-sm md:text-h1;
+  @apply text-h1-sm md:text-h1 lg:text-[80px] lg:leading-[92px] lg:tracking-[-1.9px];
 }
 
 h2,
@@ -53,7 +53,9 @@ strong {
 code {
   @apply after:border-none;
 }
-
+p{
+  @apply leading-9 tracking-[-0.2px]
+}
 blockquote > p {
   @apply my-0!;
 }

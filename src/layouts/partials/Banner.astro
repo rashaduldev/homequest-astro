@@ -1,0 +1,51 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import Button from "@/shortcodes/Button";
+import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
+
+const homepage = (await getEntry("homepage","-index")) as CollectionEntry<"homepage">;
+const { banner } = homepage.data;
+---
+
+  <!-- Banner -->
+  <section
+    class="relative pt-55 pb-65 bg-no-repeat bg-center bg-cover"
+    style={`background-image: url('${banner.image}');`}
+  >
+    <div class="absolute inset-0 bg-gradient"></div>
+    <div class="container relative">
+        <div
+        data-aos="fade-up"
+        data-aos-duration="1000"
+        class="lg:col-8 md:col-9"
+      >
+        <h1
+          set:html={markdownify(banner.title)}
+          class="mb-2 text-text-light text-center md:text-left"
+        />
+        <p
+          set:html={markdownify(banner.description)}
+          class="text-xl md:col-9 lg:col-10 mb-10 text-text-light/80 text-center md:text-left"
+        />
+        {
+          banner.button.enable && (
+            <div data-search-trigger class="pl-6 pr-3 py-3 bg-light lg:col-8 text-xl md:col-9 rounded-2xl flex justify-between cursor-pointer">
+              <input
+                type="text"
+                placeholder="Search with a location"
+                aria-label="search"
+                class="outline-none cursor-pointer focus:outline-none border-none focus:border-none focus:ring-0 bg-transparent p-0"
+              />
+              <Button
+               className="rounded-xl"
+               label={banner.button.label}
+               />
+
+            </div>
+          )
+        }
+      </div>
+    </div>
+    <!-- <div class="h-10 rounded-t-3xl bg-primary absolute bottom-0 w-full"></div> -->
+  </section>

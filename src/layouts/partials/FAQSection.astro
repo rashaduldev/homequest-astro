@@ -1,25 +1,10 @@
 ---
 import FAQAccordion from "@/components/FAQAccordion.tsx";
-import type { CollectionEntry } from "astro:content";
-
-const { faqsection } = Astro.props;
-const icon = faqsection.data.icon;
-const markdownBody = (faqsection as CollectionEntry<"faqsection">).body ?? "";
-
-// Parse Markdown body into FAQ items
-const faqs = markdownBody
-  .split(/^##\s+/m)
-  .filter(Boolean)
-  .map(item => {
-    const [titleLine, ...rest] = item.split("\n");
-    return {
-      title: titleLine.trim(),
-      answer: rest.join("\n").trim(),
-    };
-  });
+const { faq_section } = Astro.props;
+const icon = faq_section.data.icon;
 ---
 
 <section data-aos="fade-up" data-aos-duration="1000" class="max-w-4xl mx-auto pt-20 pb-32">
-  <h1 class="mb-16 text-3xl lg:text-5xl leading-15 text-center lg:tracking-[-2.5px]">{faqsection.data.title}</h1>
-  <FAQAccordion faqs={faqs} icon={icon} client:load />
+  <h1 class="mb-16 text-3xl lg:text-5xl leading-15 text-center lg:tracking-[-2.5px]">{faq_section?.data.title}</h1>
+  <FAQAccordion faqs={faq_section} icon={icon} client:load />
 </section>

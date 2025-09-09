@@ -3,165 +3,59 @@ import Base from "@/layouts/Base.astro";
 import { markdownify } from "@/lib/utils/textConverter";
 import CallToAction from "@/partials/CallToAction.astro";
 import Listing from "@/partials/Listing.astro";
-import FAQSection from "@/partials/FAQSection.astro";
 import PropertySection from "@/partials/PropertySection.astro";
-import type { Button } from "@/types";
 import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
 import Testimonial from "@/partials/Testimonial.astro";
-import { string } from "astro:schema";
 import { FaPlay } from "react-icons/fa6";
 import ContactSection from "@/partials/ContactSection.astro";
+import ImageMod from "@/components/ImageMod.astro";
+import Banner from "@/partials/Banner.astro";
 
-interface Homepage {
-  banner: {
-    title: string;
-    content: string;
-    image: string;
-    button: Button;
-  };
-  brandimg?: {
-    text?: string;
-    images?: string[];
-  };
-  getintouch?: {
-    title?: string;
-    description?: string;
-    img?: string;
-    btn?: string;
-  };
-  ceoinfo?: {
-    title: string;
-    description: string;
-    vediolink: string;
-    heading: string;
-    ceoname: string;
-    designation: string;
-    img: string;
-    playbtn: string;
-  };
-}
-const testimonial = (await getEntry(
-  "testimonialSection",
-  "testimonial",
-)) as CollectionEntry<"testimonialSection">;
 
-const homepage = (await getEntry(
-  "homepage",
-  "-index",
-)) as CollectionEntry<"homepage">;
-const listing = (await getEntry(
-  "listingSection",
-  "listing",
-)) as CollectionEntry<"listingSection">;
-const call_to_action = (await getEntry(
-  "ctaSection",
-  "call-to-action",
-)) as CollectionEntry<"ctaSection">;
-const property = (await getEntry(
-  "propertySection",
-  "property-cards",
-)) as CollectionEntry<"propertySection">;
-const faqsection = (await getEntry(
-  "faqsection",
-  "faq",
-)) as CollectionEntry<"faqsection">;
-const contactsection = (await getEntry(
-  "contactSection",
-  "contact",
-)) as CollectionEntry<"contactSection">;
-
-const { banner, brandimg, getintouch, ceoinfo } = homepage.data as Homepage;
-
-const logos = brandimg?.images ?? [];
-const brandText = brandimg?.text ?? "";
+const homepage = (await getEntry("homepage","-index")) as CollectionEntry<"homepage">;
+const testimonial = (await getEntry("testimonialSection","testimonial")) as CollectionEntry<"testimonialSection">;
+const listing = (await getEntry("listingSection","listing")) as CollectionEntry<"listingSection">;
+const call_to_action = (await getEntry("ctaSection","call-to-action")) as CollectionEntry<"ctaSection">;
+const property = (await getEntry("propertySection","property-cards")) as CollectionEntry<"propertySection">;
+const faq_section = (await getEntry("faq_section","faq-section")) as CollectionEntry<"faq_section">;
+const contactsection = (await getEntry("contactSection","contact")) as CollectionEntry<"contactSection">;
+const { brands_logo, getintouch, ceoinfo } = homepage.data;
 ---
-
 <Base>
-  <!-- Banner -->
-  <section
-    class="relative section pt-55 pb-65 bg-no-repeat bg-center bg-cover bg-gradient"
-    style={`background-image: url('${banner.image}');`}
-  >
-    <div class="absolute inset-0 bg-gradient-to-b from-dark/20 to-dark/30">
-    </div>
-    <div class="container relative">
-      <div
-        data-aos="fade-up"
-        data-aos-duration="1000"
-        class="lg:col-8 md:col-9"
-      >
-        <h1
-          set:html={markdownify(banner.title)}
-          class="mb-[10px] text-h3 lg:text-[80px] lg:leading-[92px] lg:tracking-[-3.5px] text-text-light text-center md:text-left"
-        />
-        <p
-          set:html={markdownify(banner.content)}
-          class="lg:col-10 text-base md:text-xl md:col-9 mb-10 leading-9 text-text-light/80 text-center md:text-left"
-        />
-        {
-          banner.button.enable && (
-            <div class="pl-6 pr-3 py-3 bg-light lg:col-8 text-xl md:col-9 rounded-2xl flex justify-between">
-              <input
-                type="text"
-                placeholder="Search with a location"
-                aria-label="search"
-                data-search-trigger
-                class="outline-none focus:outline-none border-none focus:border-none focus:ring-0 bg-transparent cursor-pointer"
-              />
-              <a
-                class="btn btn-secondary px-6 py-[10px] rounded-xl font-normal text-base"
-                href={banner.button.link}
-                target={
-                  banner.button.link.startsWith("http") ? "_blank" : "_self"
-                }
-                rel="noopener"
-              >
-                {banner.button.label}
-              </a>
-            </div>
-          )
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- Trusted Company Brand Logos -->
-  {
-    (brandText || logos.length > 0) && (
-      <section class="section-sm bg-primary rounded-t-4xl -mt-10 mb-20  absolute w-full">
+  <Banner />
+  <!-- Company Brands Logo -->
+   <section class="section-sm bg-primary rounded-t-3xl z-50 relative -mt-10">
         <div
           data-aos="fade-up"
           data-aos-duration="1000"
-          class="container flex flex-col lg:flex-row items-center justify-between"
+          class="container flex flex-col xl:flex-row items-center justify-between"
         >
-          {brandText && (
-            <p class="text-center text-xl leading-9 mb-10 lg:mb-0">
-              {brandText}
+          {brands_logo?.title && (
+            <p class="text-text-dark text-xl text-center mb-10 xl:mb-0">
+              {brands_logo?.title}
             </p>
           )}
-          {logos.length > 0 && (
-            <div class="flex flex-wrap justify-center items-center gap-6 md:gap-10">
-              {logos.map((img, i) => (
-                <div class="flex-shrink-0 h-12 md:h-16 w-[142px]">
-                  <img
+          {brands_logo?.logos.length > 0 && (
+            <div class="flex flex-row items-center justify-center gap-6 md:gap-10">
+              {brands_logo?.logos.map((img, i) => (
+                  <ImageMod
                     src={img}
+                    height={48}
+                    width={142}
                     alt={`Brand ${i + 1}`}
-                    class="h-full w-full object-contain"
+                    class="w-full rounded"
                     loading="lazy"
+                    format="webp"
                   />
-                </div>
               ))}
             </div>
           )}
         </div>
-      </section>
-    )
-  }
-
+   </section>
   <!-- Listing Section -->
   <Listing listing={listing} />
-  <!-- CEO info -->
+  <!-- Author info -->
   <section data-aos="fade-up" data-aos-duration="1000" class="section-sm pb-28">
     <div class="container relative w-full max-w-4xl mx-auto text-center">
       <h1 class="leading-15 mb-4">{ceoinfo?.title}</h1>
@@ -217,12 +111,11 @@ const brandText = brandimg?.text ?? "";
   <!-- Testimonials -->
   <Testimonial testimonial={testimonial} />
   <ContactSection contactsection={contactsection} />
-  <FAQSection faqsection={faqsection} />
+  <!-- <FAQSection faq_section={faq_section} /> -->
   <!--  -->
   <section
     class="relative section pt-40 pb-52 bg-no-repeat bg-center bg-cover bg-gradient rounded-t-3xl"
-    style={`background-image: url('${getintouch?.img}');`}
-  >
+    style={`background-image: url('${getintouch?.img}');`}>
     <div
       data-aos="fade-up"
       data-aos-duration="1000"
@@ -258,4 +151,3 @@ const brandText = brandimg?.text ?? "";
     }
   });
 </script>
-

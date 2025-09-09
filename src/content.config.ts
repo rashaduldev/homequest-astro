@@ -1,6 +1,60 @@
 import { glob } from "astro/loaders";
 import { defineCollection, z } from "astro:content";
 
+// Homepage collection
+export const homepageCollection = defineCollection({
+  loader: glob({ pattern: "**/-*.{md,mdx}", base: "src/content/homepage" }),
+  schema: z.object({
+    banner: z.object({
+      title: z.string(),
+      description: z.string(),
+      image: z.string(),
+      button: z.object({
+        enable: z.boolean(),
+        label: z.string(),
+        link: z.string(),
+      }),
+    }),
+    brands_logo: z
+      .object({
+        title: z.string().optional(),
+        logos: z.array(z.string()),
+      }),
+    features: z.array(
+      z.object({
+        title: z.string(),
+        image: z.string(),
+        content: z.string(),
+        bulletpoints: z.array(z.string()),
+        button: z.object({
+          enable: z.boolean(),
+          label: z.string(),
+          link: z.string(),
+        }),
+      })
+    ),
+    getintouch: z
+      .object({
+        title: z.string(),
+        description: z.string(),
+        img: z.string(),
+        btn: z.string(),
+      })
+      .optional(),
+    ceoinfo: z
+      .object({
+        title: z.string(),
+        description: z.string(),
+        vediolink: z.string(),
+        heading: z.string(),
+        ceoname: z.string(),
+        designation: z.string(),
+        img: z.string(),
+        playbtn: z.string().optional(),
+      })
+      .optional(),
+  }),
+});
 // Post collection schema
 const blogCollection = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "src/content/blog" }),
@@ -76,63 +130,6 @@ const contactCollection = defineCollection({
     draft: z.boolean().optional(),
   }),
 });
-
-// Homepage collection
-export const homepageCollection = defineCollection({
-  loader: glob({ pattern: "**/-*.{md,mdx}", base: "src/content/homepage" }),
-  schema: z.object({
-    banner: z.object({
-      title: z.string(),
-      content: z.string(),
-      image: z.string(),
-      button: z.object({
-        enable: z.boolean(),
-        label: z.string(),
-        link: z.string(),
-      }),
-    }),
-    brandimg: z
-      .object({
-        text: z.string(),
-        images: z.array(z.string()),
-      })
-      .optional(),
-    features: z.array(
-      z.object({
-        title: z.string(),
-        image: z.string(),
-        content: z.string(),
-        bulletpoints: z.array(z.string()),
-        button: z.object({
-          enable: z.boolean(),
-          label: z.string(),
-          link: z.string(),
-        }),
-      })
-    ),
-    getintouch: z
-      .object({
-        title: z.string(),
-        description: z.string(),
-        img: z.string(),
-        btn: z.string(),
-      })
-      .optional(),
-    ceoinfo: z
-      .object({
-        title: z.string(),
-        description: z.string(),
-        vediolink: z.string(),
-        heading: z.string(),
-        ceoname: z.string(),
-        designation: z.string(),
-        img: z.string(),
-        playbtn: z.string().optional(),
-      })
-      .optional(),
-  }),
-});
-
 
 // cta
 const ctaSectionCollection = defineCollection({
@@ -260,7 +257,7 @@ const listingSectionCollection = defineCollection({
 // faq collection schema
 const faqCollection = defineCollection({
    loader: glob({
-    pattern: "faq.{md,mdx}",
+    pattern: "faq-section.{md,mdx}",
     base: "src/content/sections",
   }),
   schema: z.object({
@@ -292,5 +289,5 @@ export const collections = {
   listingSection: listingSectionCollection,
   propertySection: propertySectionCollection,
   contactSection: contactSection,
-  faqsection:faqCollection,
+  faq_section:faqCollection,
 };

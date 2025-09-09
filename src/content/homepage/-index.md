@@ -2,22 +2,23 @@
 # Banner
 banner:
   title: "Turning Your Real Estate Dreams into Reality"
-  content: "Forget clunky application forms. We offer a modern, user-friendly platform that makes applying for a job a breeze."
+  description: "Forget clunky application forms. We offer a modern, user-friendly platform that makes applying for a job a breeze."
   image: "/images/banner.avif"
   button:
     enable: true
     label: "Search Home"
     link: "#"
 
-# Trusted Brand Logos
-brandimg:
-  text: "Trusted by leading companies"
-  images:
-    - "/images/trasted/sparkle.svg"
-    - "/images/trasted/craftgram.svg"
-    - "/images/trasted/zenzap.svg"
-    - "/images/trasted/techtide.svg"
-    - "/images/trasted/lum-labs.svg"
+# Trusted Brands Logo
+brands_logo:
+  enable: true
+  title: "Trusted by leading companies"
+  logos:
+    - "/images/brand/sparkle.svg"
+    - "/images/brand/craft-gram.svg"
+    - "/images/brand/zen-zap.svg"
+    - "/images/brand/tech-tide.svg"
+    - "/images/brand/lum-labs.svg"
 
 # Features
 features:

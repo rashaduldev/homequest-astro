@@ -1,5 +1,5 @@
 @utility bg-gradient {
-  @apply bg-linear-to-b from-[rgba(249,249,249,1)] from-[0.53%] to-white to-[83.28%];
+  @apply bg-linear-to-b from-[#00000021] from-[0.53%] to-[#00000045] to-[83.28%];
 }
 
 /* form style */

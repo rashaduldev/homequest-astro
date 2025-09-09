@@ -18,11 +18,11 @@
   },
   "fonts": {
     "font_family": {
-      "primary": "Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+      "primary": "Inter:wght@300;700",
       "primary_type": "sans-serif",
-      "secondary": "Geist:wght@100..900&display=swap",
+      "secondary": "Geist:wght@300;700",
       "secondary_type": "sans-serif"
     },
-    "font_size": { "base": "16", "scale": "1.2" }
+    "font_size": { "base": "16", "scale": "1.25" }
   }
 }

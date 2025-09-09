@@ -4,11 +4,13 @@ const Button = ({
   label,
   link,
   style,
-  rel,
+  className,
+  rel
 }: {
-  label: string;
-  link: string;
+  label?: string;
+  link?: string;
   style?: string;
+  className?: string;
   rel?: string;
 }) => {
   return (
@@ -18,8 +20,8 @@ const Button = ({
       rel={`noopener noreferrer ${
         rel ? (rel === "follow" ? "" : rel) : "nofollow"
       }`}
-      className={`btn mb-4 me-4 hover:text-white  hover:no-underline ${
-        style === "outline" ? "btn-outline-primary" : "btn-primary"
+      className={`btn px-6 py-2 hover:no-underline ${className} ${
+        style === "outline" ? "btn-outline-primary" : "btn-secondary"
       }`}
     >
       {label}
