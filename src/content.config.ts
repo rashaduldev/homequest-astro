@@ -203,6 +203,35 @@ const testimonialSectionCollection = defineCollection({
   }),
 });
 
+// contactSection Section collection schema
+const contactSection = defineCollection({
+  loader: glob({
+    pattern: "contact.{md,mdx}",
+    base: "src/content/sections",
+  }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    btn: z.string(),
+    email: z.object({
+      title: z.string(),
+      email: z.string(),
+    }),
+    phone: z.object({
+      title: z.string(),
+      phone: z.string(),
+    }),
+    forminfo: z.array(
+      z.object({
+        label: z.string(),
+        placeholder: z.string().optional(),
+        options: z.array(z.string()).optional(),
+      }),
+    ),
+  }),
+});
+
+
 // listingSectionCollection Section collection schema
 const listingSectionCollection = defineCollection({
   loader: glob({
@@ -213,9 +242,6 @@ const listingSectionCollection = defineCollection({
     enable: z.boolean(),
     title: z.string(),
     btn: z.string(),
-    // icon:z.array(
-
-    // ),
     listing: z.array(
       z.object({
         title: z.string(),
@@ -264,6 +290,7 @@ export const collections = {
   ctaSection: ctaSectionCollection,
   testimonialSection: testimonialSectionCollection,
   listingSection: listingSectionCollection,
-  propertySection:propertySectionCollection,
+  propertySection: propertySectionCollection,
+  contactSection: contactSection,
   faqsection:faqCollection,
 };

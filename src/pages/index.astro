@@ -66,6 +66,10 @@ const faqsection = (await getEntry(
   "faqsection",
   "faq",
 )) as CollectionEntry<"faqsection">;
+const contactsection = (await getEntry(
+  "contactSection",
+  "contact",
+)) as CollectionEntry<"contactSection">;
 
 const { banner, brandimg, getintouch, ceoinfo } = homepage.data as Homepage;
 
@@ -82,7 +86,11 @@ const brandText = brandimg?.text ?? "";
     <div class="absolute inset-0 bg-gradient-to-b from-dark/20 to-dark/30">
     </div>
     <div class="container relative">
-      <div data-aos="fade-up" data-aos-duration="1000" class="lg:col-8 md:col-9">
+      <div
+        data-aos="fade-up"
+        data-aos-duration="1000"
+        class="lg:col-8 md:col-9"
+      >
         <h1
           set:html={markdownify(banner.title)}
           class="mb-[10px] text-h3 lg:text-[80px] lg:leading-[92px] lg:tracking-[-3.5px] text-text-light text-center md:text-left"
@@ -122,7 +130,11 @@ const brandText = brandimg?.text ?? "";
   {
     (brandText || logos.length > 0) && (
       <section class="section-sm bg-primary rounded-t-4xl -mt-10 mb-20  absolute w-full">
-        <div data-aos="fade-up" data-aos-duration="1000" class="container flex flex-col lg:flex-row items-center justify-between">
+        <div
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          class="container flex flex-col lg:flex-row items-center justify-between"
+        >
           {brandText && (
             <p class="text-center text-xl leading-9 mb-10 lg:mb-0">
               {brandText}
@@ -204,14 +216,18 @@ const brandText = brandimg?.text ?? "";
   <PropertySection property={property} />
   <!-- Testimonials -->
   <Testimonial testimonial={testimonial} />
-  <ContactSection />
+  <ContactSection contactsection={contactsection} />
   <FAQSection faqsection={faqsection} />
   <!--  -->
   <section
     class="relative section pt-40 pb-52 bg-no-repeat bg-center bg-cover bg-gradient rounded-t-3xl"
     style={`background-image: url('${getintouch?.img}');`}
   >
-    <div data-aos="fade-up" data-aos-duration="1000" class="container text-center">
+    <div
+      data-aos="fade-up"
+      data-aos-duration="1000"
+      class="container text-center"
+    >
       <h1
         set:html={markdownify(getintouch?.title ?? "")}
         class="mb-[10px] text-text-light md:col-6 col-12 mx-auto leading-15"
@@ -222,7 +238,7 @@ const brandText = brandimg?.text ?? "";
       />
       <a class="btn btn-primary rounded-full" href="/">{getintouch?.btn}</a>
     </div>
-      <div class="h-5 bg-light absolute w-full bottom-0 rounded-t-3xl"></div>
+    <div class="h-5 bg-light absolute w-full bottom-0 rounded-t-3xl"></div>
   </section>
 </Base>
 <script>
@@ -241,4 +257,5 @@ const brandText = brandimg?.text ?? "";
       });
     }
   });
-</script> 
+</script>
+

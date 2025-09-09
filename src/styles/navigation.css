@@ -46,6 +46,9 @@
   @apply text-text-dark hover:text-primary  block py-1 font-semibold transition;
 }
 
+.mega-dropdown{
+  @apply hidden lg:block absolute left-0 mt-2 w-[554px] rounded-xl p-8 invisible group-hover:opacity-100 group-hover:visible bg-light text-text-dark transition-all duration-300
+}
 /* theme-switcher */
 .theme-switcher {
   @apply inline-flex;

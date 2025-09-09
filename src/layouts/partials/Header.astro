@@ -16,7 +16,6 @@ export interface NavigationLink {
   hasChildren?: boolean;
   children?: ChildNavigationLink[];
 }
-
 const { main }: { main: NavigationLink[] } = menu;
 const { navigation_button, settings, site } = config;
 const { pathname } = Astro.url;
@@ -39,9 +38,8 @@ const { pathname } = Astro.url;
                     <MdKeyboardArrowDown />
                   </span>
                 </div>
-
                 <!-- Mega Dropdown -->
-                <div class="hidden lg:block absolute top-full left-0 mt-2 w-[554px] z-50 rounded-xl p-8 leading-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible bg-light text-text-dark transition-all duration-300">
+                <div class="mega-dropdown">
                   <div class="flex gap-12">
                     {[0, 1, 2].map((col) => (
                       <div class="flex flex-col gap-[10px] leading-7">
