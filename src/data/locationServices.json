@@ -1,0 +1,54 @@
+[
+  {
+    "state": "california",
+    "stateLabel": "California",
+    "city": "los-angeles",
+    "cityLabel": "Los Angeles",
+    "service": "mobile-kitchen",
+    "serviceLabel": "Mobile Kitchen Rental",
+    "design": "kitchen",
+    "phone": "+1 (213) 555-0142",
+    "priceFrom": 249,
+    "heroImage": "/images/service-1.png",
+    "description": "Fully equipped mobile kitchen units for events, restaurants and food trucks across Los Angeles, CA."
+  },
+  {
+    "state": "california",
+    "stateLabel": "California",
+    "city": "san-diego",
+    "cityLabel": "San Diego",
+    "service": "mobile-kitchen",
+    "serviceLabel": "Mobile Kitchen Rental",
+    "design": "kitchen",
+    "phone": "+1 (619) 555-0198",
+    "priceFrom": 229,
+    "heroImage": "/images/service-1.png",
+    "description": "Rent a commercial-grade mobile kitchen in San Diego, delivered and set up same week."
+  },
+  {
+    "state": "texas",
+    "stateLabel": "Texas",
+    "city": "austin",
+    "cityLabel": "Austin",
+    "service": "shower-restroom",
+    "serviceLabel": "Shower & Restroom Trailer",
+    "design": "shower",
+    "phone": "+1 (512) 555-0176",
+    "priceFrom": 189,
+    "heroImage": "/images/service-2.png",
+    "description": "Clean, climate-controlled shower and restroom trailers for job sites and events in Austin, TX."
+  },
+  {
+    "state": "texas",
+    "stateLabel": "Texas",
+    "city": "houston",
+    "cityLabel": "Houston",
+    "service": "shower-restroom",
+    "serviceLabel": "Shower & Restroom Trailer",
+    "design": "shower",
+    "phone": "+1 (713) 555-0110",
+    "priceFrom": 199,
+    "heroImage": "/images/service-2.png",
+    "description": "Houston's fastest shower and restroom trailer rental with 24/7 site support."
+  }
+]

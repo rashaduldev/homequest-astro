@@ -1,0 +1,39 @@
+---
+export interface Props {
+  entry: {
+    cityLabel: string;
+    stateLabel: string;
+    serviceLabel: string;
+    description: string;
+    phone: string;
+    priceFrom: number;
+    heroImage: string;
+  };
+  pageTitle: string;
+}
+
+const { entry, pageTitle } = Astro.props;
+---
+
+<div class="kitchen-design bg-amber-50 rounded-lg p-8">
+  <div class="row items-center">
+    <div class="lg:col-6">
+      <span class="text-primary font-semibold uppercase text-sm">
+        {entry.stateLabel} &middot; {entry.cityLabel}
+      </span>
+      <h1 class="mt-2 mb-4">{pageTitle}</h1>
+      <p class="mb-6">{entry.description}</p>
+      <ul class="mb-6 space-y-2">
+        <li>✔ Delivered &amp; installed same week</li>
+        <li>✔ NSF-certified equipment</li>
+        <li>✔ Starting at ${entry.priceFrom}/day</li>
+      </ul>
+      <a href={`tel:${entry.phone}`} class="btn btn-primary">
+        Call {entry.phone}
+      </a>
+    </div>
+    <div class="lg:col-6">
+      <img src={entry.heroImage} alt={pageTitle} class="rounded-lg" />
+    </div>
+  </div>
+</div>

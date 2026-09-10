@@ -1,0 +1,67 @@
+---
+
+import Base from "@/layouts/Base.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import KitchenDesign from "@/layouts/components/designs/KitchenDesign.astro";
+import ShowerDesign from "@/layouts/components/designs/ShowerDesign.astro";
+import config from "@/config/config.json";
+import locations from "@/data/locationServices.json";
+
+const DESIGN_MAP = {
+  kitchen: KitchenDesign,
+  shower: ShowerDesign,
+};
+
+export async function getStaticPaths() {
+  return locations.map((entry) => ({
+    params: {
+      state: entry.state,
+      city: entry.city,
+      service: entry.service,
+    },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const DesignComponent = DESIGN_MAP[entry.design];
+
+const pageTitle = `${entry.serviceLabel} in ${entry.cityLabel}, ${entry.stateLabel}`;
+const metaTitle = `${pageTitle} | Starting at $${entry.priceFrom}`;
+const canonicalUrl = `${config.site.base_url}/services/${entry.state}/${entry.city}/${entry.service}/`;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: `${entry.serviceLabel} - ${entry.cityLabel}`,
+  description: entry.description,
+  telephone: entry.phone,
+  areaServed: {
+    "@type": "City",
+    name: entry.cityLabel,
+  },
+  priceRange: `$${entry.priceFrom}+`,
+};
+---
+
+<Base
+  title={pageTitle}
+  meta_title={metaTitle}
+  description={entry.description}
+  image={entry.heroImage}
+  canonical={canonicalUrl}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+  <section class="section-sm">
+    <div class="container">
+      <Breadcrumbs />
+
+      {DesignComponent ? (
+        <DesignComponent entry={entry} pageTitle={pageTitle} />
+      ) : (
+        <p>No design template found for "{entry.design}".</p>
+      )}
+    </div>
+  </section>
+</Base>
