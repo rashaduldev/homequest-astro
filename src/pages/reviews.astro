@@ -1,0 +1,561 @@
+---
+import Base from "@/layouts/Base.astro";
+import { IoPlaySharp } from "react-icons/io5";
+
+interface Review {
+  name: string;
+  role: string;
+  quote: string;
+  image: string;
+  video?: boolean;
+}
+
+const reviews: Review[] = [
+  {
+    name: "Stefan Persson",
+    role: "General Manager",
+    quote:
+      "I was concerned about managing my rental property, but LandlordAssist took care of everything. Their management was excellent.",
+    image: "/images/reviews/stefan-persson.png",
+  },
+  {
+    name: "Steve Cohen",
+    role: "Sales Representative",
+    quote:
+      "I was nervous about selling my home, but Homequest made it so easy. Their marketing was top-notch, and I received multiple offers within days of listing.",
+    image: "/images/reviews/steve-cohen.png",
+    video: true,
+  },
+  {
+    name: "Nicole Sparks",
+    role: "Product Manager",
+    quote:
+      "I was anxious about finding a new home, but Homeline guided me every step of the way. Their expertise was unmatched, and I secured my dream.",
+    image: "/images/reviews/nicole-sparks.png",
+  },
+  {
+    name: "Stefan Persson",
+    role: "General Manager",
+    quote:
+      "Moving was stressful, but HousePro simplified everything. Their team was professional, and we had several great options to choose",
+    image: "/images/reviews/stefan-persson-2.png",
+    video: true,
+  },
+  {
+    name: "Stefan Quandt",
+    role: "Marketing Specialist",
+    quote:
+      "Home selling was daunting, but RealNest simplified the whole experience. Their approach attracted buyers fast, and I had offers",
+    image: "/images/reviews/stefan-quandt.png",
+  },
+  {
+    name: "Kendall Egan",
+    role: "Project Manager",
+    quote:
+      "I was concerned about managing my rental property, but LandlordAssist took care of everything. Their management was excellent.",
+    image: "/images/reviews/kendall-egan.png",
+    video: true,
+  },
+  {
+    name: "John Mars",
+    role: "Chief Technology Officer",
+    quote:
+      "I worried about the market, but ProperSell handled the entire process. Their marketing was effective, and I had several offers",
+    image: "/images/reviews/john-mars.png",
+  },
+  {
+    name: "Melissa Thibault",
+    role: "Vice President",
+    quote:
+      "Buying a new house seemed complicated, but PrimeHomes made it effortless. Their strategy was flawless, and I found the perfect",
+    image: "/images/reviews/melissa-thibault.png",
+    video: true,
+  },
+  {
+    name: "Jim Walton",
+    role: "Chief Financial Officer",
+    quote:
+      "Listing my property was intimidating, but SellEasy was incredible. They delivered multiple offers shortly after the house",
+    image: "/images/reviews/jim-walton.png",
+  },
+];
+---
+
+<Base
+  title="Testimonials"
+  meta_title="Testimonials | HomeQuest"
+  description="Read what HomeQuest clients say about their home buying, selling, and property management experiences."
+  image="/images/company/hero.avif"
+>
+  <div class="reviews-page">
+    <section class="reviews-hero" aria-labelledby="reviews-page-title">
+      <img
+        src="/images/company/hero.avif"
+        alt="Modern HomeQuest residence"
+        fetchpriority="high"
+      />
+      <div class="reviews-hero__shade"></div>
+      <h1 id="reviews-page-title" data-aos="fade-up" data-aos-duration="900">
+        Testimonials
+      </h1>
+    </section>
+
+    <section class="reviews-directory" aria-label="Client testimonials">
+      <div class="reviews-grid">
+        {
+          reviews.map((review, index) => (
+            <article
+              class:list={[
+                "review-card",
+                review.video ? "review-card--video" : "review-card--primary",
+              ]}
+              data-aos="fade-up"
+              data-aos-delay={String((index % 3) * 80)}
+              data-aos-duration="900"
+            >
+              <div class="review-card__identity">
+                <img src={review.image} alt={review.name} loading="lazy" />
+                {review.video && (
+                  <div>
+                    <h2>{review.name}</h2>
+                    <p>{review.role}</p>
+                  </div>
+                )}
+              </div>
+
+              {review.video ? (
+                <>
+                  <blockquote>{review.quote}</blockquote>
+                  <div
+                    class="review-video"
+                    aria-label="Video testimonial preview"
+                  >
+                    <div class="review-video__thumb">
+                      <img
+                        src="/images/reviews/video-thumbnail.png"
+                        alt="Video testimonial preview"
+                        loading="lazy"
+                      />
+                      <span aria-hidden="true">
+                        <IoPlaySharp />
+                      </span>
+                    </div>
+                    <p>I was nervous about selling my home</p>
+                  </div>
+                </>
+              ) : (
+                <div class="review-card__body">
+                  <blockquote>{review.quote}</blockquote>
+                  <div>
+                    <h2>{review.name}</h2>
+                    <p>{review.role}</p>
+                  </div>
+                </div>
+              )}
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="reviews-cta" aria-labelledby="reviews-cta-title">
+      <img
+        src="/images/company/cta.avif"
+        alt="Modern property at dusk"
+        loading="lazy"
+      />
+      <div class="reviews-cta__shade"></div>
+      <div
+        class="reviews-cta__content"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+      >
+        <h2 id="reviews-cta-title">
+          <span>Ready to Make a</span>
+          <span>Move? Contact Us Now!</span>
+        </h2>
+        <p>
+          Contact us today to discuss your property needs and choose the right
+          plan. We’re here to guide you through every step of the process.
+        </p>
+        <a href="/contact">Get Your Home</a>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .reviews-page {
+    --hq-lime: #dbfb1e;
+    --hq-warm: #f7f6f4;
+    color: #0a0915;
+    background: #fff;
+  }
+
+  .reviews-page h1,
+  .reviews-page h2,
+  .reviews-page p,
+  .reviews-page blockquote {
+    margin: 0;
+  }
+
+  .reviews-hero {
+    position: relative;
+    height: 453px;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  .reviews-hero > img,
+  .reviews-hero__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .reviews-hero > img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .reviews-hero__shade {
+    background: linear-gradient(
+      180deg,
+      rgba(12, 42, 56, 0.2),
+      rgba(15, 35, 45, 0.26)
+    );
+  }
+
+  .reviews-hero h1 {
+    position: absolute;
+    top: 205px;
+    right: 30px;
+    left: 30px;
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 80px;
+    font-weight: 400;
+    line-height: 92px;
+    letter-spacing: -3.5px;
+    text-align: center;
+  }
+
+  .reviews-directory {
+    position: relative;
+    z-index: 1;
+    height: 1729.656px;
+    padding: 80px 30px 134px;
+    border-radius: 24px 24px 0 0;
+    background: #fff;
+  }
+
+  .reviews-grid {
+    display: grid;
+    width: min(1168.641px, 100%);
+    height: 1515.656px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(3, 489.219px);
+    gap: 24px;
+    align-items: start;
+    margin-inline: auto;
+  }
+
+  .review-card {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 24px;
+    overflow: hidden;
+    border-radius: 24px;
+    background: var(--hq-warm);
+  }
+
+  .review-card--primary {
+    height: 484.797px;
+    padding: 32px;
+  }
+
+  .review-card--primary:nth-child(7),
+  .review-card--primary:nth-child(9) {
+    height: 448.797px;
+  }
+
+  .review-card--video {
+    height: 489.219px;
+    padding: 30px;
+  }
+
+  .review-card__identity {
+    display: flex;
+    height: 104px;
+    flex: 0 0 104px;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .review-card__identity > img {
+    width: 104px;
+    height: 104px;
+    flex: 0 0 104px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .review-card__identity > div {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .review-card h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 36px;
+    letter-spacing: -0.4px;
+  }
+
+  .review-card p {
+    color: #52525a;
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 28.8px;
+    letter-spacing: -0.2px;
+  }
+
+  .review-card blockquote {
+    color: rgba(10, 9, 21, 0.7);
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    line-height: 36px;
+    letter-spacing: -0.45px;
+  }
+
+  .review-card__body {
+    display: flex;
+    min-height: 0;
+    flex: 1;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .review-video {
+    display: flex;
+    height: 97.219px;
+    flex: 0 0 97.219px;
+    align-items: center;
+    gap: 16px;
+    overflow: hidden;
+    padding-right: 15px;
+    border-radius: 12px;
+    background: #fff;
+  }
+
+  .review-video__thumb {
+    position: relative;
+    width: 46%;
+    height: calc(100% - 8px);
+    flex: 0 0 46%;
+    overflow: hidden;
+    border-radius: 8px 0 0 8px;
+  }
+
+  .review-video__thumb > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .review-video__thumb > span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    width: 24px;
+    height: 24px;
+    place-items: center;
+    border-radius: 50%;
+    color: #2b5b48;
+    background: #fff;
+    font-size: 12px;
+    transform: translate(-50%, -50%);
+  }
+
+  .review-video__thumb > span :global(svg) {
+    margin-left: 1px;
+  }
+
+  .review-video > p {
+    flex: 1;
+    color: rgba(10, 9, 21, 0.72);
+  }
+
+  .reviews-cta {
+    position: relative;
+    height: 624.609px;
+    overflow: hidden;
+    border-radius: 24px 24px 0 0;
+    color: #fff;
+  }
+
+  .reviews-cta > img,
+  .reviews-cta__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .reviews-cta > img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .reviews-cta__shade {
+    background: linear-gradient(
+      180deg,
+      rgba(24, 55, 75, 0.46),
+      rgba(9, 25, 33, 0.02)
+    );
+  }
+
+  .reviews-cta__content {
+    position: relative;
+    z-index: 1;
+    width: min(748px, calc(100% - 40px));
+    margin: 0 auto;
+    padding-top: 88px;
+    text-align: center;
+  }
+
+  .reviews-cta h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: -2.5px;
+  }
+
+  .reviews-cta h2 span {
+    display: block;
+  }
+
+  .reviews-cta__content p {
+    max-width: 598px;
+    margin: 16px auto 32px;
+    color: rgba(255, 255, 255, 0.8);
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 32.4px;
+    letter-spacing: -0.2px;
+  }
+
+  .reviews-cta__content a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 24px;
+    border-radius: 32px;
+    color: #050505;
+    background: var(--hq-lime);
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 28.8px;
+    transition:
+      transform 180ms ease,
+      filter 180ms ease;
+  }
+
+  .reviews-cta__content a:hover {
+    filter: brightness(0.95);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 767px) {
+    .reviews-hero {
+      height: 236px;
+    }
+
+    .reviews-hero h1 {
+      top: 100px;
+      right: 20px;
+      left: 20px;
+      font-size: 40px;
+      line-height: 46px;
+      letter-spacing: -1.5px;
+    }
+
+    .reviews-directory {
+      height: 4695.859px;
+      padding: 20px 20px 60px;
+    }
+
+    .reviews-grid {
+      width: 100%;
+      height: 4615.859px;
+      grid-template-columns: 1fr;
+      grid-template-rows: none;
+      grid-auto-rows: auto;
+      gap: 24px;
+    }
+
+    .review-card--primary:nth-child(1),
+    .review-card--primary:nth-child(5),
+    .review-card--primary:nth-child(7),
+    .review-card--primary:nth-child(9) {
+      height: 484.797px;
+    }
+
+    .review-card--primary:nth-child(3) {
+      height: 520.797px;
+    }
+
+    .review-card--video:nth-child(2),
+    .review-card--video:nth-child(4) {
+      height: 508.969px;
+    }
+
+    .review-card--video:nth-child(6),
+    .review-card--video:nth-child(8) {
+      height: 472.969px;
+    }
+
+    .review-video {
+      height: 81px;
+      flex-basis: 81px;
+    }
+
+    .reviews-cta {
+      height: 506.422px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .reviews-cta__content {
+      width: calc(100% - 40px);
+      padding-top: 60px;
+    }
+
+    .reviews-cta h2 {
+      font-size: 36px;
+      line-height: 45px;
+      letter-spacing: -1.8px;
+    }
+
+    .reviews-cta__content p {
+      margin-top: 16px;
+      font-size: 16px;
+      line-height: 32.4px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reviews-page *,
+    .reviews-page *::before,
+    .reviews-page *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+</style>
