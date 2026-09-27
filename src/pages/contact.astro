@@ -1,69 +1,783 @@
 ---
 import config from "@/config/config.json";
 import Base from "@/layouts/Base.astro";
-import PageHeader from "@/partials/PageHeader.astro";
-import { getEntry } from "astro:content";
-import type { CollectionEntry } from "astro:content";
+import { IoCall, IoLocationSharp } from "react-icons/io5";
 
-const contact = (await getEntry(
-  "contact",
-  "-index",
-)) as CollectionEntry<"contact">;
+interface Office {
+  city: string;
+  image: string;
+  address: string;
+  mapUrl: string;
+  phones: Array<{ label: string; href: string }>;
+}
+
+const offices: Office[] = [
+  {
+    city: "United Arab Emirites HQ",
+    image: "/images/contact/dubai-office.png",
+    address: "Dubai Digital Park, UAE",
+    mapUrl:
+      "https://www.google.com/maps/search/Dubai+Digital+Park,+Dubai+Silicon+Oasis,+Dubai,+UAE/",
+    phones: [
+      { label: "+358 042 187 8080", href: "tel:+3580421878080" },
+      { label: "+358 042 187 8080", href: "tel:+3580421878080" },
+    ],
+  },
+  {
+    city: "New Delhi, India HQ",
+    image: "/images/contact/delhi-office.png",
+    address: "Barakhamba Rd, New Delhi",
+    mapUrl:
+      "https://www.google.com/maps/place/Barakhamba+Rd,+New+Delhi,+Delhi+110001,+India/",
+    phones: [
+      { label: "+91 88003 04300", href: "tel:+918800304300" },
+      { label: "+91 88003 04300", href: "tel:+918800304300" },
+    ],
+  },
+];
+
+const brands = [
+  "/images/company/brand-focalpoint.svg",
+  "/images/company/brand-commandr.svg",
+  "/images/company/brand-globalbank.svg",
+  "/images/company/brand-altshift.svg",
+  "/images/company/brand-luminous.svg",
+];
+
 const { contact_form_action }: { contact_form_action: string } = config.params;
-const { title, description, meta_title, image } = contact.data;
 ---
 
 <Base
-  title={title}
-  meta_title={meta_title}
-  description={description}
-  image={image}
+  title="Contact"
+  meta_title="Contact | HomeQuest"
+  description="Reach out to HomeQuest for help buying, selling, renting, or managing your next property."
+  image="/images/company/hero.avif"
 >
-  <PageHeader title={title} />
-  <section class="section-sm">
-    <div class="container">
-      <div class="row">
-        <div class="mx-auto md:col-10 lg:col-6">
-          <form action={contact_form_action} method="POST">
-            <div class="mb-6">
-              <label for="name" class="form-label">
-                Full Name <span class="text-red-500">*</span>
-              </label>
+  <div class="contact-page">
+    <section class="contact-hero" aria-labelledby="contact-page-title">
+      <img
+        src="/images/company/hero.avif"
+        alt="Modern HomeQuest residence"
+        fetchpriority="high"
+      />
+      <div class="contact-hero__shade"></div>
+      <h1 id="contact-page-title" data-aos="fade-up" data-aos-duration="900">
+        Contact
+      </h1>
+    </section>
+
+    <section
+      class="contact-main"
+      aria-label="HomeQuest offices and contact form"
+    >
+      <div class="contact-layout page-container">
+        <div class="office-list">
+          {
+            offices.map((office, index) => (
+              <article
+                class="office-card"
+                data-aos="fade-up"
+                data-aos-delay={String(index * 90)}
+                data-aos-duration="900"
+              >
+                <img
+                  class="office-card__image"
+                  src={office.image}
+                  alt={`${office.city} office`}
+                  loading={index === 0 ? "eager" : "lazy"}
+                />
+                <div class="office-card__body">
+                  <h2>{office.city}</h2>
+                  <div class="office-card__details">
+                    <a
+                      class="office-card__row"
+                      href={office.mapUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <span class="office-card__icon" aria-hidden="true">
+                        <IoLocationSharp />
+                      </span>
+                      <span>{office.address}</span>
+                    </a>
+                    <div class="office-card__row">
+                      <span class="office-card__icon" aria-hidden="true">
+                        <IoCall />
+                      </span>
+                      <span class="office-card__phones">
+                        {office.phones.map((phone, phoneIndex) => (
+                          <>
+                            <a href={phone.href}>{phone.label}</a>
+                            {phoneIndex < office.phones.length - 1 && (
+                              <span aria-hidden="true">,</span>
+                            )}
+                          </>
+                        ))}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+
+        <div
+          class="contact-form-card"
+          data-aos="fade-up"
+          data-aos-delay="120"
+          data-aos-duration="1000"
+        >
+          <h2>Reach out for any query</h2>
+          <p class="contact-form-card__intro">
+            Contact us today to discuss your property needs and choose the right
+            plan. We’re here to guide you through every step of the process.
+          </p>
+
+          <form
+            class="contact-form"
+            action={contact_form_action}
+            method="POST"
+            aria-label="Contact HomeQuest"
+          >
+            <label>
+              <span>Full Name <small>(required)</small></span>
               <input
-                id="name"
                 name="name"
-                class="form-input"
-                placeholder="John Doe"
                 type="text"
+                placeholder="John Doe"
+                autocomplete="name"
+                required
               />
-            </div>
-            <div class="mb-6">
-              <label for="email" class="form-label">
-                Working Mail <span class="text-red-500">*</span>
-              </label>
+            </label>
+            <label>
+              <span>Email Address <small>(required)</small></span>
               <input
-                id="email"
                 name="email"
-                class="form-input"
-                placeholder="john.doe@email.com"
                 type="email"
+                placeholder="Enter your email"
+                autocomplete="email"
+                required
               />
+            </label>
+            <label>
+              <span>Subject <small>(required)</small></span>
+              <input
+                name="subject"
+                type="text"
+                placeholder="Inquiry about buying, selling, renting, property management"
+                required
+              />
+            </label>
+            <label>
+              <span>Detailed inquiry</span>
+              <textarea name="message" placeholder="Type your opinion" required
+              ></textarea>
+            </label>
+            <div class="contact-form__footer">
+              <button type="submit">Send Message</button>
+              <p class="contact-form__status" role="status" aria-live="polite">
+              </p>
             </div>
-            <div class="mb-6">
-              <label for="message" class="form-label">
-                Anything else? <span class="text-red-500">*</span>
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                class="form-input"
-                placeholder="Message goes here..."
-                rows="8"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
           </form>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <section class="contact-brands" aria-label="Trusted brands">
+      <div class="page-container" data-aos="fade-up" data-aos-duration="900">
+        <p>Trusted by International Leading Company</p>
+        <div class="contact-brands__grid">
+          {
+            brands.map((brand, index) => (
+              <img
+                src={brand}
+                alt={`Partner brand ${index + 1}`}
+                loading="lazy"
+              />
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-cta" aria-labelledby="contact-cta-title">
+      <img
+        src="/images/company/cta.avif"
+        alt="Modern property at dusk"
+        loading="lazy"
+      />
+      <div class="contact-cta__shade"></div>
+      <div
+        class="contact-cta__content"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+      >
+        <h2 id="contact-cta-title">
+          <span>Ready to Make a</span>
+          <span>Move? Contact Us Now!</span>
+        </h2>
+        <p>
+          Contact us today to discuss your property needs and choose the right
+          plan. We’re here to guide you through every step of the process.
+        </p>
+        <a href="/contact">Get Your Home</a>
+      </div>
+    </section>
+  </div>
 </Base>
+
+<script>
+  const initializeContactForm = () => {
+    const form = document.querySelector<HTMLFormElement>(".contact-form");
+    if (!form || form.dataset.initialized === "true") return;
+    form.dataset.initialized = "true";
+
+    form.addEventListener("submit", (event) => {
+      if (form.action.endsWith("/#") || form.getAttribute("action") === "#") {
+        event.preventDefault();
+        const status = form.querySelector<HTMLElement>(".contact-form__status");
+        if (status) {
+          status.textContent = "Thanks — your message is ready for our team.";
+        }
+        form.reset();
+      }
+    });
+  };
+
+  document.addEventListener("astro:page-load", initializeContactForm);
+</script>
+
+<style>
+  .contact-page {
+    --hq-green: #1f4938;
+    --hq-lime: #dbfb1e;
+    --hq-warm: #f7f6f4;
+    color: #0a0915;
+    background: #fff;
+  }
+
+  .contact-page h1,
+  .contact-page h2,
+  .contact-page p {
+    margin: 0;
+  }
+
+  .page-container {
+    width: min(100% - 60px, 1320px);
+    margin-inline: auto;
+  }
+
+  .contact-hero {
+    position: relative;
+    height: 453px;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  .contact-hero > img,
+  .contact-hero__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .contact-hero > img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .contact-hero__shade {
+    background: linear-gradient(
+      180deg,
+      rgba(12, 42, 56, 0.2),
+      rgba(15, 35, 45, 0.26)
+    );
+  }
+
+  .contact-hero h1 {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding-top: 28px;
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 80px;
+    font-weight: 400;
+    line-height: 92px;
+    letter-spacing: -3.5px;
+  }
+
+  .contact-main {
+    padding: 80px 0 50px;
+  }
+
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 42% minmax(0, 1fr);
+    gap: 48px;
+    align-items: stretch;
+  }
+
+  .office-list {
+    display: grid;
+    gap: 24px;
+    align-content: start;
+  }
+
+  .office-card {
+    height: 451px;
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 16px;
+    background: var(--hq-warm);
+  }
+
+  .office-card:last-child {
+    height: 452px;
+  }
+
+  .office-card__image {
+    display: block;
+    width: 100%;
+    height: 242px;
+    object-fit: cover;
+  }
+
+  .office-card:first-child .office-card__image {
+    object-position: center 52%;
+  }
+
+  .office-card__body {
+    padding: 32px 24px;
+  }
+
+  .office-card h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 34px;
+    letter-spacing: -0.7px;
+  }
+
+  .office-card__details {
+    display: grid;
+    gap: 12px;
+    margin-top: 23px;
+  }
+
+  .office-card__row {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 12px;
+    color: rgba(10, 9, 21, 0.76);
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 28px;
+    letter-spacing: -0.2px;
+  }
+
+  .office-card__row:hover {
+    color: var(--hq-green);
+  }
+
+  .office-card__icon {
+    display: inline-flex;
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
+    color: var(--hq-green);
+    background: #fff;
+    font-size: 18px;
+  }
+
+  .office-card__phones {
+    display: flex;
+    min-width: 0;
+    flex-wrap: wrap;
+    gap: 0 8px;
+  }
+
+  .office-card__phones a {
+    color: inherit;
+    white-space: nowrap;
+  }
+
+  .contact-form-card {
+    min-height: 952px;
+    padding: 32px;
+    border-radius: 16px;
+    background: var(--hq-warm);
+  }
+
+  .contact-form-card h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: -2.5px;
+  }
+
+  .contact-form-card__intro {
+    margin-top: 22px !important;
+    color: rgba(10, 9, 21, 0.62);
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 32.4px;
+    letter-spacing: -0.2px;
+  }
+
+  .contact-form {
+    margin-top: 39px;
+  }
+
+  .contact-form > label {
+    display: block;
+    margin-top: 25.5px;
+  }
+
+  .contact-form > label:first-child {
+    margin-top: 0;
+  }
+
+  .contact-form label > span {
+    display: block;
+    margin-bottom: 8px;
+    color: rgba(10, 9, 21, 0.82);
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.15px;
+  }
+
+  .contact-form label small {
+    font: inherit;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    display: block;
+    width: 100%;
+    border: 1px solid #c5c4c2;
+    border-radius: 16px;
+    color: #0a0915;
+    background: #fff;
+    box-shadow: none;
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 22px;
+    transition:
+      border-color 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .contact-form input {
+    height: 62px;
+    padding: 19px 20px;
+  }
+
+  .contact-form textarea {
+    height: 238px;
+    resize: vertical;
+    padding: 19px 20px;
+  }
+
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder {
+    color: rgba(10, 9, 21, 0.38);
+    opacity: 1;
+  }
+
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    border-color: var(--hq-green);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(31, 73, 56, 0.12);
+  }
+
+  .contact-form__footer {
+    display: flex;
+    min-height: 49px;
+    align-items: center;
+    gap: 18px;
+    margin-top: 40px;
+  }
+
+  .contact-form button,
+  .contact-cta__content a {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 24px;
+    border-radius: 32px;
+    color: #050505;
+    background: var(--hq-lime);
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 28.8px;
+    cursor: pointer;
+    transition:
+      transform 180ms ease,
+      filter 180ms ease;
+  }
+
+  .contact-form button:hover,
+  .contact-cta__content a:hover {
+    transform: translateY(-2px);
+    filter: brightness(0.95);
+  }
+
+  .contact-form__status {
+    color: var(--hq-green);
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  .contact-brands {
+    height: 313px;
+    padding: 120px 0 70px;
+  }
+
+  .contact-brands p {
+    color: rgba(10, 9, 21, 0.58);
+    text-align: center;
+    font-size: 16px;
+    line-height: 28px;
+  }
+
+  .contact-brands__grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 80px;
+    align-items: center;
+    margin-top: 32px;
+  }
+
+  .contact-brands__grid img {
+    width: 100%;
+    height: 63px;
+    object-fit: contain;
+  }
+
+  .contact-cta {
+    position: relative;
+    height: 625px;
+    overflow: hidden;
+    border-radius: 24px 24px 0 0;
+    color: #fff;
+  }
+
+  .contact-cta > img,
+  .contact-cta__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .contact-cta > img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .contact-cta__shade {
+    background: linear-gradient(
+      180deg,
+      rgba(24, 55, 75, 0.46),
+      rgba(9, 25, 33, 0.02)
+    );
+  }
+
+  .contact-cta__content {
+    position: relative;
+    z-index: 1;
+    width: min(748px, calc(100% - 40px));
+    margin: 0 auto;
+    padding-top: 88px;
+    text-align: center;
+  }
+
+  .contact-cta h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: -2.5px;
+  }
+
+  .contact-cta h2 span {
+    display: block;
+  }
+
+  .contact-cta__content p {
+    max-width: 598px;
+    margin: 16px auto 32px;
+    color: rgba(255, 255, 255, 0.8);
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 32.4px;
+    letter-spacing: -0.2px;
+  }
+
+  @media (max-width: 1023px) {
+    .contact-layout {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .contact-form-card {
+      min-height: auto;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .page-container {
+      width: calc(100% - 40px);
+    }
+
+    .contact-hero {
+      height: 236px;
+    }
+
+    .contact-hero > img {
+      object-position: center;
+    }
+
+    .contact-hero h1 {
+      align-items: start;
+      padding-top: 100px;
+      font-size: 40px;
+      line-height: 46px;
+      letter-spacing: -1.5px;
+    }
+
+    .contact-main {
+      padding: 60px 0;
+    }
+
+    .office-list {
+      gap: 32px;
+    }
+
+    .office-card__image {
+      height: auto;
+      aspect-ratio: 335 / 160;
+    }
+
+    .office-card,
+    .office-card:last-child {
+      height: auto;
+    }
+
+    .office-card__body {
+      padding: 32px 24px;
+    }
+
+    .office-card__details {
+      margin-top: 23px;
+    }
+
+    .office-card__phones {
+      display: grid;
+      gap: 0;
+    }
+
+    .office-card__phones > span {
+      display: none;
+    }
+
+    .contact-form-card {
+      padding: 24px;
+    }
+
+    .contact-form-card h2 {
+      max-width: 270px;
+      font-size: 36px;
+      line-height: 45px;
+      letter-spacing: -1.8px;
+    }
+
+    .contact-form-card__intro {
+      margin-top: 20px !important;
+      line-height: 32.4px;
+    }
+
+    .contact-form {
+      margin-top: 32px;
+    }
+
+    .contact-form > label {
+      margin-top: 20px;
+    }
+
+    .contact-form textarea {
+      height: 130px;
+    }
+
+    .contact-form__footer {
+      align-items: flex-start;
+      flex-direction: column;
+      margin-top: 30px;
+    }
+
+    .contact-brands {
+      height: 331px;
+      padding: 4px 0 60px;
+    }
+
+    .contact-brands__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .contact-brands__grid img {
+      height: 63px;
+    }
+
+    .contact-brands__grid img:last-child {
+      grid-column: 1 / -1;
+      justify-self: center;
+      width: calc(50% - 5px);
+    }
+
+    .contact-cta {
+      height: 506px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .contact-cta__content {
+      width: calc(100% - 40px);
+      padding-top: 60px;
+    }
+
+    .contact-cta h2 {
+      font-size: 36px;
+      line-height: 45px;
+      letter-spacing: -1.8px;
+    }
+
+    .contact-cta__content p {
+      margin-top: 16px;
+      font-size: 16px;
+      line-height: 32.4px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .contact-page *,
+    .contact-page *::before,
+    .contact-page *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+</style>
