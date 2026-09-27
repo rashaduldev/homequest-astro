@@ -1,5 +1,4 @@
 ---
-import Logo from "@/components/Logo.astro";
 import Social from "@/components/Social.astro";
 import menu from "@/config/menu.json";
 import social from "@/config/social.json";
@@ -11,62 +10,98 @@ const socialData = social.main;
 ---
 
 <footer class="bg-light py-10 xl:py-20 text-center md:text-left">
-  <div data-aos="fade-up" data-aos-duration="1000" class="container max-w-[1280px] mx-auto flex flex-col xl:flex-row justify-between gap-10 xl:gap-0 pb-10">
+  <div
+    data-aos="fade-up"
+    data-aos-duration="1000"
+    class="container max-w-[1280px] mx-auto flex flex-col xl:flex-row justify-between gap-10 xl:gap-0 pb-10"
+  >
     <div class="w-full md:max-w-[520px]">
       <div class="flex justify-center md:justify-start mb-8">
-       <img src={footerData.logo} alt="">
+        <img src={footerData.logo} alt="" />
       </div>
-      <p class="text-text mt-8" set:html={markdownify(footerData.phone ?? "")}></p>
-      <p class="text-text" set:html={markdownify(footerData.email ?? "")}></p>
+      <p
+        class="text-text mt-8"
+        set:html={markdownify(footerData.phone ?? "")}
+      />
+      <p class="text-text" set:html={markdownify(footerData.email ?? "")} />
       <div class="flex gap-4 justify-center md:justify-start mt-14">
-        <Social source={socialData} className="transition hover:opacity-80 h-6 w-6 p-3 border flex items-center gap-5" />
+        <Social
+          source={socialData}
+          className="transition hover:opacity-80 h-6 w-6 p-3 border flex items-center gap-5"
+        />
       </div>
     </div>
 
     <!-- Right: Footer sections -->
-    <div class="flex flex-col md:flex-row justify-between w-full xl:max-w-[765px] gap-10 lg:gap-0">
-      {footerData.sections?.map((section) => (
-        <div class={`w-full ${section.title === "Address" ? "lg:min-w-[150px] lg:max-w-[218px]" : "lg:max-w-[150px]"} flex flex-col gap-4`}>
-          {section.title && <h6 class="text-lg leading-7">{section.title}</h6>}
+    <div
+      class="flex flex-col md:flex-row justify-between w-full xl:max-w-[765px] gap-10 lg:gap-0"
+    >
+      {
+        footerData.sections?.map((section) => (
+          <div
+            class={`w-full ${section.title === "Address" ? "lg:min-w-[150px] lg:max-w-[218px]" : "lg:max-w-[150px]"} flex flex-col gap-4`}
+          >
+            {section.title && (
+              <h6 class="text-lg leading-7">{section.title}</h6>
+            )}
 
-          {section.links && (
-            <ul class="flex flex-col gap-4 text-text-dark/70">
-              {section.links.map((link) => (
-                <li>
-                  <a href={link.url} class="transition">{link.name}</a>
-                </li>
-              ))}
-            </ul>
-          )}
+            {section.links && (
+              <ul class="flex flex-col gap-4 text-text-dark/70">
+                {section.links.map((link) => (
+                  <li>
+                    <a href={link.url} class="transition">
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
 
-          {section.address && (
-            <ul class="flex flex-col gap-[30px]">
-              <li class="max-w-[250px] mx-auto  hover:underline text-text-dark/70 cursor-pointer">{section.address}</li>
-              {section.map && (
-                <li class="md:mx-0 mx-auto">
-                  <a href={`map:${section.map.replace(/\s/g,"")}`} class="hover:underline flex items-center gap-2"><FaMapLocationDot /> {section.map}</a>
+            {section.address && (
+              <ul class="flex flex-col gap-[30px]">
+                <li class="max-w-[250px] mx-auto  hover:underline text-text-dark/70 cursor-pointer">
+                  {section.address}
                 </li>
-              )}
-            </ul>
-          )}
-        </div>
-      ))}
+                {section.map && (
+                  <li class="md:mx-0 mx-auto">
+                    <a
+                      href={`map:${section.map.replace(/\s/g, "")}`}
+                      class="hover:underline flex items-center gap-2"
+                    >
+                      <FaMapLocationDot /> {section.map}
+                    </a>
+                  </li>
+                )}
+              </ul>
+            )}
+          </div>
+        ))
+      }
     </div>
   </div>
 
   <!-- Bottom links & copyright -->
-  <div data-aos="fade-up" data-aos-duration="1000" class="border-t border-border pt-6 flex flex-col-reverse md:flex-row justify-between items-center container">
-    <span class="opacity-50 text-sm font-normal">
-      Copyright © {new Date().getFullYear()} 
-      <a href="https://themefisher.com" target="_blank" rel="noopener noreferrer">Themefisher</a>. All Rights Reserved.
-    </span>
+  <div
+    data-aos="fade-up"
+    data-aos-duration="1000"
+    class="border-t border-border pt-6 flex flex-col-reverse md:flex-row justify-between items-center container"
+  >
+    <span class="opacity-50 text-sm font-normal"
+      >© Homequest 2024 <span class="mx-3">•</span> All right reserved</span
+    >
     <div class="flex gap-9 items-center justify-center pb-5 md:pb-0">
-      {footerData.bottomLinks?.map((link, i) => (
-        <>
-          <a href={link.url} class="transition">{link.name}</a>
-          {i < footerData.bottomLinks.length - 1 && <span class="w-[1px] h-2 bg-default opacity-50"></span>}
-        </>
-      ))}
+      {
+        footerData.bottomLinks?.map((link, i) => (
+          <>
+            <a href={link.url} class="transition">
+              {link.name}
+            </a>
+            {i < footerData.bottomLinks.length - 1 && (
+              <span class="w-[1px] h-2 bg-default opacity-50" />
+            )}
+          </>
+        ))
+      }
     </div>
   </div>
 </footer>

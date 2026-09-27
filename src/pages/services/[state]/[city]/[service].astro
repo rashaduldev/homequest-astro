@@ -1,5 +1,4 @@
 ---
-
 import Base from "@/layouts/Base.astro";
 import Breadcrumbs from "@/components/Breadcrumbs.astro";
 import KitchenDesign from "@/layouts/components/designs/KitchenDesign.astro";
@@ -24,7 +23,8 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const DesignComponent = DESIGN_MAP[entry.design];
+const designKey = entry.design as keyof typeof DESIGN_MAP;
+const DesignComponent = DESIGN_MAP[designKey];
 
 const pageTitle = `${entry.serviceLabel} in ${entry.cityLabel}, ${entry.stateLabel}`;
 const metaTitle = `${pageTitle} | Starting at $${entry.priceFrom}`;
@@ -57,11 +57,13 @@ const schema = {
     <div class="container">
       <Breadcrumbs />
 
-      {DesignComponent ? (
-        <DesignComponent entry={entry} pageTitle={pageTitle} />
-      ) : (
-        <p>No design template found for "{entry.design}".</p>
-      )}
+      {
+        DesignComponent ? (
+          <DesignComponent entry={entry} pageTitle={pageTitle} />
+        ) : (
+          <p>No design template found for "{entry.design}".</p>
+        )
+      }
     </div>
   </section>
 </Base>

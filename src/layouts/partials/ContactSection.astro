@@ -1,74 +1,99 @@
 ---
 import { MdKeyboardArrowDown } from "react-icons/md";
 const { contactsection } = Astro.props;
-const forminfo=contactsection?.data.forminfo || [];
+
+interface ContactFormField {
+  label: string;
+  placeholder?: string;
+  options?: string[];
+}
+
+const forminfo: ContactFormField[] = contactsection?.data.forminfo || [];
 ---
 
 <section class="section-sm bg-secondary rounded-t-3xl mt-20 relative">
   <div class="container py-20 flex flex-col lg:flex-row items-start gap-10">
     <!-- Left side -->
-    <aside class="text-center md:text-left max-w-[534px] mx-auto md:mx-0 text-text-light">
-      <h2 class="text-5xl leading-[60px] mb-4 max-w-[70%] mx-auto md:mx-0">{contactsection?.data.title}</h2>
+    <aside
+      class="text-center md:text-left max-w-[534px] mx-auto md:mx-0 text-text-light"
+    >
+      <h2 class="text-5xl leading-[60px] mb-4 max-w-[70%] mx-auto md:mx-0">
+        {contactsection?.data.title}
+      </h2>
       <p class="text-lg leading-8 text-text-light/70">
-       {contactsection?.data.description}
+        {contactsection?.data.description}
       </p>
       <div class="flex items-center gap-15 mt-[111px]">
         <div>
-          <p class="text-text-light/70 mb-1">{contactsection?.data.email.title}</p>
+          <p class="text-text-light/70 mb-1">
+            {contactsection?.data.email.title}
+          </p>
           <p>{contactsection?.data.email.email}</p>
         </div>
         <div>
-          <p class="text-text-light/70 mb-1">{contactsection?.data.phone.title}</p>
+          <p class="text-text-light/70 mb-1">
+            {contactsection?.data.phone.title}
+          </p>
           <p>{contactsection?.data.phone.phone}</p>
         </div>
       </div>
     </aside>
     <!-- Right side (Form) -->
-<form class="w-full lg:w-[650px] text-text-light flex flex-col gap-6">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-    {['left', 'right'].map((col) => (
-      <div class="space-y-8">
-        {forminfo
-          .filter((_, i) => (col === 'left' ? i < 3 : i >= 3)) 
-          .map((field) => (
-            <div class="flex flex-col">
-              <label for={field.label.toLowerCase().replace(/\s+/g, "-")} class="block mb-1">
-                {field.label}
-              </label>
+    <form class="w-full lg:w-[650px] text-text-light flex flex-col gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {
+          ["left", "right"].map((col) => (
+            <div class="space-y-8">
+              {forminfo
+                .filter((_, i) => (col === "left" ? i < 3 : i >= 3))
+                .map((field) => (
+                  <div class="flex flex-col">
+                    <label
+                      for={field.label.toLowerCase().replace(/\s+/g, "-")}
+                      class="block mb-1"
+                    >
+                      {field.label}
+                    </label>
 
-              {field.options ? (
-                <div class="relative">
-                  <select
-                    id={field.label.toLowerCase().replace(/\s+/g, "-")}
-                    class="custom-input appearance-none pr-8 w-full"
-                  >
-                    {field.options.map((option) => (
-                      <option value={option} class="text-text-dark">
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                  <MdKeyboardArrowDown className="absolute right-2 top-1/2 -translate-y-1/2 text-lg text-gray-500 pointer-events-none" />
-                </div>
-              ) : (
-                <input
-                  type={field.label.toLowerCase().includes("email") ? "email" : field.label.toLowerCase().includes("phone") ? "tel" : "text"}
-                  id={field.label.toLowerCase().replace(/\s+/g, "-")}
-                  placeholder={field.placeholder || ""}
-                  class="custom-input"
-                />
-              )}
+                    {field.options ? (
+                      <div class="relative">
+                        <select
+                          id={field.label.toLowerCase().replace(/\s+/g, "-")}
+                          class="custom-input appearance-none pr-8 w-full"
+                        >
+                          {field.options.map((option) => (
+                            <option value={option} class="text-text-dark">
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                        <MdKeyboardArrowDown className="absolute right-2 top-1/2 -translate-y-1/2 text-lg text-gray-500 pointer-events-none" />
+                      </div>
+                    ) : (
+                      <input
+                        type={
+                          field.label.toLowerCase().includes("email")
+                            ? "email"
+                            : field.label.toLowerCase().includes("phone")
+                              ? "tel"
+                              : "text"
+                        }
+                        id={field.label.toLowerCase().replace(/\s+/g, "-")}
+                        placeholder={field.placeholder || ""}
+                        class="custom-input"
+                      />
+                    )}
+                  </div>
+                ))}
             </div>
-          ))}
+          ))
+        }
       </div>
-    ))}
-  </div>
 
-  <button type="submit" class="btn btn-primary mt-6 w-fit rounded-full">
-      {contactsection?.data.btn}
-  </button>
-</form>
-
+      <button type="submit" class="btn btn-primary mt-6 w-fit rounded-full">
+        {contactsection?.data.btn}
+      </button>
+    </form>
   </div>
-   <div class="absolute bg-white h-20 w-full bottom-0 rounded-t-3xl"></div>
+  <div class="absolute bg-white h-20 w-full bottom-0 rounded-t-3xl"></div>
 </section>

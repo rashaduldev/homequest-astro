@@ -5,21 +5,31 @@
       "url": "/",
       "hasChildren": true,
       "children": [
+        { "name": "Home", "url": "/" },
         { "name": "Company", "url": "/company" },
-        { "name": "Services", "url": "/services" },
-        { "name": "Services Details", "url": "/services-details" },
+        { "name": "Services", "url": "/service" },
+        {
+          "name": "Services Details",
+          "url": "/service/property-selling-services"
+        },
         { "name": "Contact", "url": "/contact" },
-        { "name": "Testimonials", "url": "/testimonials" },
-        { "name": "Blogs", "url": "/blogs" },
-        { "name": "Blogs Details", "url": "/blogs-details" },
-        { "name": "Property Listing", "url": "/property-listing" },
-        { "name": "Property Details", "url": "/property-details" },
-        { "name": "Agent Listing", "url": "/agent-listing" },
-        { "name": "Agent Details", "url": "/agent-details" },
+        { "name": "Testimonials", "url": "/reviews" },
+        { "name": "Blogs", "url": "/blog" },
+        {
+          "name": "Blogs Details",
+          "url": "/blog/10-essential-tips-for-first-time-homebuyers"
+        },
+        { "name": "Property Listing", "url": "/properties" },
+        {
+          "name": "Property Details",
+          "url": "/properties/luxurious-5-bedroom-house-in-kensington-london"
+        },
+        { "name": "Agent Listing", "url": "/agent" },
+        { "name": "Agent Details", "url": "/agent/patrick-john" },
         { "name": "How It Works", "url": "/how-it-works" },
-        { "name": "Terms & Conditions", "url": "/terms" },
+        { "name": "Terms & Conditions", "url": "/terms-conditions" },
         { "name": "Privacy Policy", "url": "/privacy-policy" },
-        { "name": "Faqs", "url": "/faqs" },
+        { "name": "Faqs", "url": "/faq" },
         { "name": "404", "url": "/404" }
       ]
     },
@@ -35,29 +45,41 @@
   "footer": {
     "logo": "/images/dark-logo.svg",
     "description": "We help you find your dream home with ease and confidence.",
-    "phone": "+880 123 4567",
-    "email": "contact@themefisher.com",
+    "phone": "(907) 357-4333",
+    "email": "hello@homequest.com",
     "socials": [
-      { "name": "Facebook", "url": "https://facebook.com", "icon": "/icons/facebook.svg" },
-      { "name": "Twitter", "url": "https://twitter.com", "icon": "/icons/twitter.svg" },
-      { "name": "Instagram", "url": "https://instagram.com", "icon": "/icons/instagram.svg" }
+      {
+        "name": "Facebook",
+        "url": "https://facebook.com",
+        "icon": "/icons/facebook.svg"
+      },
+      {
+        "name": "Twitter",
+        "url": "https://twitter.com",
+        "icon": "/icons/twitter.svg"
+      },
+      {
+        "name": "Instagram",
+        "url": "https://instagram.com",
+        "icon": "/icons/instagram.svg"
+      }
     ],
     "sections": [
-      { 
+      {
         "title": "Navigation",
         "links": [
-          { "name": "About Us", "url": "/about" },  
+          { "name": "About Us", "url": "/company" },
           { "name": "Properties", "url": "/properties" },
-          { "name": "Services", "url": "/services" },
-          { "name": "Contact Us", "url": "/contactus" }
+          { "name": "Services", "url": "/service" },
+          { "name": "Contact Us", "url": "/contact" }
         ]
       },
       {
         "title": "Resources",
         "links": [
-          { "name": "Pricing", "url": "/pricing" },
+          { "name": "Pricing", "url": "/contact" },
           { "name": "FAQs", "url": "/faq" },
-          { "name": "How it works", "url": "/how-to-work" },
+          { "name": "How it works", "url": "/how-it-works" },
           { "name": "Blog", "url": "/blog" }
         ]
       },
@@ -68,7 +90,7 @@
       }
     ],
     "bottomLinks": [
-      { "name": "Terms & Conditions", "url": "/terms-condition" },
+      { "name": "Terms & Conditions", "url": "/terms-conditions" },
       { "name": "Privacy Policy", "url": "/privacy-policy" }
     ]
   }

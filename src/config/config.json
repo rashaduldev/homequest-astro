@@ -9,7 +9,7 @@
     "logo_width": "150",
     "logo_height": "30",
     "logo_text": "HomeQuest",
-    "phone":"+111 333 5555"
+    "phone": "+111 333 5555"
   },
 
   "settings": {
@@ -30,7 +30,7 @@
   "navigation_button": {
     "enable": true,
     "label": "Explore Properties",
-    "link": "https://github.com/zeon-studio/astroplate"
+    "link": "/properties"
   },
 
   "google_tag_manager": {

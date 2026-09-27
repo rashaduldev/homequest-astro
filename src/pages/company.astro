@@ -1,0 +1,1597 @@
+---
+import Base from "@/layouts/Base.astro";
+
+interface ValueCard {
+  title: string;
+  description: string;
+  image: string;
+}
+
+interface Testimonial {
+  name: string;
+  role: string;
+  quote: string;
+  image: string;
+}
+
+interface TeamMember {
+  name: string;
+  role: string;
+  image: string;
+}
+
+const statistics = [
+  {
+    value: 2,
+    suffix: ".0",
+    label: "Client impressions",
+    description:
+      "Home value is determined by factors like location, property condition.",
+  },
+  {
+    value: 22,
+    suffix: "%",
+    label: "Improved Business",
+    description: "Health status is affected by factors like diet, lifestyle",
+  },
+  {
+    value: 0,
+    suffix: "M",
+    label: "Successful Purchase",
+    description: "Market value changes due to factors like demand, supply.",
+  },
+  {
+    value: 4,
+    suffix: "K",
+    label: "Trusted by Clients",
+    description:
+      "Product quality varies based on factors like material, design.",
+  },
+];
+
+const features = [
+  {
+    number: "01",
+    title: "Expert Local Knowledge",
+    description:
+      "Our team of agents has extensive knowledge of the local real estate market.",
+  },
+  {
+    number: "02",
+    title: "Hassle-Free Transactions",
+    description:
+      "From paperwork to closing, we coordinate every detail for a smooth transaction.",
+  },
+  {
+    number: "03",
+    title: "Comprehensive Support",
+    description:
+      "Our specialists remain by your side before, during, and after your move.",
+  },
+];
+
+const values: ValueCard[] = [
+  {
+    title: "Personalized Search",
+    description:
+      "At HomeQuest Realty, we understand that every client has unique needs.",
+    image: "/images/company/value-search.webp",
+  },
+  {
+    title: "Experienced Team",
+    description:
+      "At Coastal Dream Properties, we appreciate that each client has distinct goals.",
+    image: "/images/company/value-team.avif",
+  },
+  {
+    title: "Track Record",
+    description:
+      "At Luxury Living Homes, we know every buyer has individual preferences.",
+    image: "/images/company/value-record.avif",
+  },
+  {
+    title: "Client-Centric",
+    description:
+      "At Urban Oasis Realty, we recognize every homeowner's unique vision.",
+    image: "/images/company/value-client.webp",
+  },
+];
+
+const testimonials: Testimonial[] = [
+  {
+    name: "Hannah Raquel",
+    role: "First-time Homebuyer",
+    image: "/images/company/testimonial-hannah.avif",
+    quote:
+      "I use [YourHomequest for managing my rental properties, and they have been incredible. From tenant screening to maintenance, they handle everything efficiently.",
+  },
+  {
+    name: "Brenda Joyce",
+    role: "2nd-time Homebuyer",
+    image: "/images/company/testimonial-brenda.avif",
+    quote:
+      "I rely on [YourHomequest for managing your my rental properties, and they've been fantastic. From tenant screening to repairs, they handle everything seamlessly.",
+  },
+  {
+    name: "Jonathan Lewis",
+    role: "First-time Homebuyer",
+    image: "/images/company/testimonial-jonathan.avif",
+    quote:
+      "Using [YourHomequest for my rental properties your has been great. They manage tenant screening, maintenance, and everything else so efficiently, saving me time.",
+  },
+  {
+    name: "Rebecca Sue",
+    role: "First-time Homebuyer",
+    image: "/images/company/testimonial-rebecca.avif",
+    quote:
+      "I use [YourHomequest to manage my rentals, and they're superb. They handle tenant screening, maintenance, and everything, providing seamless, efficient service.",
+  },
+];
+
+const team: TeamMember[] = [
+  {
+    name: "Sarah Thompson",
+    role: "First-time Homebuyer",
+    image: "/images/company/team-sarah.webp",
+  },
+  {
+    name: "David Morgan",
+    role: "First-time Homebuyer",
+    image: "/images/company/team-david.webp",
+  },
+  {
+    name: "Lisa Mitchell",
+    role: "First-time Homebuyer",
+    image: "/images/company/team-lisa.webp",
+  },
+];
+
+const brands = [
+  "/images/company/brand-focalpoint.svg",
+  "/images/company/brand-commandr.svg",
+  "/images/company/brand-globalbank.svg",
+  "/images/company/brand-altshift.svg",
+  "/images/company/brand-luminous.svg",
+];
+---
+
+<Base
+  title="Our Story"
+  meta_title="Our Story | HomeQuest"
+  description="HomeQuest has been turning real estate dreams into reality and sharing homes since 1997."
+  image="/images/company/hero.avif"
+>
+  <div class="company-page">
+    <section class="company-hero" aria-labelledby="company-page-title">
+      <img
+        src="/images/company/hero.avif"
+        alt="Modern HomeQuest residence"
+        fetchpriority="high"
+      />
+      <div class="company-hero__shade"></div>
+      <h1 id="company-page-title">Our Story</h1>
+    </section>
+
+    <section class="story section-shell">
+      <div class="story__inner page-container">
+        <h2>
+          Turning your real estate dreams into reality. Sharing homes since
+          1997.
+        </h2>
+        <div class="story__copy">
+          <p>
+            Unique. Original. Remarkable. It’s difficult to develop real estate
+            marketing ideas day in and day out that meet each of these criteria
+            — especially when you spend much of your time on the road meeting
+            with clients and leads.
+          </p>
+          <div class="story__principles">
+            <div>
+              <h3>Mission</h3>
+              <p>
+                Forget clunky application forms. We offer a modern,
+                user-friendly platform that makes applying for a job a breeze.
+              </p>
+            </div>
+            <div>
+              <h3>Vision</h3>
+              <p>
+                Forget clunky application forms. We offer a modern,
+                user-friendly platform that makes applying for a job a breeze.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="impact" aria-labelledby="impact-title">
+      <div class="impact__image">
+        <img
+          src="/images/company/story-house.webp"
+          alt="Contemporary HomeQuest property"
+          loading="lazy"
+        />
+      </div>
+      <div class="impact__panel section-shell">
+        <div class="impact__intro page-container">
+          <h2 id="impact-title">
+            Don’t wait to buy real estate. Buy real estate and wait
+          </h2>
+          <p>
+            Home value is determined by factors like location, property
+            condition, recent sales of similar homes, and current market trends.
+          </p>
+        </div>
+        <div class="stats page-container">
+          {
+            statistics.map((item) => (
+              <article class="stat">
+                <p class="stat__number">
+                  <span data-counter={item.value}>0</span>
+                  {item.suffix}
+                </p>
+                <h3>{item.label}</h3>
+                <p>{item.description}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="benefits" aria-labelledby="benefits-title">
+      <img
+        class="benefits__image"
+        src="/images/company/benefits.webp"
+        alt="Family exploring their new home"
+        loading="lazy"
+      />
+      <div class="benefits__card">
+        <div class="benefits__header">
+          <h2 id="benefits-title">Turning your real estate dreams true!</h2>
+          <p>
+            Have questions or ready to take the next step? Whether you’re
+            buying, selling, or just exploring options.
+          </p>
+          <a class="outline-button" href="/contact"
+            >Get a Quote <span aria-hidden="true">→</span></a
+          >
+        </div>
+        <div class="feature-list">
+          {
+            features.map((feature, index) => (
+              <article class:list={["feature", { "is-open": index === 0 }]}>
+                <button
+                  type="button"
+                  class="feature__trigger"
+                  aria-expanded={index === 0 ? "true" : "false"}
+                >
+                  <span>{feature.number}</span>
+                  <strong>{feature.title}</strong>
+                </button>
+                <div class="feature__body">
+                  <p>{feature.description}</p>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="values section-shell" aria-labelledby="values-title">
+      <div class="page-container">
+        <h2 id="values-title">Your Trusted Real Estate Partner</h2>
+        <div class="values__grid">
+          {
+            values.map((item) => (
+              <article class="value-card">
+                <img
+                  src={item.image}
+                  alt=""
+                  width="80"
+                  height="80"
+                  loading="lazy"
+                />
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="quote-section section-shell" aria-labelledby="quote-title">
+      <div class="quote-section__inner page-container">
+        <div class="quote-section__content">
+          <h2 id="quote-title">Let’s Find Your<br />Perfect Property</h2>
+          <p>
+            Have questions or ready to take the next step? Whether you’re
+            buying, selling, or just exploring options.
+          </p>
+          <div class="quote-section__contacts">
+            <div>
+              <span>Email Address</span>
+              <a href="mailto:support@homequest.com">support@homequest.com</a>
+            </div>
+            <div>
+              <span>Phone Call</span>
+              <a href="tel:+0291801920">+0291801920,</a>
+              <a href="tel:+982771882">+982771882</a>
+            </div>
+          </div>
+        </div>
+        <form class="quote-form" aria-label="Property quote request">
+          <label>
+            <span>Your name</span>
+            <input
+              type="text"
+              name="name"
+              placeholder="First and last name"
+              autocomplete="name"
+              required
+            />
+          </label>
+          <label>
+            <span>What do you want?</span>
+            <select name="property" aria-label="What do you want?">
+              <option>Buy a house</option>
+              <option>Modern 3-Bedroom</option>
+              <option>Luxury 4-Bedroom</option>
+              <option>Luxury 2-Bedroom</option>
+              <option>Chic 1-Bedroom</option>
+            </select>
+          </label>
+          <label>
+            <span>Your preferred location</span>
+            <select name="location" aria-label="Your preferred location">
+              <option>New York</option>
+              <option>Amsterdam</option>
+              <option>Barcelona</option>
+            </select>
+          </label>
+          <label>
+            <span>Your desired budget</span>
+            <input
+              type="text"
+              name="budget"
+              value="$900,000"
+              inputmode="numeric"
+            />
+          </label>
+          <label>
+            <span>Your email address</span>
+            <input
+              type="email"
+              name="email"
+              placeholder="yourmail@homequest.com"
+              autocomplete="email"
+              required
+            />
+          </label>
+          <label>
+            <span>Your phone number</span>
+            <input
+              type="tel"
+              name="phone"
+              placeholder="+021 9029 9202"
+              autocomplete="tel"
+            />
+          </label>
+          <button type="submit">Get a Quote</button>
+          <p class="quote-form__status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section
+      class="testimonials section-shell"
+      aria-labelledby="testimonials-title"
+    >
+      <div class="testimonials__heading page-container">
+        <h2 id="testimonials-title">Your Trusted Real Estate Partner</h2>
+        <a href="/reviews">Read all stories <span aria-hidden="true">›</span></a
+        >
+      </div>
+      <div class="testimonial-window">
+        <div class="testimonial-track" data-testimonial-track>
+          {
+            testimonials.map((item) => (
+              <article class="testimonial-card">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  width="104"
+                  height="104"
+                  loading="lazy"
+                />
+                <blockquote>“{item.quote}”</blockquote>
+                <h3>{item.name}</h3>
+                <p>{item.role}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+      <div class="testimonial-controls">
+        <button
+          type="button"
+          data-testimonial-prev
+          aria-label="Previous testimonial">←</button
+        >
+        <button
+          type="button"
+          data-testimonial-next
+          aria-label="Next testimonial">→</button
+        >
+      </div>
+    </section>
+
+    <section class="team section-shell" aria-labelledby="team-title">
+      <div class="page-container">
+        <h2 id="team-title">Your Trusted Real Estate Partner</h2>
+        <div class="team__grid">
+          {
+            team.map((person) => (
+              <article class="team-card">
+                <div class="team-card__photo">
+                  <img src={person.image} alt={person.name} loading="lazy" />
+                  <a
+                    href="https://www.threads.net/"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`${person.name} on Threads`}
+                  >
+                    <img
+                      src="/images/company/threads.svg"
+                      alt=""
+                      width="24"
+                      height="24"
+                    />
+                  </a>
+                </div>
+                <div class="team-card__body">
+                  <h3>{person.name}</h3>
+                  <p>{person.role}</p>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+        <p class="brands__label">Trusted by International Leading Company</p>
+        <div class="brands" aria-label="Trusted brands">
+          {
+            brands.map((brand, index) => (
+              <img
+                src={brand}
+                alt={`Partner brand ${index + 1}`}
+                loading="lazy"
+              />
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="company-cta section-shell"
+      aria-labelledby="company-cta-title"
+    >
+      <img
+        src="/images/company/cta.avif"
+        alt="Modern property at dusk"
+        loading="lazy"
+      />
+      <div class="company-cta__shade"></div>
+      <div class="company-cta__content">
+        <h2 id="company-cta-title">
+          Ready to Make a<br />Move? Contact Us Now!
+        </h2>
+        <p>
+          Contact us today to discuss your property needs and choose the right
+          plan. We’re here to guide you through every step of the process.
+        </p>
+        <a href="/contact">Get Your Home</a>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<script>
+  const initializeCompanyPage = () => {
+    const counters = document.querySelectorAll<HTMLElement>("[data-counter]");
+    const counterObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const element = entry.target as HTMLElement;
+          const target = Number(element.dataset.counter ?? 0);
+          const start = performance.now();
+          const duration = 900;
+          const update = (time: number) => {
+            const progress = Math.min((time - start) / duration, 1);
+            element.textContent = String(
+              Math.round(target * (1 - Math.pow(1 - progress, 3))),
+            );
+            if (progress < 1) requestAnimationFrame(update);
+          };
+          requestAnimationFrame(update);
+          observer.unobserve(element);
+        });
+      },
+      { threshold: 0.45 },
+    );
+    counters.forEach((counter) => counterObserver.observe(counter));
+
+    document
+      .querySelectorAll<HTMLButtonElement>(".feature__trigger")
+      .forEach((button) => {
+        button.addEventListener("click", () => {
+          const current = button.closest<HTMLElement>(".feature");
+          document
+            .querySelectorAll<HTMLElement>(".feature")
+            .forEach((feature) => {
+              const open =
+                feature === current && !feature.classList.contains("is-open");
+              feature.classList.toggle("is-open", open);
+              feature
+                .querySelector<HTMLButtonElement>(".feature__trigger")
+                ?.setAttribute("aria-expanded", String(open));
+            });
+        });
+      });
+
+    const track = document.querySelector<HTMLElement>(
+      "[data-testimonial-track]",
+    );
+    const previous = document.querySelector<HTMLButtonElement>(
+      "[data-testimonial-prev]",
+    );
+    const next = document.querySelector<HTMLButtonElement>(
+      "[data-testimonial-next]",
+    );
+    let activeIndex = 0;
+    const moveTestimonials = (direction: number) => {
+      if (!track) return;
+      const cards = track.querySelectorAll<HTMLElement>(".testimonial-card");
+      if (!cards.length) return;
+      activeIndex = (activeIndex + direction + cards.length) % cards.length;
+      const firstCard = cards[0];
+      const gap =
+        Number.parseFloat(
+          getComputedStyle(track).columnGap || getComputedStyle(track).gap,
+        ) || 24;
+      track.style.transform = `translateX(-${activeIndex * (firstCard.offsetWidth + gap)}px)`;
+    };
+    previous?.addEventListener("click", () => moveTestimonials(-1));
+    next?.addEventListener("click", () => moveTestimonials(1));
+
+    const quoteForm = document.querySelector<HTMLFormElement>(".quote-form");
+    quoteForm?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const status = quoteForm.querySelector<HTMLElement>(
+        ".quote-form__status",
+      );
+      if (status)
+        status.textContent = "Thanks — your request is ready for our team.";
+    });
+  };
+
+  document.addEventListener("astro:page-load", initializeCompanyPage);
+</script>
+
+<style>
+  .company-page {
+    --hq-green: #1f4938;
+    --hq-lime: #dbfb1e;
+    --hq-warm: #f7f6f4;
+    color: #050505;
+    background: #fff;
+  }
+
+  .page-container {
+    width: min(100% - 60px, 1320px);
+    margin-inline: auto;
+  }
+
+  .section-shell {
+    position: relative;
+    border-radius: 24px 24px 0 0;
+  }
+
+  .company-page h1,
+  .company-page h2,
+  .company-page h3,
+  .company-page p {
+    margin: 0;
+  }
+
+  .company-page h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: -2.5px;
+  }
+
+  .company-page p {
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    letter-spacing: -0.2px;
+  }
+
+  .company-hero {
+    position: relative;
+    height: 453px;
+    overflow: hidden;
+    color: white;
+  }
+
+  .company-hero > img,
+  .company-hero__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .company-hero > img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .company-hero__shade {
+    background: linear-gradient(
+      180deg,
+      rgba(12, 42, 56, 0.2),
+      rgba(15, 35, 45, 0.26)
+    );
+  }
+
+  .company-hero h1 {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding-top: 28px;
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 80px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -3.5px;
+  }
+
+  .story {
+    z-index: 1;
+    height: 730px;
+    margin-top: 0;
+    padding: 170px 0 93px;
+    box-sizing: border-box;
+    background: #fff;
+  }
+
+  .story__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 62px;
+  }
+
+  .story h2 {
+    width: 783px;
+    max-width: 100%;
+    align-self: flex-start;
+  }
+
+  .story__copy {
+    width: 794px;
+    max-width: calc(100% - 333px);
+    margin-left: 333px;
+    padding-top: 0;
+  }
+
+  .story__copy > p {
+    max-width: 794px;
+    font-size: 20px;
+    line-height: 36px;
+    letter-spacing: -0.5px;
+  }
+
+  .story__principles {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 54px;
+    margin-top: 52px;
+  }
+
+  .story__principles h3,
+  .value-card h3,
+  .team-card h3,
+  .testimonial-card h3 {
+    margin-bottom: 14px;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: -0.35px;
+  }
+
+  .story__principles p,
+  .value-card p {
+    color: rgba(4, 4, 4, 0.58);
+  }
+
+  .impact__image {
+    height: 880px;
+    overflow: hidden;
+    border-radius: 24px 24px 0 0;
+  }
+
+  .impact__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .impact__panel {
+    min-height: 805px;
+    margin-top: -1px;
+    padding: 130px 0 85px;
+    background: white;
+  }
+
+  .impact__intro {
+    display: grid;
+    grid-template-columns: 554px 1fr;
+    gap: 120px;
+    align-items: start;
+  }
+
+  .impact__intro h2 {
+    max-width: 620px;
+  }
+
+  .impact__intro > p {
+    max-width: 465px;
+    padding-top: 16px;
+    color: rgba(4, 4, 4, 0.62);
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 42px;
+    margin-top: 104px;
+  }
+
+  .stat__number {
+    color: var(--hq-green);
+    font-family: var(--font-secondary), "Geist", sans-serif !important;
+    font-size: 76px !important;
+    line-height: 1 !important;
+    letter-spacing: -4px !important;
+  }
+
+  .stat h3 {
+    margin-top: 27px;
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .stat > p:last-child {
+    margin-top: 82px;
+    color: rgba(4, 4, 4, 0.48);
+  }
+
+  .benefits {
+    position: relative;
+    height: 913px;
+    overflow: hidden;
+    border-radius: 24px 24px 0 0;
+  }
+
+  .benefits__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .benefits__card {
+    position: absolute;
+    top: 72px;
+    right: max(30px, calc((100vw - 1320px) / 2));
+    display: flex;
+    width: min(560px, calc(100% - 60px));
+    min-height: 714px;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 48px 40px 40px;
+    border-radius: 16px;
+    background: white;
+  }
+
+  .benefits__header > p {
+    margin-top: 16px;
+    color: rgba(4, 4, 4, 0.62);
+  }
+
+  .outline-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 28px;
+    padding: 10px 20px;
+    border: 1px solid #dedede;
+    border-radius: 999px;
+    color: #050505;
+    transition:
+      background-color 180ms ease,
+      border-color 180ms ease,
+      transform 180ms ease;
+  }
+
+  .outline-button:hover {
+    border-color: var(--hq-lime);
+    background: var(--hq-lime);
+    transform: translateY(-2px);
+  }
+
+  .feature {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .feature__trigger {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 48px 1fr;
+    gap: 0;
+    align-items: center;
+    padding: 20px 0;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .feature__trigger span {
+    color: rgba(4, 4, 4, 0.32);
+  }
+
+  .feature__trigger strong {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  .feature__body {
+    display: grid;
+    grid-template-rows: 0fr;
+    padding-left: 48px;
+    transition:
+      grid-template-rows 240ms ease,
+      padding-bottom 240ms ease;
+  }
+
+  .feature__body p {
+    min-height: 0;
+    overflow: hidden;
+    color: rgba(4, 4, 4, 0.58);
+  }
+
+  .feature.is-open .feature__body {
+    grid-template-rows: 1fr;
+    padding-bottom: 18px;
+  }
+
+  .values {
+    min-height: 764px;
+    padding: 120px 0 134px;
+    background: var(--hq-warm);
+  }
+
+  .values h2,
+  .team h2 {
+    text-align: center;
+  }
+
+  .values__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 72px;
+  }
+
+  .value-card {
+    min-height: 330px;
+    padding: 35px 32px;
+    border-radius: 16px;
+    background: #fff;
+    transition:
+      transform 200ms ease,
+      box-shadow 200ms ease;
+  }
+
+  .value-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 48px rgba(15, 40, 31, 0.08);
+  }
+
+  .value-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 54px;
+  }
+
+  .quote-section {
+    min-height: 755px;
+    padding: 134px 0 120px;
+    color: white;
+    background: var(--hq-green);
+  }
+
+  .quote-section__inner {
+    display: grid;
+    grid-template-columns: 0.73fr 1.27fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .quote-section__content > p {
+    max-width: 470px;
+    margin-top: 18px;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .quote-section__contacts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 50px;
+    margin-top: 112px;
+  }
+
+  .quote-section__contacts div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .quote-section__contacts span {
+    margin-bottom: 5px;
+    color: rgba(255, 255, 255, 0.56);
+  }
+
+  .quote-section__contacts a {
+    color: white;
+    font-weight: 600;
+  }
+
+  .quote-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px 32px;
+    padding: 35px 32px 32px;
+    border-radius: 16px;
+    color: #050505;
+    background: #fff;
+  }
+
+  .quote-form label {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+  }
+
+  .quote-form label > span {
+    margin-bottom: 5px;
+    color: rgba(4, 4, 4, 0.68);
+    font-size: 14px;
+  }
+
+  .quote-form input,
+  .quote-form select {
+    width: 100%;
+    min-height: 38px;
+    padding: 0 0 10px;
+    border: 0;
+    border-bottom: 1px solid #c5c5c5;
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none;
+    font-size: 16px;
+  }
+
+  .quote-form input:focus,
+  .quote-form select:focus {
+    border-color: var(--hq-green);
+    outline: none;
+    box-shadow: none;
+  }
+
+  .quote-form button {
+    justify-self: start;
+    margin-top: 20px;
+    padding: 12px 24px;
+    border-radius: 999px;
+    background: var(--hq-lime);
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+      transform 180ms ease,
+      filter 180ms ease;
+  }
+
+  .quote-form button:hover {
+    transform: translateY(-2px);
+    filter: brightness(0.95);
+  }
+
+  .quote-form__status {
+    align-self: center;
+    color: var(--hq-green);
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+  }
+
+  .testimonials {
+    height: 948px;
+    box-sizing: border-box;
+    padding: 120px 0 110px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .testimonials__heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .testimonials__heading a {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    color: #173d30;
+  }
+
+  .testimonial-window {
+    width: 100%;
+    margin-top: 92px;
+    overflow: visible;
+  }
+
+  .testimonial-track {
+    display: flex;
+    width: max-content;
+    gap: 24px;
+    transform: translateX(
+      calc((100vw - min(100vw - 60px, 1320px)) / 2 - 312px)
+    );
+    transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .testimonial-card {
+    width: 370px;
+    min-height: 470px;
+    flex: 0 0 370px;
+    padding: 32px;
+    border-radius: 20px;
+    background: var(--hq-warm);
+  }
+
+  .testimonial-card img {
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .testimonial-card blockquote {
+    min-height: 178px;
+    margin: 58px 0 28px;
+    font-size: 18px;
+    line-height: 1.72;
+  }
+
+  .testimonial-card h3 {
+    margin-bottom: 1px;
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 18px;
+  }
+
+  .testimonial-card > p {
+    color: rgba(4, 4, 4, 0.62);
+  }
+
+  .testimonial-controls {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 66px;
+  }
+
+  .testimonial-controls button {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background-color 180ms ease;
+  }
+
+  .testimonial-controls button:hover {
+    background: var(--hq-warm);
+  }
+
+  .team {
+    height: 1093px;
+    box-sizing: border-box;
+    padding: 110px 0 110px;
+    background: var(--hq-warm);
+  }
+
+  .team__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 72px;
+  }
+
+  .team-card__photo {
+    position: relative;
+    height: 447px;
+    overflow: hidden;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .team-card__photo > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 500ms ease;
+  }
+
+  .team-card:hover .team-card__photo > img {
+    transform: scale(1.025);
+  }
+
+  .team-card__photo a {
+    position: absolute;
+    top: 28px;
+    right: 28px;
+    display: grid;
+    width: 48px;
+    height: 48px;
+    place-items: center;
+    border-radius: 50%;
+    background: white;
+  }
+
+  .team-card__photo a img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .team-card__body {
+    padding: 25px 24px 27px;
+    border-radius: 0 0 16px 16px;
+    background: white;
+  }
+
+  .team-card__body h3 {
+    margin-bottom: 7px;
+  }
+
+  .team-card__body p {
+    color: rgba(4, 4, 4, 0.56);
+  }
+
+  .brands__label {
+    margin-top: 94px !important;
+    text-align: center;
+    color: rgba(4, 4, 4, 0.7);
+  }
+
+  .brands {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 58px;
+    align-items: center;
+    margin-top: 44px;
+  }
+
+  .brands img {
+    width: 100%;
+    max-height: 76px;
+    object-fit: contain;
+  }
+
+  .company-cta {
+    height: 625px;
+    overflow: hidden;
+    color: white;
+  }
+
+  .company-cta > img,
+  .company-cta__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .company-cta > img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .company-cta__shade {
+    background: linear-gradient(
+      180deg,
+      rgba(24, 55, 75, 0.46),
+      rgba(9, 25, 33, 0.02)
+    );
+  }
+
+  .company-cta__content {
+    position: relative;
+    z-index: 1;
+    width: min(760px, calc(100% - 40px));
+    margin: 0 auto;
+    padding-top: 115px;
+    text-align: center;
+  }
+
+  .company-cta__content p {
+    max-width: 700px;
+    margin: 18px auto 32px;
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  .company-cta__content a {
+    display: inline-flex;
+    padding: 12px 24px;
+    border-radius: 999px;
+    color: #050505;
+    background: var(--hq-lime);
+    transition:
+      transform 180ms ease,
+      filter 180ms ease;
+  }
+
+  .company-cta__content a:hover {
+    transform: translateY(-2px);
+    filter: brightness(0.95);
+  }
+
+  @media (max-width: 1023px) {
+    .story__inner,
+    .impact__intro,
+    .quote-section__inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .story__copy {
+      width: 100%;
+      max-width: none;
+      margin-left: 0;
+      padding-top: 0;
+    }
+
+    .stats,
+    .values__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .benefits__card {
+      right: 30px;
+    }
+
+    .quote-section__contacts {
+      margin-top: 58px;
+    }
+
+    .team-card__photo {
+      height: 390px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .page-container {
+      width: calc(100% - 40px);
+    }
+
+    .section-shell {
+      border-radius: 16px 16px 0 0;
+    }
+
+    .company-page h2 {
+      font-size: 36px;
+      line-height: 1.18;
+      letter-spacing: -1.5px;
+    }
+
+    .company-page p {
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .company-hero {
+      height: 236px;
+    }
+
+    .company-hero > img {
+      object-position: center;
+    }
+
+    .company-hero h1 {
+      align-items: start;
+      padding-top: 56px;
+      font-size: 40px;
+      line-height: 48px;
+      letter-spacing: -1.5px;
+    }
+
+    .story {
+      height: auto;
+      min-height: 908px;
+      padding: 70px 0 84px;
+    }
+
+    .story__inner {
+      gap: 40px;
+      text-align: center;
+    }
+
+    .story__copy > p {
+      margin-inline: auto;
+      font-size: 16px;
+      line-height: 1.75;
+      letter-spacing: -0.2px;
+    }
+
+    .story__principles {
+      grid-template-columns: 1fr;
+      gap: 34px;
+      margin-top: 42px;
+    }
+
+    .story__principles h3 {
+      margin-bottom: 13px;
+    }
+
+    .impact__image {
+      height: 600px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .impact__image img {
+      object-position: 61% center;
+    }
+
+    .impact__panel {
+      height: 1195px;
+      min-height: 0;
+      padding: 58px 0 62px;
+      box-sizing: border-box;
+    }
+
+    .impact__intro {
+      gap: 25px;
+      text-align: center;
+    }
+
+    .impact__intro > p {
+      padding-top: 0;
+    }
+
+    .stats {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      margin-top: 48px;
+      text-align: center;
+    }
+
+    .stat__number {
+      font-size: 66px !important;
+    }
+
+    .stat h3 {
+      margin-top: 18px;
+    }
+
+    .stat > p:last-child {
+      max-width: 270px;
+      margin: 15px auto 0;
+    }
+
+    .benefits {
+      height: 888px;
+      padding-top: 0;
+      background: transparent;
+    }
+
+    .benefits__image {
+      position: absolute;
+      top: 0;
+      height: 888px;
+      object-position: 38% center;
+    }
+
+    .benefits__card {
+      position: absolute;
+      top: 220px;
+      right: 20px;
+      width: calc(100% - 40px);
+      min-height: 650px;
+      margin: 0 auto;
+      padding: 38px 28px 30px;
+      border: 1px solid #efefef;
+    }
+
+    .benefits__header {
+      text-align: center;
+    }
+
+    .feature-list {
+      margin-top: 44px;
+    }
+
+    .feature__trigger {
+      grid-template-columns: 42px 1fr;
+    }
+
+    .feature__trigger strong {
+      font-size: 17px;
+    }
+
+    .values {
+      min-height: auto;
+      padding: 80px 0 90px;
+    }
+
+    .values__grid {
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-top: 48px;
+    }
+
+    .value-card {
+      min-height: 290px;
+      padding: 32px;
+    }
+
+    .value-card img {
+      margin-bottom: 38px;
+    }
+
+    .quote-section {
+      min-height: auto;
+      padding: 78px 0 80px;
+    }
+
+    .quote-section__content {
+      text-align: center;
+    }
+
+    .quote-section__content > p {
+      margin-inline: auto;
+    }
+
+    .quote-section__contacts {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-top: 45px;
+    }
+
+    .quote-form {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding: 28px 24px;
+    }
+
+    .quote-form button {
+      margin-top: 8px;
+    }
+
+    .testimonials {
+      height: auto;
+      min-height: 850px;
+      padding: 80px 0 85px;
+    }
+
+    .testimonials__heading {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .testimonial-window {
+      margin-top: 52px;
+      padding-left: 20px;
+      overflow: hidden;
+    }
+
+    .testimonial-track {
+      gap: 18px;
+      transform: none;
+    }
+
+    .testimonial-card {
+      width: calc(100vw - 40px);
+      min-height: 475px;
+      flex-basis: calc(100vw - 40px);
+      padding: 32px;
+    }
+
+    .testimonial-controls {
+      margin-top: 42px;
+    }
+
+    .team {
+      height: auto;
+      min-height: auto;
+      padding: 80px 0 94px;
+    }
+
+    .team__grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      margin-top: 48px;
+    }
+
+    .team-card__photo {
+      height: auto;
+      aspect-ratio: 335 / 389;
+    }
+
+    .brands__label {
+      margin-top: 70px !important;
+    }
+
+    .brands {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .brands img {
+      height: 63px;
+    }
+
+    .brands img:last-child {
+      grid-column: 1 / -1;
+      justify-self: center;
+      width: calc(50% - 5px);
+    }
+
+    .company-cta {
+      height: 506px;
+    }
+
+    .company-cta > img {
+      object-position: center;
+    }
+
+    .company-cta__content {
+      padding-top: 70px;
+    }
+
+    .company-cta__content h2 {
+      font-size: 34px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .company-page *,
+    .company-page *::before,
+    .company-page *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+</style>
