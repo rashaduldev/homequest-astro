@@ -197,9 +197,24 @@ const { title, meta_title, description, image, noindex, canonical } =
     <Footer />
     <script is:inline src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script is:inline>
-      AOS.init({
-        once: true,
-      });
+      window.initializeHomeQuestAOS = () => {
+        if (typeof AOS === "undefined") return;
+        AOS.init({
+          once: true,
+          duration: 1000,
+        });
+        AOS.refreshHard();
+      };
+
+      if (!window.homeQuestAOSBound) {
+        document.addEventListener(
+          "astro:page-load",
+          window.initializeHomeQuestAOS,
+        );
+        window.homeQuestAOSBound = true;
+      }
+
+      window.initializeHomeQuestAOS();
     </script>
   </body>
 </html>

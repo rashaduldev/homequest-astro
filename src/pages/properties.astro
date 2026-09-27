@@ -1,0 +1,734 @@
+---
+import Base from "@/layouts/Base.astro";
+
+interface Property {
+  title: string;
+  status: "For Sale" | "For Rent";
+  price: string;
+  area: string;
+  beds: number;
+  baths: number;
+  image: string;
+  slug: string;
+}
+
+const properties: Property[] = [
+  {
+    title: "Spacious 4-Bedroom Villa in Jumeirah, Dubai",
+    status: "For Sale",
+    price: "$1,405,000",
+    area: "2,500",
+    beds: 3,
+    baths: 2,
+    image: "/images/properties/spacious-villa-dubai.avif",
+    slug: "spacious-4-bedroom-villa-in-jumeirah-dubai",
+  },
+  {
+    title: "Charming 1-Bedroom Loft in Manhattan, New York",
+    status: "For Rent",
+    price: "$$12,000/mo",
+    area: "3,200",
+    beds: 3,
+    baths: 2,
+    image: "/images/properties/manhattan-loft.avif",
+    slug: "charming-1-bedroom-loft-in-manhattan-new-york",
+  },
+  {
+    title: "Luxurious 5-Bedroom House in Kensington, London",
+    status: "For Sale",
+    price: "$1,405,000",
+    area: "4,500",
+    beds: 3,
+    baths: 2,
+    image: "/images/properties/kensington-house.avif",
+    slug: "luxurious-5-bedroom-house-in-kensington-london",
+  },
+  {
+    title: "Modern 2-Bedroom Condo in Marina Bay, Singapore",
+    status: "For Rent",
+    price: "$$11,000/mo",
+    area: "3,900",
+    beds: 3,
+    baths: 2,
+    image: "/images/properties/marina-bay-condo.avif",
+    slug: "modern-2-bedroom-condo-in-marina-bay-singapore",
+  },
+  {
+    title: "Elegant 3-Bedroom Penthouse in Hong Kong Island",
+    status: "For Sale",
+    price: "$1,405,000",
+    area: "2,800",
+    beds: 5,
+    baths: 2,
+    image: "/images/properties/hong-kong-penthouse.avif",
+    slug: "elegant-3-bedroom-penthouse-in-hong-kong-island",
+  },
+  {
+    title: "Stylish 2-Bedroom Apartment in Paris, France",
+    status: "For Sale",
+    price: "$1,405,000",
+    area: "3,000",
+    beds: 3,
+    baths: 2,
+    image: "/images/properties/paris-apartment.avif",
+    slug: "stylish-2-bedroom-apartment-in-paris-france",
+  },
+  {
+    title: "Seaside 4-Bedroom Villa in Phuket, Thailand",
+    status: "For Sale",
+    price: "$1,405,000",
+    area: "1,256",
+    beds: 5,
+    baths: 2,
+    image: "/images/properties/phuket-villa.avif",
+    slug: "seaside-4-bedroom-villa-in-phuket-thailand",
+  },
+  {
+    title: "Modern 3-Bedroom Apartment in Gulshan, Dhaka",
+    status: "For Rent",
+    price: "$9,000/mo",
+    area: "4,820",
+    beds: 3,
+    baths: 2,
+    image: "/images/properties/gulshan-apartment.avif",
+    slug: "modern-3-bedroom-apartment-in-gulshan-dhaka",
+  },
+  {
+    title: "Cozy 1-Bedroom Apartment in Sydney CBD, Australia",
+    status: "For Sale",
+    price: "$1,405,000",
+    area: "3,650",
+    beds: 3,
+    baths: 2,
+    image: "/images/properties/sydney-apartment.avif",
+    slug: "cozy-1-bedroom-apartment-in-sydney-cbd-australia",
+  },
+  {
+    title: "Stylish 3-Bedroom Apartment in Central Hong Kong",
+    status: "For Sale",
+    price: "$1,405,000",
+    area: "2,365",
+    beds: 3,
+    baths: 2,
+    image: "/images/properties/central-hong-kong-apartment.avif",
+    slug: "stylish-3-bedroom-apartment-in-central-hong-kong",
+  },
+  {
+    title: "Spacious 3-Bedroom Townhouse in Toronto, Canada",
+    status: "For Sale",
+    price: "$1,405,000",
+    area: "3,654",
+    beds: 5,
+    baths: 2,
+    image: "/images/properties/toronto-townhouse.avif",
+    slug: "spacious-3-bedroom-townhouse-in-toronto-canada",
+  },
+  {
+    title: "Chic 1-Bedroom Apartment in Kuala Lumpur, Malaysia",
+    status: "For Sale",
+    price: "$1,405,000",
+    area: "9,256",
+    beds: 2,
+    baths: 2,
+    image: "/images/properties/kuala-lumpur-apartment.avif",
+    slug: "chic-1-bedroom-apartment-in-kuala-lumpur-malaysia",
+  },
+];
+---
+
+<Base
+  title="Property Listing"
+  meta_title="Property Listing | HomeQuest"
+  description="Explore houses, villas, apartments, and townhouses available through HomeQuest."
+  image="/images/company/hero.avif"
+>
+  <div class="properties-page">
+    <section class="properties-hero" aria-labelledby="properties-title">
+      <img
+        src="/images/company/hero.avif"
+        alt="Modern HomeQuest residence"
+        fetchpriority="high"
+      />
+      <div class="properties-hero__shade"></div>
+      <h1 id="properties-title" data-aos="fade-up" data-aos-duration="1000">
+        Property Listing
+      </h1>
+    </section>
+
+    <section class="property-directory" aria-labelledby="directory-title">
+      <div class="page-container">
+        <div
+          class="directory-toolbar"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+        >
+          <h2 id="directory-title">Search your dream property</h2>
+          <form class="property-search" role="search">
+            <label class="sr-only" for="property-query">Search properties</label
+            >
+            <input
+              id="property-query"
+              name="query"
+              type="search"
+              placeholder="Search your dream property"
+              autocomplete="off"
+            />
+            <button type="submit" aria-label="Search properties">
+              <img src="/images/properties/search.svg" alt="" />
+            </button>
+          </form>
+        </div>
+
+        <p class="search-result" data-search-result aria-live="polite"></p>
+
+        <div
+          class="property-grid"
+          data-property-grid
+          data-aos="fade-up"
+          data-aos-duration="1000"
+        >
+          {
+            properties.map((property) => (
+              <a
+                class="property-card"
+                href={`/properties/${property.slug}`}
+                data-property-card
+                data-property-search={`${property.title} ${property.status} ${property.price}`.toLowerCase()}
+              >
+                <div class="property-card__image">
+                  <img
+                    src={property.image}
+                    alt={property.title}
+                    width="500"
+                    height="411"
+                    loading="lazy"
+                  />
+                  <span>{property.status}</span>
+                </div>
+                <div class="property-card__body">
+                  <p class="property-card__price">{property.price}</p>
+                  <h3>{property.title}</h3>
+                  <div class="property-card__features">
+                    <p>
+                      <img src="/images/properties/area.svg" alt="" />
+                      {property.area} sq. ft.
+                    </p>
+                    <p>
+                      <img src="/images/properties/bed.svg" alt="" />
+                      {property.beds} Bed
+                    </p>
+                    <p>
+                      <img src="/images/properties/bath.svg" alt="" />
+                      {property.baths} Bath
+                    </p>
+                  </div>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="properties-cta" aria-labelledby="properties-cta-title">
+      <img
+        src="/images/company/cta.avif"
+        alt="Modern property at dusk"
+        loading="lazy"
+      />
+      <div class="properties-cta__shade"></div>
+      <div
+        class="properties-cta__content"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+      >
+        <h2 id="properties-cta-title">
+          <span>Ready to Make a</span>
+          <span>Move? Contact Us Now!</span>
+        </h2>
+        <p>
+          Contact us today to discuss your property needs and choose the right
+          plan. We’re here to guide you through every step of the process.
+        </p>
+        <a href="/contact">Get Your Home</a>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<script>
+  const initializePropertySearch = () => {
+    const form = document.querySelector<HTMLFormElement>(".property-search");
+    const input = form?.querySelector<HTMLInputElement>("input[type='search']");
+    const cards = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-property-card]"),
+    );
+    const result = document.querySelector<HTMLElement>("[data-search-result]");
+
+    if (!form || !input) return;
+
+    const filterProperties = () => {
+      const query = input.value.trim().toLowerCase();
+      let visible = 0;
+
+      cards.forEach((card) => {
+        const matches = !query || card.dataset.propertySearch?.includes(query);
+        card.hidden = !matches;
+        if (matches) visible += 1;
+      });
+
+      if (result) {
+        result.textContent =
+          query && visible === 0
+            ? `No properties found for “${input.value.trim()}”.`
+            : "";
+      }
+    };
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      filterProperties();
+    });
+    input.addEventListener("input", filterProperties);
+  };
+
+  document.addEventListener("astro:page-load", initializePropertySearch);
+</script>
+
+<style>
+  .properties-page {
+    --hq-green: #1f4938;
+    --hq-lime: #dbfb1e;
+    color: #0a0915;
+    background: #fff;
+  }
+
+  .properties-page h1,
+  .properties-page h2,
+  .properties-page h3,
+  .properties-page p {
+    margin: 0;
+  }
+
+  .page-container {
+    width: min(100% - 60px, 1320px);
+    margin-inline: auto;
+  }
+
+  .properties-hero {
+    position: relative;
+    height: 453px;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  .properties-hero > img,
+  .properties-hero__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .properties-hero > img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .properties-hero__shade {
+    background: linear-gradient(
+      180deg,
+      rgba(12, 42, 56, 0.2),
+      rgba(15, 35, 45, 0.26)
+    );
+  }
+
+  .properties-hero h1 {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding-top: 28px;
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 80px;
+    font-weight: 400;
+    line-height: 92px;
+    letter-spacing: -3.5px;
+  }
+
+  .property-directory {
+    padding: 49px 0 100px;
+  }
+
+  .directory-toolbar {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(320px, 0.9fr);
+    gap: 30px;
+    align-items: center;
+  }
+
+  .directory-toolbar h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: -1.5px;
+  }
+
+  .property-search {
+    position: relative;
+    height: 56px;
+    border: 1px solid #d8d8d8;
+    border-radius: 999px;
+    background: #fff;
+  }
+
+  .property-search input {
+    width: 100%;
+    height: 100%;
+    padding: 0 64px 0 24px;
+    border: 0;
+    border-radius: inherit;
+    color: #52525a;
+    background: transparent;
+    box-shadow: none;
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 28.8px;
+  }
+
+  .property-search input::placeholder {
+    color: #52525a;
+    opacity: 1;
+  }
+
+  .property-search input:focus {
+    outline: 2px solid var(--hq-green);
+    outline-offset: 2px;
+  }
+
+  .property-search input::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  .property-search button {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    display: grid;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    place-items: center;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+
+  .property-search button img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .search-result {
+    min-height: 0;
+    color: #735e00;
+    font-size: 15px;
+  }
+
+  .search-result:not(:empty) {
+    margin-top: 24px;
+  }
+
+  .property-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .property-card {
+    display: block;
+    min-width: 0;
+    height: 497px;
+    color: #0a0915;
+  }
+
+  .property-card[hidden] {
+    display: none;
+  }
+
+  .property-card__image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1.2177;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #ececea;
+  }
+
+  .property-card__image > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .property-card:hover .property-card__image > img {
+    transform: scale(1.045);
+  }
+
+  .property-card__image span {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 12px;
+    border-radius: 10px;
+    color: #0a0915;
+    background: #f7f6f4;
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 28px;
+  }
+
+  .property-card__body {
+    padding: 18px 12px 0;
+  }
+
+  .property-card__price {
+    color: #3f5f51;
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 28px;
+  }
+
+  .property-card h3 {
+    min-height: 58px;
+    margin-top: 3px;
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.45px;
+  }
+
+  .property-card__features {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  .property-card__features p {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    color: #52525a;
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 14px;
+    line-height: 24px;
+    white-space: nowrap;
+  }
+
+  .property-card__features img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .properties-cta {
+    position: relative;
+    height: 625px;
+    overflow: hidden;
+    border-radius: 24px 24px 0 0;
+    color: #fff;
+  }
+
+  .properties-cta > img,
+  .properties-cta__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .properties-cta > img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .properties-cta__shade {
+    background: linear-gradient(
+      180deg,
+      rgba(24, 55, 75, 0.46),
+      rgba(9, 25, 33, 0.02)
+    );
+  }
+
+  .properties-cta__content {
+    position: relative;
+    z-index: 1;
+    width: min(760px, calc(100% - 40px));
+    margin: 0 auto;
+    padding-top: 88px;
+    text-align: center;
+  }
+
+  .properties-cta__content h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: -2.5px;
+  }
+
+  .properties-cta__content h2 span {
+    display: block;
+  }
+
+  .properties-cta__content p {
+    max-width: 700px;
+    margin: 18px auto 32px;
+    color: rgba(255, 255, 255, 0.78);
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    letter-spacing: -0.2px;
+  }
+
+  .properties-cta__content a {
+    display: inline-flex;
+    padding: 12px 24px;
+    border-radius: 999px;
+    color: #050505;
+    background: var(--hq-lime);
+    transition:
+      transform 180ms ease,
+      filter 180ms ease;
+  }
+
+  .properties-cta__content a:hover {
+    transform: translateY(-2px);
+    filter: brightness(0.95);
+  }
+
+  @media (max-width: 1023px) {
+    .property-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .property-card {
+      height: auto;
+      min-height: 497px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .page-container {
+      width: calc(100% - 40px);
+    }
+
+    .properties-hero {
+      height: 236px;
+    }
+
+    .properties-hero h1 {
+      align-items: start;
+      padding-top: 100px;
+      font-size: 40px;
+      line-height: 46px;
+      letter-spacing: -1.5px;
+    }
+
+    .property-directory {
+      padding: 48px 0 60px;
+    }
+
+    .directory-toolbar {
+      display: block;
+    }
+
+    .directory-toolbar h2 {
+      font-size: 32px;
+      line-height: 1.4;
+      text-align: left;
+    }
+
+    .property-search {
+      width: 100%;
+      margin-top: 16px;
+    }
+
+    .property-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    .property-card {
+      height: 455.72px;
+      min-height: 0;
+    }
+
+    .property-card__image {
+      border-radius: 14px;
+    }
+
+    .property-card__body {
+      padding-top: 18px;
+    }
+
+    .property-card h3 {
+      font-size: 20px;
+    }
+
+    .property-card__features {
+      gap: 13px;
+    }
+
+    .property-card__features p {
+      gap: 7px;
+      font-size: 13px;
+    }
+
+    .properties-cta {
+      height: 506px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .properties-cta__content {
+      padding-top: 54px;
+    }
+
+    .properties-cta__content h2 {
+      font-size: 36px;
+      line-height: 45px;
+      letter-spacing: -1.5px;
+    }
+
+    .properties-cta__content p {
+      margin-top: 20px;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+  }
+
+  @media (max-width: 370px) {
+    .property-card__features {
+      gap: 8px;
+    }
+
+    .property-card__features p {
+      gap: 5px;
+      font-size: 12px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .properties-page *,
+    .properties-page *::before,
+    .properties-page *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+</style>
