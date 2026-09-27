@@ -249,6 +249,9 @@ const faqs = [
         <video
           id="home-ceo-video"
           src="https://videos.pexels.com/video-files/6561920/6561920-uhd_2560_1440_25fps.mp4"
+          poster="/images/ceo.avif"
+          preload="auto"
+          loop
           playsinline
           muted></video><img
           id="home-ceo-cover"
@@ -525,31 +528,60 @@ const faqs = [
     const cover = document.querySelector<HTMLElement>("#home-ceo-cover");
     const caption = document.querySelector<HTMLElement>("#home-ceo-caption");
     const copy = document.querySelector<HTMLElement>(".home-ceo__copy");
-    const setPlayingState = (playing: boolean) => {
+    const media = document.querySelector<HTMLElement>(".home-ceo__media");
+    let playPending = false;
+
+    const setPlayingState = (playing: boolean, loading = false) => {
+      media?.classList.toggle("is-playing", playing);
+      media?.classList.toggle("is-loading", loading);
       caption?.classList.toggle("is-playing", playing);
       copy?.setAttribute("aria-hidden", String(playing));
       play?.setAttribute(
         "aria-label",
-        playing ? "Pause CEO message" : "Play CEO message",
+        loading
+          ? "Loading CEO message"
+          : playing
+            ? "Pause CEO message"
+            : "Play CEO message",
       );
       play?.setAttribute("aria-pressed", String(playing));
+      play?.setAttribute("aria-busy", String(loading));
     };
+
+    const recoverVideo = () => {
+      playPending = false;
+      video?.pause();
+      setPlayingState(false);
+    };
+
     play?.addEventListener("click", async () => {
-      if (!video || !cover || !caption) return;
-      if (video.style.display !== "block") {
-        cover.hidden = true;
-        video.style.display = "block";
+      if (!video || !cover || !caption || playPending) return;
+
+      if (!video.paused) {
+        video.pause();
+        return;
       }
 
-      if (video.paused) {
-        await video.play().catch(() => undefined);
-        setPlayingState(!video.paused);
-      } else {
-        video.pause();
-        setPlayingState(false);
+      playPending = true;
+      setPlayingState(false, true);
+
+      try {
+        await video.play();
+      } catch {
+        recoverVideo();
+      } finally {
+        playPending = false;
+        if (!video.paused) setPlayingState(true);
       }
     });
-    video?.addEventListener("ended", () => setPlayingState(false));
+    video?.addEventListener("playing", () => {
+      playPending = false;
+      setPlayingState(true);
+    });
+    video?.addEventListener("pause", () => setPlayingState(false));
+    video?.addEventListener("error", recoverVideo);
+    video?.addEventListener("emptied", recoverVideo);
+    setPlayingState(false);
     document.querySelectorAll<HTMLElement>(".home-benefit").forEach((item) =>
       item.querySelector("button")?.addEventListener("click", () =>
         document
@@ -863,15 +895,28 @@ const faqs = [
   }
   .home-ceo__media > img,
   .home-ceo__media video {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
   .home-ceo__media video {
-    display: none;
+    display: block;
+    background: #151419;
+  }
+  .home-ceo__media > img {
+    z-index: 1;
+    opacity: 1;
+    transition: opacity 0.35s ease;
+  }
+  .home-ceo__media.is-playing > img {
+    opacity: 0;
+    pointer-events: none;
   }
   .home-ceo__caption {
     position: absolute;
+    z-index: 2;
     right: 37px;
     bottom: 35px;
     left: 37px;
@@ -916,6 +961,12 @@ const faqs = [
     display: grid;
     place-items: center;
   }
+  .home-ceo__media.is-loading .home-ceo__caption button {
+    cursor: wait;
+  }
+  .home-ceo__media.is-loading .home-ceo__play-icon {
+    animation: home-ceo-loading 0.8s ease-in-out infinite alternate;
+  }
   .home-ceo__caption button svg {
     width: 16px;
     height: 16px;
@@ -930,6 +981,12 @@ const faqs = [
   .home-ceo__caption button:hover,
   .home-ceo__caption button:focus-visible {
     transform: scale(1.05);
+  }
+  @keyframes home-ceo-loading {
+    to {
+      opacity: 0.4;
+      transform: scale(0.84);
+    }
   }
   .home-benefits {
     position: relative;
