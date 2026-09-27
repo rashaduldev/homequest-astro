@@ -1,0 +1,1168 @@
+---
+import Base from "@/layouts/Base.astro";
+
+interface ServiceCard {
+  title: string;
+  price: string;
+  image: string;
+  slug: string;
+}
+
+interface Testimonial {
+  name: string;
+  role: string;
+  quote: string;
+  image: string;
+}
+
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+const services: ServiceCard[] = [
+  {
+    title: "Property Selling Services",
+    price: "$5000",
+    image: "/images/service/property-selling.png",
+    slug: "property-selling-services",
+  },
+  {
+    title: "Rental Management",
+    price: "$4800",
+    image: "/images/service/rental-management.png",
+    slug: "rental-management",
+  },
+  {
+    title: "Investment Consulting",
+    price: "$4500",
+    image: "/images/service/investment-consulting.png",
+    slug: "investment-consulting",
+  },
+  {
+    title: "Property Services",
+    price: "$3200",
+    image: "/images/service/property-services.png",
+    slug: "property-services",
+  },
+  {
+    title: "Property Valuation",
+    price: "$1600",
+    image: "/images/service/property-valuation.png",
+    slug: "property-valuation",
+  },
+  {
+    title: "Property Buying",
+    price: "$4700",
+    image: "/images/service/property-buying.png",
+    slug: "property-buying",
+  },
+];
+
+const testimonials: Testimonial[] = [
+  {
+    name: "Hannah Raquel",
+    role: "First-time Homebuyer",
+    image: "/images/company/testimonial-hannah.avif",
+    quote:
+      "I use [YourHomequest for managing my rental properties, and they have been incredible. From tenant screening to maintenance, they handle everything efficiently.",
+  },
+  {
+    name: "Brenda Joyce",
+    role: "2nd-time Homebuyer",
+    image: "/images/company/testimonial-brenda.avif",
+    quote:
+      "I rely on [YourHomequest for managing your my rental properties, and they've been fantastic. From tenant screening to repairs, they handle everything seamlessly.",
+  },
+  {
+    name: "Jonathan Lewis",
+    role: "First-time Homebuyer",
+    image: "/images/company/testimonial-jonathan.avif",
+    quote:
+      "Using [YourHomequest for my rental properties your has been great. They manage tenant screening, maintenance, and everything else so efficiently, saving me time.",
+  },
+  {
+    name: "Rebecca Sue",
+    role: "First-time Homebuyer",
+    image: "/images/company/testimonial-rebecca.avif",
+    quote:
+      "I use [YourHomequest to manage my rentals, and they're superb. They handle tenant screening, maintenance, and everything, providing seamless, efficient service.",
+  },
+];
+
+const faqs: FaqItem[] = [
+  {
+    question: "How long does it take to buy or sell a property?",
+    answer:
+      "The time it takes to buy or sell a property depends on several factors, including market conditions, property type, and the buyer's/seller's readiness. On average, it takes 1 to 3 months from listing a property to closing a sale.",
+  },
+  {
+    question: "What fees are involved in buying or selling a home?",
+    answer:
+      "AI image editor is a cutting-edge tool that harnesses the power of artificial intelligence to streamline and enhance the photo editing process.",
+  },
+  {
+    question: "How is the value of my home determined?",
+    answer:
+      "One of the most popular in the remarkable features of AI image editors is their ability to enhance image quality.",
+  },
+  {
+    question: "Can I get assistance with financing a property purchase?",
+    answer:
+      "For portrait photography, AI image editors excel at skin retouching, wrinkle reduction, and blemish removal.",
+  },
+  {
+    question: "What are the benefits of hiring a property management service?",
+    answer:
+      "Product photography is another area where AI image editors shine. By accurately removing backgrounds and enhancing product details.",
+  },
+];
+---
+
+<Base
+  title="Services"
+  meta_title="Services | HomeQuest"
+  description="Explore HomeQuest property selling, rental management, investment consulting, valuation, and buying services."
+  image="/images/company/hero.avif"
+>
+  <div class="service-page">
+    <section class="service-hero" aria-labelledby="service-page-title">
+      <img
+        src="/images/company/hero.avif"
+        alt="Modern HomeQuest residence"
+        fetchpriority="high"
+      />
+      <div class="service-hero__shade"></div>
+      <h1 id="service-page-title" data-aos="fade-up" data-aos-duration="1000">
+        Services
+      </h1>
+    </section>
+
+    <section class="service-directory" aria-label="Real estate services">
+      <div
+        class="page-container service-grid"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+      >
+        {
+          services.map((service) => (
+            <a class="service-card" href={`/service/${service.slug}`}>
+              <img
+                class="service-card__image"
+                src={service.image}
+                alt={service.title}
+                width="596"
+                height="516"
+                loading="lazy"
+              />
+              <div class="service-card__gradient" />
+              <div class="service-card__content">
+                <span class="service-card__icon">
+                  <img src="/images/service/service-icon.svg" alt="" />
+                </span>
+                <div>
+                  <h2>{service.title}</h2>
+                  <p>Starting from {service.price}</p>
+                </div>
+                <span class="service-card__arrow" aria-hidden="true">
+                  ↗
+                </span>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="service-quote" aria-labelledby="quote-title">
+      <div
+        class="page-container quote-layout"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+      >
+        <div class="quote-copy">
+          <h2 id="quote-title">Let’s Find Your<br />Perfect Property</h2>
+          <p>
+            Have questions or ready to take the next step? Whether you’re
+            buying, selling, or just exploring options.
+          </p>
+          <div class="quote-contacts">
+            <div>
+              <span>Email Address</span>
+              <a href="mailto:support@homequest.com">support@homequest.com</a>
+            </div>
+            <div>
+              <span>Phone Call</span>
+              <a href="tel:+0291801920">+0291801920,</a>
+              <a href="tel:+982771882">+982771882</a>
+            </div>
+          </div>
+        </div>
+
+        <form class="service-form" aria-label="Property quote request">
+          <label>
+            <span>Your name</span>
+            <input
+              type="text"
+              name="name"
+              placeholder="First and last name"
+              autocomplete="name"
+              required
+            />
+          </label>
+          <label>
+            <span>What do you want?</span>
+            <select name="property" aria-label="What do you want?">
+              <option>Buy a house</option>
+              <option>Modern 3-Bedroom</option>
+              <option>Luxury 4-Bedroom</option>
+              <option>Luxury 2-Bedroom</option>
+              <option>Chic 1-Bedroom</option>
+              <option>Spacious 3-Bedroom</option>
+            </select>
+          </label>
+          <label>
+            <span>Your preferred location</span>
+            <select name="location" aria-label="Your preferred location">
+              <option>New York</option>
+              <option>Amsterdam</option>
+              <option>Barcelona</option>
+            </select>
+          </label>
+          <label>
+            <span>Your desired budget</span>
+            <input
+              type="text"
+              name="budget"
+              value="$900,000"
+              inputmode="numeric"
+              aria-label="Your desired budget"
+            />
+          </label>
+          <label>
+            <span>Your email address</span>
+            <input
+              type="email"
+              name="email"
+              placeholder="yourmail@homequest.com"
+              autocomplete="email"
+              required
+            />
+          </label>
+          <label>
+            <span>Your phone number</span>
+            <input
+              type="tel"
+              name="phone"
+              placeholder="+021 9029 9202"
+              autocomplete="tel"
+            />
+          </label>
+          <button type="submit">Get a Quote</button>
+          <p class="service-form__status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section
+      class="service-testimonials"
+      aria-labelledby="testimonials-title"
+      data-aos="fade-up"
+      data-aos-duration="1000"
+    >
+      <div class="testimonials-heading page-container">
+        <h2 id="testimonials-title">Your Trusted Real Estate Partner</h2>
+        <a href="/reviews">Read all stories <span aria-hidden="true">›</span></a
+        >
+      </div>
+      <div class="testimonial-window">
+        <div class="testimonial-track" data-service-testimonial-track>
+          {
+            testimonials.map((testimonial) => (
+              <article class="testimonial-card">
+                <img
+                  src={testimonial.image}
+                  alt={testimonial.name}
+                  width="104"
+                  height="104"
+                  loading="lazy"
+                />
+                <blockquote>“{testimonial.quote}”</blockquote>
+                <h3>{testimonial.name}</h3>
+                <p>{testimonial.role}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+      <div class="testimonial-controls">
+        <button
+          type="button"
+          data-service-testimonial-prev
+          aria-label="Previous testimonial">←</button
+        >
+        <button
+          type="button"
+          data-service-testimonial-next
+          aria-label="Next testimonial">→</button
+        >
+      </div>
+    </section>
+
+    <section class="service-faq" aria-labelledby="faq-title">
+      <div class="faq-inner" data-aos="fade-up" data-aos-duration="1000">
+        <h2 id="faq-title">Hear from Our Happy Homeowners</h2>
+        <div class="faq-list">
+          {
+            faqs.map((item, index) => (
+              <article class:list={["faq-item", { "is-open": index === 0 }]}>
+                <button
+                  class="faq-trigger"
+                  type="button"
+                  aria-expanded={index === 0 ? "true" : "false"}
+                >
+                  <span>{item.question}</span>
+                  <span class="faq-chevron" aria-hidden="true">
+                    ›
+                  </span>
+                </button>
+                <div class="faq-answer">
+                  <div>
+                    <p>{item.answer}</p>
+                  </div>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="service-cta" aria-labelledby="service-cta-title">
+      <img
+        src="/images/company/cta.avif"
+        alt="Modern property at dusk"
+        loading="lazy"
+      />
+      <div class="service-cta__shade"></div>
+      <div
+        class="service-cta__content"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+      >
+        <h2 id="service-cta-title">
+          <span>Ready to Make a</span>
+          <span>Move? Contact Us Now!</span>
+        </h2>
+        <p>
+          Contact us today to discuss your property needs and choose the right
+          plan. We’re here to guide you through every step of the process.
+        </p>
+        <a href="/contact">Get Your Home</a>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<script>
+  const initializeServicePage = () => {
+    const track = document.querySelector<HTMLElement>(
+      "[data-service-testimonial-track]",
+    );
+    const previous = document.querySelector<HTMLButtonElement>(
+      "[data-service-testimonial-prev]",
+    );
+    const next = document.querySelector<HTMLButtonElement>(
+      "[data-service-testimonial-next]",
+    );
+    let activeIndex = 0;
+
+    const moveTestimonials = (direction: number) => {
+      if (!track) return;
+      const cards = track.querySelectorAll<HTMLElement>(".testimonial-card");
+      if (!cards.length) return;
+      activeIndex = (activeIndex + direction + cards.length) % cards.length;
+      const firstCard = cards[0];
+      const gap = Number.parseFloat(getComputedStyle(track).gap) || 24;
+      track.style.transform = `translateX(-${activeIndex * (firstCard.offsetWidth + gap)}px)`;
+    };
+
+    previous?.addEventListener("click", () => moveTestimonials(-1));
+    next?.addEventListener("click", () => moveTestimonials(1));
+
+    document
+      .querySelectorAll<HTMLButtonElement>(".faq-trigger")
+      .forEach((trigger) => {
+        trigger.addEventListener("click", () => {
+          const current = trigger.closest<HTMLElement>(".faq-item");
+          document
+            .querySelectorAll<HTMLElement>(".faq-item")
+            .forEach((item) => {
+              const shouldOpen =
+                item === current && !item.classList.contains("is-open");
+              item.classList.toggle("is-open", shouldOpen);
+              item
+                .querySelector<HTMLButtonElement>(".faq-trigger")
+                ?.setAttribute("aria-expanded", String(shouldOpen));
+            });
+        });
+      });
+
+    const quoteForm = document.querySelector<HTMLFormElement>(".service-form");
+    quoteForm?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const status = quoteForm.querySelector<HTMLElement>(
+        ".service-form__status",
+      );
+      if (status) {
+        status.textContent = "Thanks — your request is ready for our team.";
+      }
+    });
+  };
+
+  document.addEventListener("astro:page-load", initializeServicePage);
+</script>
+
+<style>
+  .service-page {
+    --hq-green: #1f4938;
+    --hq-lime: #dbfb1e;
+    --hq-warm: #f7f6f4;
+    color: #0a0915;
+    background: #fff;
+  }
+
+  .service-page h1,
+  .service-page h2,
+  .service-page h3,
+  .service-page p,
+  .service-page blockquote {
+    margin: 0;
+  }
+
+  .page-container {
+    width: min(100% - 60px, 1320px);
+    margin-inline: auto;
+  }
+
+  .service-hero {
+    position: relative;
+    height: 453px;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  .service-hero > img,
+  .service-hero__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .service-hero > img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .service-hero__shade {
+    background: linear-gradient(
+      180deg,
+      rgba(12, 42, 56, 0.2),
+      rgba(15, 35, 45, 0.26)
+    );
+  }
+
+  .service-hero h1 {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding-top: 28px;
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 80px;
+    font-weight: 400;
+    line-height: 92px;
+    letter-spacing: -3.5px;
+  }
+
+  .service-directory {
+    padding: 80px 0 170px;
+  }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .service-card {
+    position: relative;
+    display: block;
+    aspect-ratio: 596 / 516;
+    overflow: hidden;
+    border-radius: 16px;
+    color: #fff;
+    background: #dfe5e7;
+  }
+
+  .service-card__image,
+  .service-card__gradient {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .service-card__image {
+    object-fit: cover;
+    transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .service-card__gradient {
+    background: linear-gradient(
+      180deg,
+      rgba(12, 16, 17, 0) 61%,
+      rgba(18, 22, 22, 0.78) 78%,
+      rgba(18, 20, 20, 0.92) 100%
+    );
+  }
+
+  .service-card:hover .service-card__image {
+    transform: scale(1.035);
+  }
+
+  .service-card__content {
+    position: absolute;
+    right: 24px;
+    bottom: 28px;
+    left: 24px;
+    display: grid;
+    grid-template-columns: 56px 1fr 48px;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .service-card__icon,
+  .service-card__arrow {
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+  }
+
+  .service-card__icon {
+    width: 56px;
+    height: 56px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.18);
+  }
+
+  .service-card__icon img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .service-card__content h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 32px;
+    letter-spacing: -0.6px;
+  }
+
+  .service-card__content p {
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 16px;
+    line-height: 28px;
+  }
+
+  .service-card__arrow {
+    width: 48px;
+    height: 48px;
+    color: #050505;
+    background: #fff;
+    font-size: 25px;
+    transition:
+      transform 200ms ease,
+      background-color 200ms ease;
+  }
+
+  .service-card:hover .service-card__arrow {
+    transform: rotate(45deg);
+    background: var(--hq-lime);
+  }
+
+  .service-quote {
+    min-height: 755px;
+    padding: 134px 0 120px;
+    border-radius: 24px 24px 0 0;
+    color: #fff;
+    background: var(--hq-green);
+  }
+
+  .quote-layout {
+    display: grid;
+    grid-template-columns: 0.73fr 1.27fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .quote-copy h2,
+  .testimonials-heading h2,
+  .faq-inner > h2,
+  .service-cta h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: -2.5px;
+  }
+
+  .quote-copy > p {
+    max-width: 470px;
+    margin-top: 18px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  .quote-contacts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 50px;
+    margin-top: 112px;
+  }
+
+  .quote-contacts div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .quote-contacts span {
+    margin-bottom: 5px;
+    color: rgba(255, 255, 255, 0.56);
+  }
+
+  .quote-contacts a {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .service-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px 32px;
+    padding: 35px 32px 32px;
+    border-radius: 16px;
+    color: #050505;
+    background: #fff;
+  }
+
+  .service-form label {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+  }
+
+  .service-form label > span {
+    margin-bottom: 5px;
+    color: rgba(4, 4, 4, 0.68);
+    font-size: 14px;
+  }
+
+  .service-form input,
+  .service-form select {
+    width: 100%;
+    min-height: 38px;
+    padding: 0 0 10px;
+    border: 0;
+    border-bottom: 1px solid #c5c5c5;
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none;
+    font-size: 16px;
+  }
+
+  .service-form input:focus,
+  .service-form select:focus {
+    border-color: var(--hq-green);
+    outline: none;
+    box-shadow: none;
+  }
+
+  .service-form button {
+    justify-self: start;
+    margin-top: 20px;
+    padding: 12px 24px;
+    border-radius: 999px;
+    background: var(--hq-lime);
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+      transform 180ms ease,
+      filter 180ms ease;
+  }
+
+  .service-form button:hover {
+    transform: translateY(-2px);
+    filter: brightness(0.95);
+  }
+
+  .service-form__status {
+    align-self: center;
+    color: var(--hq-green);
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .service-testimonials {
+    height: 862px;
+    padding: 62px 0 64px;
+    overflow: hidden;
+    border-radius: 24px 24px 0 0;
+    background: #fff;
+  }
+
+  .testimonials-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .testimonials-heading a {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    color: var(--hq-green);
+  }
+
+  .testimonial-window {
+    width: 100%;
+    margin-top: 72px;
+    overflow: visible;
+  }
+
+  .testimonial-track {
+    display: flex;
+    width: max-content;
+    gap: 24px;
+    transform: translateX(
+      calc((100vw - min(100vw - 60px, 1320px)) / 2 - 312px)
+    );
+    transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .testimonial-card {
+    width: 370px;
+    min-height: 470px;
+    flex: 0 0 370px;
+    padding: 32px;
+    border-radius: 20px;
+    background: var(--hq-warm);
+  }
+
+  .testimonial-card > img {
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .testimonial-card blockquote {
+    min-height: 178px;
+    margin: 58px 0 28px;
+    font-size: 18px;
+    line-height: 1.72;
+  }
+
+  .testimonial-card h3 {
+    margin-bottom: 1px;
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .testimonial-card p {
+    color: rgba(4, 4, 4, 0.62);
+  }
+
+  .testimonial-controls {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 66px;
+  }
+
+  .testimonial-controls button {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background-color 180ms ease;
+  }
+
+  .testimonial-controls button:hover {
+    background: var(--hq-warm);
+  }
+
+  .service-faq {
+    height: 744px;
+    padding: 63px 0 60px;
+    background: #fff;
+  }
+
+  .faq-inner {
+    width: min(700px, calc(100% - 40px));
+    margin-inline: auto;
+  }
+
+  .faq-inner > h2 {
+    text-align: center;
+  }
+
+  .faq-list {
+    margin-top: 76px;
+  }
+
+  .faq-item + .faq-item {
+    margin-top: 4px;
+  }
+
+  .faq-trigger {
+    display: flex;
+    width: 100%;
+    min-height: 64px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 16px;
+    border-radius: 14px;
+    background: var(--hq-warm);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 28px;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .faq-chevron {
+    color: #777;
+    font-size: 28px;
+    font-weight: 300;
+    transition: transform 240ms ease;
+  }
+
+  .faq-answer {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 300ms ease;
+  }
+
+  .faq-answer > div {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .faq-answer p {
+    padding: 20px 16px 28px;
+    color: #66666d;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .faq-item.is-open .faq-answer {
+    grid-template-rows: 1fr;
+  }
+
+  .faq-item.is-open .faq-chevron {
+    transform: rotate(-90deg);
+  }
+
+  .service-cta {
+    position: relative;
+    height: 625px;
+    overflow: hidden;
+    border-radius: 24px 24px 0 0;
+    color: #fff;
+  }
+
+  .service-cta > img,
+  .service-cta__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .service-cta > img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .service-cta__shade {
+    background: linear-gradient(
+      180deg,
+      rgba(24, 55, 75, 0.46),
+      rgba(9, 25, 33, 0.02)
+    );
+  }
+
+  .service-cta__content {
+    position: relative;
+    z-index: 1;
+    width: min(760px, calc(100% - 40px));
+    margin: 0 auto;
+    padding-top: 88px;
+    text-align: center;
+  }
+
+  .service-cta h2 span {
+    display: block;
+  }
+
+  .service-cta__content p {
+    max-width: 700px;
+    margin: 18px auto 32px;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  .service-cta__content a {
+    display: inline-flex;
+    padding: 12px 24px;
+    border-radius: 999px;
+    color: #050505;
+    background: var(--hq-lime);
+    transition:
+      transform 180ms ease,
+      filter 180ms ease;
+  }
+
+  .service-cta__content a:hover {
+    transform: translateY(-2px);
+    filter: brightness(0.95);
+  }
+
+  @media (max-width: 1023px) {
+    .quote-layout {
+      grid-template-columns: 1fr;
+      gap: 50px;
+    }
+
+    .service-quote {
+      min-height: auto;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .page-container {
+      width: calc(100% - 40px);
+    }
+
+    .service-hero {
+      height: 236px;
+    }
+
+    .service-hero h1 {
+      align-items: start;
+      padding-top: 150px;
+      font-size: 40px;
+      line-height: 46px;
+      letter-spacing: -1.5px;
+    }
+
+    .service-directory {
+      padding: 110px 0 88px;
+    }
+
+    .service-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .service-card {
+      height: 290.53px;
+      aspect-ratio: auto;
+      border-radius: 14px;
+    }
+
+    .service-card__content {
+      right: 16px;
+      bottom: 16px;
+      left: 16px;
+      grid-template-columns: 52px 1fr 44px;
+      gap: 12px;
+    }
+
+    .service-card__icon {
+      width: 52px;
+      height: 52px;
+    }
+
+    .service-card__content h2 {
+      font-size: 15px;
+      line-height: 22px;
+      letter-spacing: -0.25px;
+    }
+
+    .service-card__content p {
+      margin-top: 2px;
+      font-size: 14px;
+      line-height: 24px;
+    }
+
+    .service-card__arrow {
+      width: 44px;
+      height: 44px;
+      font-size: 22px;
+    }
+
+    .service-quote {
+      height: 1124px;
+      min-height: 0;
+      padding: 90px 0 20px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .quote-layout {
+      gap: 40px;
+    }
+
+    .quote-copy {
+      text-align: center;
+    }
+
+    .quote-copy h2,
+    .testimonials-heading h2,
+    .faq-inner > h2,
+    .service-cta h2 {
+      font-size: 36px;
+      line-height: 45px;
+      letter-spacing: -1px;
+    }
+
+    .quote-copy > p {
+      margin: 16px auto 0;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .quote-contacts {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-top: 60px;
+    }
+
+    .service-form {
+      grid-template-columns: 1fr;
+      gap: 22px;
+      padding: 16px 24px;
+      text-align: left;
+    }
+
+    .service-form input,
+    .service-form select {
+      min-height: 31px;
+    }
+
+    .service-form button {
+      margin-top: 6px;
+    }
+
+    .service-testimonials {
+      height: 862px;
+      padding: 70px 0 64px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .testimonials-heading {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .testimonials-heading h2 {
+      width: 100%;
+    }
+
+    .testimonials-heading a {
+      display: none;
+    }
+
+    .testimonial-window {
+      margin-top: 76px;
+      padding: 0 20px;
+      overflow: hidden;
+    }
+
+    .testimonial-track {
+      width: 100%;
+      gap: 18px;
+      transform: none;
+    }
+
+    .testimonial-card {
+      width: 100%;
+      min-height: 475px;
+      flex-basis: 100%;
+      padding: 30px;
+    }
+
+    .testimonial-controls {
+      margin-top: 38px;
+    }
+
+    .service-faq {
+      height: 893px;
+      padding: 50px 0 60px;
+    }
+
+    .faq-inner {
+      width: calc(100% - 40px);
+    }
+
+    .faq-inner > h2 {
+      text-align: left;
+    }
+
+    .faq-list {
+      margin-top: 54px;
+    }
+
+    .faq-trigger {
+      min-height: 96px;
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .service-cta {
+      height: 506px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .service-cta__content {
+      padding-top: 60px;
+    }
+
+    .service-cta__content p {
+      margin-top: 20px;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-page *,
+    .service-page *::before,
+    .service-page *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+</style>
