@@ -1,0 +1,708 @@
+---
+import Base from "@/layouts/Base.astro";
+import {
+  serviceBenefits,
+  serviceDetails,
+  serviceHighlights,
+  serviceTestimonials,
+  type ServiceDetail,
+} from "@/data/service-details";
+
+export function getStaticPaths() {
+  return serviceDetails.map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+interface Props {
+  service: ServiceDetail;
+}
+
+const { service } = Astro.props;
+const titleLines = service.extendedIntro
+  ? ["Property Selling", "Services"]
+  : [service.title];
+---
+
+<Base
+  title={service.title}
+  meta_title={`${service.title} | HomeQuest`}
+  description={`Explore HomeQuest ${service.title.toLowerCase()} and discover how our experienced real estate team can help.`}
+  image={service.hero}
+>
+  <div
+    class:list={[
+      "service-detail-page",
+      service.extendedIntro && "service-detail-page--extended",
+    ]}
+  >
+    <section class="service-detail-hero" aria-labelledby="service-detail-title">
+      <img src={service.hero} alt={service.title} fetchpriority="high" />
+      <div class="service-detail-hero__shade"></div>
+      <h1 id="service-detail-title" data-aos="fade-up" data-aos-duration="900">
+        {
+          titleLines.map((line, index) => (
+            <span>
+              {line}
+              {index < titleLines.length - 1 ? " " : ""}
+            </span>
+          ))
+        }
+      </h1>
+    </section>
+
+    <section
+      class="service-description"
+      aria-label={`${service.title} overview`}
+    >
+      <div data-aos="fade-up" data-aos-duration="900">
+        <p>
+          The success of your real estate business depends on how well your
+          online marketing funnel attracts new home buyers.&nbsp;44% of all home
+          buyers and 99% of Millennials&nbsp;go to the Internet first when
+          finding properties for sale. As a real estate professional, you need a
+          professional website if you expect to increase revenue over time.
+        </p>
+        <p>
+          Home buyers expect quality as they search for homes and the REALTOR®
+          that best fits their needs. Your website should showcase your property
+          listings, brand and expertise. Tools that help you stand out include:
+        </p>
+        <ul>
+          {serviceHighlights.map((highlight) => <li>{highlight}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="service-benefits" aria-labelledby="service-benefits-title">
+      <img
+        src="/images/service-details/wCmAAZazUg2c8VQB8fwFTvTfNh0.png"
+        alt="Warm contemporary HomeQuest interior"
+        loading="lazy"
+      />
+      <div
+        class="service-benefits__panel"
+        data-aos="fade-up"
+        data-aos-duration="900"
+      >
+        <h2 id="service-benefits-title">Why Choose Homequest</h2>
+        <ol>
+          {
+            serviceBenefits.map((benefit, index) => (
+              <li>
+                <span>{index + 1}</span>
+                <p>{benefit}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </section>
+
+    <section class="service-partner" aria-labelledby="service-partner-title">
+      <div class="service-partner__heading">
+        <h2 id="service-partner-title">Your Trusted Real Estate Partner</h2>
+        <a href="/reviews">Read all stories <span aria-hidden="true">›</span></a
+        >
+      </div>
+
+      <div class="service-partner__window">
+        <div class="service-partner__track" data-service-track>
+          {
+            serviceTestimonials.map((testimonial) => (
+              <article class="service-partner__card">
+                <img
+                  src={testimonial.image}
+                  alt={testimonial.name}
+                  loading="lazy"
+                />
+                <blockquote>“{testimonial.quote}”</blockquote>
+                <h3>{testimonial.name}</h3>
+                <p>{testimonial.role}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="service-partner__controls" aria-label="Testimonial controls">
+        <button
+          type="button"
+          aria-label="Previous testimonial"
+          data-service-prev>←</button
+        >
+        <button type="button" aria-label="Next testimonial" data-service-next
+          >→</button
+        >
+      </div>
+    </section>
+
+    <section
+      class="service-detail-cta"
+      aria-labelledby="service-detail-cta-title"
+    >
+      <img
+        src="/images/company/cta.avif"
+        alt="Modern property at dusk"
+        loading="lazy"
+      />
+      <div class="service-detail-cta__shade"></div>
+      <div
+        class="service-detail-cta__content"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+      >
+        <h2 id="service-detail-cta-title">
+          <span>Ready to Make a</span>
+          <span>Move? Contact Us Now!</span>
+        </h2>
+        <p>
+          Contact us today to discuss your property needs and choose the right
+          plan. We’re here to guide you through every step of the process.
+        </p>
+        <a href="/contact">Get Your Home</a>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<script>
+  const track = document.querySelector<HTMLElement>("[data-service-track]");
+  const previous = document.querySelector<HTMLButtonElement>(
+    "[data-service-prev]",
+  );
+  const next = document.querySelector<HTMLButtonElement>("[data-service-next]");
+
+  if (track && previous && next) {
+    const cards = Array.from(
+      track.querySelectorAll<HTMLElement>(".service-partner__card"),
+    );
+    let current = 1;
+
+    const updateTrack = () => {
+      const mobile = window.matchMedia("(max-width: 767px)").matches;
+      const cardWidth = cards[0]?.getBoundingClientRect().width ?? 0;
+      const gap = mobile ? 20 : 24;
+      const centeredOffset = mobile ? 20 : (window.innerWidth - cardWidth) / 2;
+      track.style.transform = `translateX(${centeredOffset - current * (cardWidth + gap)}px)`;
+    };
+
+    previous.addEventListener("click", () => {
+      current = (current - 1 + cards.length) % cards.length;
+      updateTrack();
+    });
+
+    next.addEventListener("click", () => {
+      current = (current + 1) % cards.length;
+      updateTrack();
+    });
+
+    window.addEventListener("resize", updateTrack);
+    updateTrack();
+  }
+</script>
+
+<style>
+  :global(html) {
+    overflow-y: scroll;
+  }
+
+  :global(body) {
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+
+  .service-detail-page {
+    --hq-lime: #dbfb1e;
+    --hq-warm: #f7f6f4;
+    color: #0a0915;
+    background: #fff;
+  }
+
+  .service-detail-page h1,
+  .service-detail-page h2,
+  .service-detail-page h3,
+  .service-detail-page p,
+  .service-detail-page blockquote {
+    margin: 0;
+  }
+
+  .service-detail-hero {
+    position: relative;
+    height: 640px;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  .service-detail-page--extended .service-detail-hero {
+    height: 732px;
+  }
+
+  .service-detail-hero > img,
+  .service-detail-hero__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .service-detail-hero > img {
+    object-fit: cover;
+  }
+
+  .service-detail-hero__shade {
+    background: rgba(7, 18, 23, 0.42);
+  }
+
+  .service-detail-hero h1 {
+    position: absolute;
+    top: 274px;
+    right: max(20px, calc(50% - 421.75px));
+    left: max(20px, calc(50% - 421.75px));
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 80px;
+    font-weight: 400;
+    line-height: 92px;
+    letter-spacing: -3.5px;
+    text-align: center;
+  }
+
+  .service-detail-hero h1 span {
+    display: block;
+  }
+
+  .service-description {
+    height: 645.688px;
+    padding-top: 100px;
+    background: #fff;
+  }
+
+  .service-detail-page--extended .service-description {
+    height: 678.094px;
+  }
+
+  .service-description > div {
+    width: min(860px, calc(100% - 40px));
+    margin-inline: auto;
+  }
+
+  .service-description p,
+  .service-description li {
+    color: #3f3f46;
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 18px;
+    line-height: 32.4px;
+  }
+
+  .service-description p + p {
+    margin-top: 32px;
+  }
+
+  .service-description ul {
+    margin: 32px 0 0;
+    padding-left: 31px;
+  }
+
+  .service-benefits {
+    position: relative;
+    height: 686.797px;
+    overflow: hidden;
+    border-radius: 24px 24px 0 0;
+  }
+
+  .service-benefits > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .service-benefits__panel {
+    position: absolute;
+    top: 138px;
+    right: max(20px, calc(50% - 374px));
+    left: max(20px, calc(50% - 374px));
+    min-height: 412px;
+    padding: 32px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(3px);
+  }
+
+  .service-benefits__panel h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 44.8px;
+    letter-spacing: -1px;
+  }
+
+  .service-benefits__panel ol {
+    display: grid;
+    gap: 16px;
+    margin: 32px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .service-benefits__panel li {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .service-benefits__panel li > span {
+    display: grid;
+    width: 52px;
+    height: 52px;
+    place-items: center;
+    border-radius: 8px;
+    background: rgba(219, 251, 30, 0.72);
+    font-size: 20px;
+    line-height: 36px;
+  }
+
+  .service-benefits__panel li p {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 24px;
+    line-height: 33.6px;
+    letter-spacing: -0.6px;
+  }
+
+  .service-partner {
+    position: relative;
+    height: 945px;
+    overflow: hidden;
+    border-radius: 24px 24px 0 0;
+    background: #fff;
+  }
+
+  .service-partner__heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 130px 10px 0 2.5px;
+  }
+
+  .service-partner__heading h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: -2.4px;
+  }
+
+  .service-partner__heading a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #456759;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .service-partner__heading a span {
+    font-size: 28px;
+  }
+
+  .service-partner__window {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 52px;
+  }
+
+  .service-partner__track {
+    display: flex;
+    width: max-content;
+    gap: 24px;
+    transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .service-partner__card {
+    display: flex;
+    width: 371px;
+    height: 557px;
+    flex: 0 0 371px;
+    flex-direction: column;
+    padding: 48px 32px 32px;
+    border-radius: 24px;
+    background: var(--hq-warm);
+  }
+
+  .service-partner__card > img {
+    width: 104px;
+    height: 104px;
+    align-self: center;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .service-partner__card blockquote {
+    flex: 1;
+    margin-top: 48px;
+    color: #52525a;
+    font-size: 20px;
+    font-style: normal;
+    line-height: 36px;
+  }
+
+  .service-partner__card h3 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 36px;
+  }
+
+  .service-partner__card p {
+    color: #71717a;
+    font-size: 16px;
+    line-height: 28.8px;
+  }
+
+  .service-partner__controls {
+    position: absolute;
+    right: 0;
+    bottom: 88px;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .service-partner__controls button {
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border: 0;
+    color: #0a0915;
+    background: transparent;
+    font-size: 32px;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform 180ms ease;
+  }
+
+  .service-partner__controls button:hover {
+    transform: translateY(-2px);
+  }
+
+  .service-detail-cta {
+    position: relative;
+    height: 624.609px;
+    overflow: hidden;
+    border-radius: 24px 24px 0 0;
+    color: #fff;
+  }
+
+  .service-detail-cta > img,
+  .service-detail-cta__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .service-detail-cta > img {
+    object-fit: cover;
+  }
+
+  .service-detail-cta__shade {
+    background: linear-gradient(
+      180deg,
+      rgba(24, 55, 75, 0.46),
+      rgba(9, 25, 33, 0.02)
+    );
+  }
+
+  .service-detail-cta__content {
+    position: relative;
+    z-index: 1;
+    width: min(748px, calc(100% - 40px));
+    margin-inline: auto;
+    padding-top: 88px;
+    text-align: center;
+  }
+
+  .service-detail-cta h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: -2.5px;
+  }
+
+  .service-detail-cta h2 span {
+    display: block;
+  }
+
+  .service-detail-cta__content p {
+    max-width: 598px;
+    margin: 16px auto 32px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 16px;
+    line-height: 32.4px;
+  }
+
+  .service-detail-cta__content > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 24px;
+    border-radius: 32px;
+    color: #050505;
+    background: var(--hq-lime);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 28.8px;
+    transition: transform 180ms ease;
+  }
+
+  .service-detail-cta__content > a:hover {
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 767px) {
+    .service-detail-hero,
+    .service-detail-page--extended .service-detail-hero {
+      height: 282px;
+    }
+
+    .service-detail-hero h1 {
+      top: 100px;
+      right: 20px;
+      left: 20px;
+      font-size: 40px;
+      line-height: 46px;
+      letter-spacing: -1.7px;
+    }
+
+    .service-detail-hero h1 span {
+      display: inline;
+    }
+
+    .service-description {
+      height: 802.938px;
+      padding: 60px 20px 0;
+    }
+
+    .service-detail-page--extended .service-description {
+      height: 835.344px;
+    }
+
+    .service-description > div {
+      width: 100%;
+    }
+
+    .service-description p,
+    .service-description li {
+      font-size: 18px;
+      line-height: 32.4px;
+    }
+
+    .service-description ul {
+      padding-left: 24px;
+    }
+
+    .service-benefits {
+      height: 789.594px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .service-benefits__panel {
+      top: 110px;
+      right: 20px;
+      left: 20px;
+      min-height: 629.594px;
+      padding: 24px;
+      border-radius: 16px;
+    }
+
+    .service-benefits__panel h2 {
+      font-size: 32px;
+      line-height: 44.8px;
+    }
+
+    .service-benefits__panel ol {
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .service-benefits__panel li {
+      grid-template-columns: 52px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .service-benefits__panel li p {
+      font-size: 20px;
+      line-height: 36px;
+    }
+
+    .service-partner {
+      height: 861.797px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .service-partner__heading {
+      padding: 70px 12.5px 0;
+    }
+
+    .service-partner__heading h2 {
+      max-width: 350px;
+      font-size: 36px;
+      line-height: 45px;
+      letter-spacing: -1.8px;
+    }
+
+    .service-partner__heading a {
+      display: none;
+    }
+
+    .service-partner__window {
+      margin-top: 25px;
+    }
+
+    .service-partner__track {
+      gap: 20px;
+    }
+
+    .service-partner__card {
+      width: 335px;
+      height: 557px;
+      flex-basis: 335px;
+      padding: 48px 32px 32px;
+    }
+
+    .service-partner__controls {
+      bottom: 68px;
+    }
+
+    .service-detail-cta {
+      height: 506.422px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .service-detail-cta__content {
+      width: calc(100% - 40px);
+      padding-top: 60px;
+    }
+
+    .service-detail-cta h2 {
+      font-size: 36px;
+      line-height: 45px;
+      letter-spacing: -1.8px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-detail-page *,
+    .service-detail-page *::before,
+    .service-detail-page *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+</style>
