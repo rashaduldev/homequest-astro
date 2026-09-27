@@ -1,0 +1,1013 @@
+---
+import Base from "@/layouts/Base.astro";
+import {
+  properties,
+  propertyFeatures,
+  propertyIntro,
+  type Property,
+} from "@/data/properties";
+import { IoArrowForward } from "react-icons/io5";
+
+export function getStaticPaths() {
+  return properties.map((property) => ({
+    params: { slug: property.slug },
+    props: { property },
+  }));
+}
+
+interface Props {
+  property: Property;
+}
+
+const { property } = Astro.props;
+const similarProperties = properties.slice(0, 3);
+
+const stats = [
+  {
+    label: "Price",
+    value: property.detailPrice,
+    icon: "B38oAK6r6ISQrN4BxyJW3yHVTE.svg",
+  },
+  {
+    label: "Units",
+    value: String(property.units),
+    icon: "ji87tzajTwKWsymacYkxSlU8AY.svg",
+  },
+  {
+    label: "Sq. Feet",
+    value: property.area,
+    icon: "CiVucOqOCi8ZE15nSeEjpLkl4eA.svg",
+  },
+  {
+    label: "Bedroom",
+    value: String(property.beds),
+    icon: "OuRvDD9q0wixYVv0UoJtYyFOjds.svg",
+  },
+  {
+    label: "Bathroom",
+    value: String(property.baths),
+    icon: "ZqWcof3XI7LxYgJodAmelKG8AHU.svg",
+  },
+  {
+    label: "Parking Spaces",
+    value: String(property.parking),
+    icon: "RB02Ug16m7uvuefNQexwQo6PlQ.svg",
+  },
+  {
+    label: "Lot Size",
+    value: property.lotSize,
+    icon: "HIgGTMK0wsNuuOVIghHWdrCWfh0.svg",
+  },
+  {
+    label: "Type",
+    value: property.type,
+    icon: "oXGsknf0Fgz09HsOIP0M4yUjBfc.svg",
+  },
+  {
+    label: "Price/per Sq. Feet",
+    value: property.pricePerSquareFoot,
+    icon: "oXGsknf0Fgz09HsOIP0M4yUjBfc.svg",
+  },
+];
+---
+
+<Base
+  title={property.title}
+  meta_title={`${property.title} | HomeQuest`}
+  description={`Explore ${property.title}, including pricing, property details, key features, and images.`}
+  image={property.hero}
+>
+  <div class="property-detail-page">
+    <section class="detail-hero" aria-labelledby="property-title">
+      <img src={property.hero} alt={property.title} fetchpriority="high" />
+      <div class="detail-hero__shade"></div>
+      <h1 id="property-title" data-aos="fade-up" data-aos-duration="900">
+        {
+          property.titleLines.map((line, index) => (
+            <span>
+              {line}
+              {index < property.titleLines.length - 1 ? " " : ""}
+            </span>
+          ))
+        }
+      </h1>
+    </section>
+
+    <section class="detail-content" aria-label="Property details">
+      <div class="detail-copy">
+        <h2 data-aos="fade-up" data-aos-duration="900">
+          <span>{propertyIntro}</span>
+        </h2>
+
+        <div class="detail-stats">
+          {
+            stats.map((stat, index) => (
+              <article
+                class="detail-stat"
+                data-aos="fade-up"
+                data-aos-delay={String((index % 3) * 70)}
+                data-aos-duration="850"
+              >
+                <img
+                  src={`/images/property-details/${stat.icon}`}
+                  alt=""
+                  aria-hidden="true"
+                />
+                <div>
+                  <p>{stat.label}</p>
+                  <h3>{stat.value}</h3>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="detail-gallery" data-aos="fade-up" data-aos-duration="900">
+        <img src={property.gallery[0]} alt={`${property.title} exterior`} />
+        <div>
+          <img
+            src={property.gallery[1]}
+            alt={`${property.title} garden view`}
+          />
+          <img
+            src={property.gallery[2]}
+            alt={`${property.title} evening view`}
+          />
+        </div>
+      </div>
+
+      <div class="detail-features" data-aos="fade-up" data-aos-duration="900">
+        <h2>Key Features:</h2>
+        <ul>
+          {
+            propertyFeatures.map((feature) => (
+              <li>
+                <strong>{feature.title}</strong> {feature.text}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <section class="property-inquiry" aria-labelledby="inquiry-title">
+      <div class="property-inquiry__info" data-aos="fade-up">
+        <h2 id="inquiry-title">
+          <span>Let’s Find Your</span>
+          <span>Perfect Property</span>
+        </h2>
+        <p>
+          Have questions or ready to take the next step? Whether you’re buying,
+          selling, or just exploring options.
+        </p>
+        <div class="property-inquiry__contacts">
+          <div>
+            <strong>Email Address</strong>
+            <a href="mailto:support@homequest.com">support@homequest.com</a>
+          </div>
+          <div>
+            <strong>Phone Call</strong>
+            <p>
+              <a href="tel:+0291801920">+0291801920</a>,
+              <a href="tel:+982771882">+982771882</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <form
+        class="property-inquiry__form"
+        action="/contact"
+        method="get"
+        data-aos="fade-up"
+      >
+        <label>
+          <span>Hello, my name is</span>
+          <input
+            type="text"
+            name="name"
+            placeholder="First and Last"
+            required
+          />
+        </label>
+        <label>
+          <span>Hello, my name is</span>
+          <input
+            type="email"
+            name="email"
+            placeholder="yourmail@homequest.com"
+            required
+          />
+        </label>
+        <label>
+          <span>Your desired budget</span>
+          <input type="number" name="budget" placeholder="$500,000" min="0" />
+        </label>
+        <label>
+          <span>Phone Number</span>
+          <input type="tel" name="phone" placeholder="+021 9029 9202" />
+        </label>
+        <label class="property-inquiry__select">
+          <span>Your desired room setup</span>
+          <select name="property" required>
+            <option value="" disabled selected>Select a Room</option>
+            {
+              properties.map((item) => (
+                <option value={item.slug}>{item.title}</option>
+              ))
+            }
+          </select>
+        </label>
+        <button type="submit">
+          Get a Quote
+          <IoArrowForward aria-hidden="true" />
+        </button>
+      </form>
+    </section>
+
+    <section class="similar-properties" aria-labelledby="similar-title">
+      <div class="similar-properties__heading">
+        <h2 id="similar-title">Similar Properties</h2>
+        <a href="/properties"
+          >Read all stories <span aria-hidden="true">›</span></a
+        >
+      </div>
+      <div class="similar-properties__grid">
+        {
+          similarProperties.map((item, index) => (
+            <a
+              class="similar-property"
+              href={`/properties/${item.slug}`}
+              data-aos="fade-up"
+              data-aos-delay={String(index * 80)}
+            >
+              <div class="similar-property__image">
+                <img src={item.hero} alt={item.title} loading="lazy" />
+                <span>{item.status}</span>
+              </div>
+              <div class="similar-property__body">
+                <p class="similar-property__price">{item.price}</p>
+                <h3>{item.title}</h3>
+                <div class="similar-property__features">
+                  <p>
+                    <img src="/images/properties/area.svg" alt="" /> {item.area}{" "}
+                    sq. ft.
+                  </p>
+                  <p>
+                    <img src="/images/properties/bed.svg" alt="" /> {item.beds}{" "}
+                    Bed
+                  </p>
+                  <p>
+                    <img src="/images/properties/bath.svg" alt="" />{" "}
+                    {item.baths} Bath
+                  </p>
+                </div>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="detail-cta" aria-labelledby="detail-cta-title">
+      <img
+        src="/images/company/cta.avif"
+        alt="Modern property at dusk"
+        loading="lazy"
+      />
+      <div class="detail-cta__shade"></div>
+      <div
+        class="detail-cta__content"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+      >
+        <h2 id="detail-cta-title">
+          <span>Ready to Make a</span>
+          <span>Move? Contact Us Now!</span>
+        </h2>
+        <p>
+          Contact us today to discuss your property needs and choose the right
+          plan. We’re here to guide you through every step of the process.
+        </p>
+        <a href="/contact">Get Your Home</a>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .property-detail-page {
+    --hq-green: #1d4b3b;
+    --hq-lime: #dbfb1e;
+    --hq-warm: #f7f6f4;
+    color: #0a0915;
+    background: #fff;
+  }
+
+  .property-detail-page h1,
+  .property-detail-page h2,
+  .property-detail-page h3,
+  .property-detail-page p {
+    margin: 0;
+  }
+
+  .detail-hero {
+    position: relative;
+    height: 824px;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  .detail-hero > img,
+  .detail-hero__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .detail-hero > img {
+    object-fit: cover;
+  }
+
+  .detail-hero__shade {
+    background: rgba(4, 10, 12, 0.42);
+  }
+
+  .detail-hero h1 {
+    position: absolute;
+    top: 274px;
+    right: max(20px, calc(50% - 421.75px));
+    left: max(20px, calc(50% - 421.75px));
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 80px;
+    font-weight: 400;
+    line-height: 92px;
+    letter-spacing: -4px;
+    text-align: center;
+  }
+
+  .detail-hero h1 span {
+    display: block;
+  }
+
+  .detail-content {
+    height: 3175.953px;
+    background: #fff;
+  }
+
+  .detail-copy,
+  .detail-features {
+    width: min(1000.141px, calc(100% - 40px));
+    margin-inline: auto;
+  }
+
+  .detail-copy {
+    padding-top: 130px;
+  }
+
+  .detail-copy > h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 44.8px;
+    letter-spacing: -1.15px;
+  }
+
+  .detail-copy > h2 span {
+    display: block;
+    max-width: 900px;
+  }
+
+  .detail-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 80px;
+  }
+
+  .detail-stat {
+    display: flex;
+    height: 205.594px;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px;
+    border: 1px solid rgba(10, 9, 21, 0.08);
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(10, 9, 21, 0.025);
+  }
+
+  .detail-stat > img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .detail-stat p {
+    color: #71717a;
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 28.8px;
+  }
+
+  .detail-stat h3 {
+    margin-top: 4px;
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 44.8px;
+    letter-spacing: -1px;
+  }
+
+  .detail-gallery {
+    width: calc(100% - 60px);
+    max-width: 1205px;
+    margin: 84px auto 0;
+  }
+
+  .detail-gallery > img,
+  .detail-gallery > div img {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 24px;
+  }
+
+  .detail-gallery > img {
+    height: 688.297px;
+  }
+
+  .detail-gallery > div {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+  }
+
+  .detail-gallery > div img {
+    height: 335.297px;
+  }
+
+  .detail-features {
+    margin-top: 80px;
+  }
+
+  .detail-features h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 44.8px;
+    letter-spacing: -1px;
+  }
+
+  .detail-features ul {
+    margin: 32px 0 0;
+    padding-left: 24px;
+  }
+
+  .detail-features li {
+    padding-left: 2px;
+    color: #52525a;
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 28.8px;
+  }
+
+  .detail-features strong {
+    color: #3f3f46;
+    font-weight: 700;
+  }
+
+  .property-inquiry {
+    display: grid;
+    height: 587.016px;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 60px;
+    padding: 100px 30px;
+    border-radius: 24px 24px 0 0;
+    color: #fff;
+    background: var(--hq-green);
+  }
+
+  .property-inquiry__info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .property-inquiry__info h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: -2.4px;
+  }
+
+  .property-inquiry__info h2 span {
+    display: block;
+  }
+
+  .property-inquiry__info > p {
+    max-width: 440px;
+    margin-top: 24px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 16px;
+    line-height: 28.8px;
+  }
+
+  .property-inquiry__contacts {
+    display: grid;
+    max-width: 500px;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: auto;
+  }
+
+  .property-inquiry__contacts strong,
+  .property-inquiry__contacts a,
+  .property-inquiry__contacts p {
+    display: block;
+    color: #fff;
+    font-size: 16px;
+    line-height: 28.8px;
+  }
+
+  .property-inquiry__contacts strong {
+    margin-bottom: 4px;
+  }
+
+  .property-inquiry__contacts p a {
+    display: inline;
+  }
+
+  .property-inquiry__form {
+    display: grid;
+    align-self: center;
+    height: 356px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 24px;
+    padding: 32px;
+    border-radius: 12px;
+    color: #0a0915;
+    background: var(--hq-warm);
+  }
+
+  .property-inquiry__form label {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .property-inquiry__form label > span {
+    font-size: 16px;
+    line-height: 28.8px;
+  }
+
+  .property-inquiry__form input,
+  .property-inquiry__form select {
+    width: 100%;
+    min-width: 0;
+    padding: 0 0 8px;
+    border: 0;
+    border-bottom: 1px solid rgba(10, 9, 21, 0.24);
+    border-radius: 0;
+    outline: 0;
+    color: #52525a;
+    background: transparent;
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 28.8px;
+  }
+
+  .property-inquiry__form input:focus,
+  .property-inquiry__form select:focus {
+    border-color: var(--hq-green);
+  }
+
+  .property-inquiry__form input::placeholder {
+    color: #71717a;
+    opacity: 1;
+  }
+
+  .property-inquiry__select {
+    grid-column: 1;
+  }
+
+  .property-inquiry__form button {
+    display: inline-flex;
+    width: fit-content;
+    height: 49px;
+    align-items: center;
+    align-self: end;
+    justify-content: center;
+    gap: 18px;
+    padding: 10px 24px;
+    border: 0;
+    border-radius: 30px;
+    color: #0a0915;
+    background: var(--hq-lime);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 28.8px;
+    cursor: pointer;
+    transition: transform 180ms ease;
+  }
+
+  .property-inquiry__form button:hover {
+    transform: translateY(-2px);
+  }
+
+  .property-inquiry__form button :global(svg) {
+    width: 24px;
+    height: 24px;
+  }
+
+  .similar-properties {
+    height: 791.312px;
+    padding: 100px 30px 74px;
+    border-radius: 24px 24px 0 0;
+    background: var(--hq-warm);
+  }
+
+  .similar-properties__heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .similar-properties__heading h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: -2.4px;
+  }
+
+  .similar-properties__heading a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--hq-green);
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .similar-properties__heading a span {
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  .similar-properties__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 64px;
+  }
+
+  .similar-property {
+    min-width: 0;
+    color: inherit;
+  }
+
+  .similar-property__image {
+    position: relative;
+    height: 316.531px;
+    overflow: hidden;
+    border-radius: 16px;
+  }
+
+  .similar-property__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 350ms ease;
+  }
+
+  .similar-property:hover .similar-property__image img {
+    transform: scale(1.035);
+  }
+
+  .similar-property__image span {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 7px 12px;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .similar-property__body {
+    padding-top: 28px;
+  }
+
+  .similar-property__price {
+    color: var(--hq-green);
+    font-size: 16px;
+    line-height: 28.8px;
+  }
+
+  .similar-property h3 {
+    margin-top: 8px;
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 33.6px;
+    letter-spacing: -0.7px;
+  }
+
+  .similar-property__features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-top: 20px;
+  }
+
+  .similar-property__features p {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 16px;
+    line-height: 28.8px;
+  }
+
+  .similar-property__features img {
+    width: 20px;
+    height: 21px;
+  }
+
+  .detail-cta {
+    position: relative;
+    height: 624.609px;
+    overflow: hidden;
+    border-radius: 24px 24px 0 0;
+    color: #fff;
+  }
+
+  .detail-cta > img,
+  .detail-cta__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .detail-cta > img {
+    object-fit: cover;
+  }
+
+  .detail-cta__shade {
+    background: linear-gradient(
+      180deg,
+      rgba(24, 55, 75, 0.46),
+      rgba(9, 25, 33, 0.02)
+    );
+  }
+
+  .detail-cta__content {
+    position: relative;
+    z-index: 1;
+    width: min(748px, calc(100% - 40px));
+    margin: 0 auto;
+    padding-top: 88px;
+    text-align: center;
+  }
+
+  .detail-cta h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: -2.5px;
+  }
+
+  .detail-cta h2 span {
+    display: block;
+  }
+
+  .detail-cta__content p {
+    max-width: 598px;
+    margin: 16px auto 32px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 16px;
+    line-height: 32.4px;
+  }
+
+  .detail-cta__content > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 24px;
+    border-radius: 32px;
+    color: #050505;
+    background: var(--hq-lime);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 28.8px;
+    transition: transform 180ms ease;
+  }
+
+  .detail-cta__content > a:hover {
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 767px) {
+    .detail-hero {
+      height: 374px;
+    }
+
+    .detail-hero h1 {
+      top: 100px;
+      right: 20px;
+      left: 20px;
+      width: calc(100% - 40px);
+      font-size: 40px;
+      line-height: 46px;
+      letter-spacing: -1.7px;
+    }
+
+    .detail-copy > h2 span {
+      max-width: none;
+    }
+
+    .detail-hero h1 span {
+      display: inline;
+    }
+
+    .detail-content {
+      height: 5732.672px;
+    }
+
+    .detail-copy {
+      width: 278.047px;
+      max-width: calc(100% - 96px);
+      padding-top: 60px;
+    }
+
+    .detail-copy > h2 {
+      font-size: 32px;
+      line-height: 44.8px;
+    }
+
+    .detail-stats {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-top: 35.203px;
+    }
+
+    .detail-stat {
+      height: 205.594px;
+    }
+
+    .detail-gallery {
+      width: calc(100% - 40px);
+      margin-top: 78.797px;
+    }
+
+    .detail-gallery > img,
+    .detail-gallery > div img {
+      height: 348.391px;
+      border-radius: 16px;
+    }
+
+    .detail-gallery > div {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .detail-features {
+      width: calc(100% - 40px);
+      margin-top: 30px;
+    }
+
+    .detail-features ul {
+      margin-top: 32px;
+      padding-left: 18px;
+    }
+
+    .detail-features li {
+      padding-left: 2px;
+      font-size: 16px;
+      line-height: 28.8px;
+    }
+
+    .property-inquiry {
+      display: flex;
+      height: 1034.641px;
+      flex-direction: column;
+      gap: 0;
+      padding: 60px 20px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .property-inquiry__info h2 {
+      font-size: 36px;
+      line-height: 45px;
+      letter-spacing: -1.8px;
+    }
+
+    .property-inquiry__info > p {
+      margin-top: 16px;
+    }
+
+    .property-inquiry__contacts {
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .property-inquiry__contacts strong,
+    .property-inquiry__contacts a,
+    .property-inquiry__contacts p {
+      font-size: 14px;
+      line-height: 24px;
+    }
+
+    .property-inquiry__form {
+      width: 100%;
+      height: auto;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding: 24px;
+    }
+
+    .property-inquiry__select {
+      grid-column: auto;
+    }
+
+    .property-inquiry__form button {
+      margin-top: 8px;
+    }
+
+    .similar-properties {
+      height: 1644.953px;
+      padding: 100px 20px 60px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .similar-properties__heading {
+      align-items: flex-end;
+    }
+
+    .similar-properties__heading h2 {
+      font-size: 36px;
+      line-height: 45px;
+      letter-spacing: -1.8px;
+    }
+
+    .similar-properties__heading a {
+      display: none;
+    }
+
+    .similar-properties__grid {
+      grid-template-columns: 1fr;
+      gap: 34px;
+      margin-top: 75px;
+    }
+
+    .similar-property__image {
+      height: 274.938px;
+    }
+
+    .similar-property__body {
+      padding-top: 20px;
+    }
+
+    .similar-property h3 {
+      font-size: 22px;
+      line-height: 30.8px;
+    }
+
+    .similar-property__features {
+      margin-top: 16px;
+    }
+
+    .detail-cta {
+      height: 506.422px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .detail-cta__content {
+      width: calc(100% - 40px);
+      padding-top: 60px;
+    }
+
+    .detail-cta h2 {
+      font-size: 36px;
+      line-height: 45px;
+      letter-spacing: -1.8px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .property-detail-page *,
+    .property-detail-page *::before,
+    .property-detail-page *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+</style>
