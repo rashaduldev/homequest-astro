@@ -1,5 +1,9 @@
 .btn {
-  @apply inline-block rounded border border-transparent text-base leading-7 capitalize transition cursor-pointer;
+  @apply inline-flex items-center justify-center rounded-full border border-transparent px-6 py-2.5 text-base leading-7 capitalize cursor-pointer;
+  transition:
+    transform 180ms ease,
+    filter 180ms ease,
+    background-color 180ms ease;
 }
 
 .btn-sm {
@@ -7,10 +11,15 @@
 }
 
 .btn-primary {
-  @apply border-primary bg-primary text-text-dark hover:bg-gradient-to-r hover:from-dark/10 hover:to-dark/10 transform duration-1000 lg:tracking-[-0.2px];
+  @apply border-primary bg-primary text-text-dark lg:tracking-[-0.2px];
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  filter: brightness(0.95);
 }
 .btn-secondary {
-  @apply bg-secondary text-text-light hover:bg-gradient-to-r hover:from-light/10 hover:to-light/10 transform duration-1000 lg:tracking-[-0.2px];
+  @apply bg-secondary text-text-light lg:tracking-[-0.2px];
 }
 
 .btn-outline-primary {
