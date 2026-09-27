@@ -1,153 +1,1709 @@
 ---
 import Base from "@/layouts/Base.astro";
-import { markdownify } from "@/lib/utils/textConverter";
-import CallToAction from "@/partials/CallToAction.astro";
-import Listing from "@/partials/Listing.astro";
-import PropertySection from "@/partials/PropertySection.astro";
-import type { CollectionEntry } from "astro:content";
-import { getEntry } from "astro:content";
-import Testimonial from "@/partials/Testimonial.astro";
-import { FaPlay } from "react-icons/fa6";
-import ContactSection from "@/partials/ContactSection.astro";
-import ImageMod from "@/components/ImageMod.astro";
-import Banner from "@/partials/Banner.astro";
+import { BiBath } from "react-icons/bi";
+import { BsArrowsFullscreen } from "react-icons/bs";
+import {
+  FaArrowLeft,
+  FaArrowRight,
+  FaArrowUp,
+  FaPause,
+  FaPlay,
+} from "react-icons/fa6";
+import { LuBedSingle } from "react-icons/lu";
+import { MdKeyboardArrowDown, MdKeyboardArrowRight } from "react-icons/md";
 
-
-const homepage = (await getEntry("homepage","-index")) as CollectionEntry<"homepage">;
-const testimonial = (await getEntry("testimonialSection","testimonial")) as CollectionEntry<"testimonialSection">;
-const listing = (await getEntry("listingSection","listing")) as CollectionEntry<"listingSection">;
-const call_to_action = (await getEntry("ctaSection","call-to-action")) as CollectionEntry<"ctaSection">;
-const property = (await getEntry("propertySection","property-cards")) as CollectionEntry<"propertySection">;
-const faq_section = (await getEntry("faq_section","faq-section")) as CollectionEntry<"faq_section">;
-const contactsection = (await getEntry("contactSection","contact")) as CollectionEntry<"contactSection">;
-const { brands_logo, getintouch, ceoinfo } = homepage.data;
+const brands = ["sparkle", "craft-gram", "zen-zap", "tech-tide", "lum-labs"];
+const properties = [
+  [
+    "modern-2-bedroom-condo-in-marina-bay-singapore",
+    "Modern 2-Bedroom Condo in Marina Bay, Singapore",
+    "$11,000/mo",
+    "3,900",
+    3,
+    2,
+    "modern-2",
+    "For Rent",
+  ],
+  [
+    "elegant-3-bedroom-penthouse-in-hong-kong-island",
+    "Elegant 3-Bedroom Penthouse in Hong Kong Island",
+    "$1,405,000",
+    "2,800",
+    5,
+    2,
+    "elegant-3",
+    "For Sale",
+  ],
+  [
+    "stylish-2-bedroom-apartment-in-paris-france",
+    "Stylish 2-Bedroom Apartment in Paris, France",
+    "$1,405,000",
+    "3,000",
+    3,
+    2,
+    "stylish-2",
+    "For Sale",
+  ],
+  [
+    "seaside-4-bedroom-villa-in-phuket-thailand",
+    "Seaside 4-Bedroom Villa in Phuket, Thailand",
+    "$1,405,000",
+    "1,256",
+    5,
+    2,
+    "seaside-4",
+    "For Sale",
+  ],
+  [
+    "modern-3-bedroom-apartment-in-gulshan-dhaka",
+    "Modern 3-Bedroom Apartment in Gulshan, Dhaka",
+    "$9,000/mo",
+    "4,820",
+    3,
+    2,
+    "modern-3",
+    "For Rent",
+  ],
+  [
+    "cozy-1-bedroom-apartment-in-sydney-cbd-australia",
+    "Cozy 1-Bedroom Apartment in Sydney CBD, Australia",
+    "$1,405,000",
+    "3,650",
+    3,
+    2,
+    "cozy-1",
+    "For Sale",
+  ],
+] as const;
+const benefits = [
+  [
+    "Expert Local Knowledge",
+    "Our team of agents has extensive knowledge of the local real estate market.",
+  ],
+  [
+    "Hassle-Free Transactions",
+    "We handle every detail so your purchase or sale stays simple and stress-free.",
+  ],
+  [
+    "Comprehensive Support",
+    "From the first search through closing, our team supports you at every step.",
+  ],
+];
+const services = [
+  ["property-buying", "Property Buying", "Starting from 5500", "buying"],
+  ["property-selling", "Property Selling", "Starting from 6000", "selling"],
+  ["renting-services", "Renting Services", "Starting from 7000", "services"],
+];
+const testimonials = [
+  [
+    "Hannah Raquel",
+    "First-time Homebuyer",
+    "hannah",
+    "I use [YourHomequest for managing my rental properties, and they have been incredible. From tenant screening to maintenance, they handle everything efficiently.",
+  ],
+  [
+    "Brenda Joyce",
+    "2nd-time Homebuyer",
+    "brenda",
+    "I rely on [YourHomequest for managing your my rental properties, and they've been fantastic. From tenant screening to repairs, they handle everything seamlessly.",
+  ],
+  [
+    "Jonathan Lewis",
+    "First-time Homebuyer",
+    "jonathan",
+    "Using [YourHomequest for my rental properties your has been great. They manage tenant screening, maintenance, and everything else so efficiently, saving me time.",
+  ],
+  [
+    "Rebecca Sue",
+    "First-time Homebuyer",
+    "rebecca",
+    "I use [YourHomequest to manage my rentals, and they're superb. They handle tenant screening, maintenance, and everything, providing seamless, efficient service.",
+  ],
+];
+const faqs = [
+  [
+    "How long does it take to buy or sell a property?",
+    "The time it takes to buy or sell a property depends on several factors, including market conditions, property type, and the buyer's/seller's readiness. On average, it takes 1 to 3 months from listing a property to closing a sale.",
+  ],
+  [
+    "What fees are involved in buying or selling a home?",
+    "The fees may include agent commissions, closing costs, inspection fees, and legal fees. Always check with your local regulations.",
+  ],
+  [
+    "How is the value of my home determined?",
+    "Home value is determined based on location, condition, market trends, comparable sales, and professional appraisals.",
+  ],
+  [
+    "Can I get assistance with financing a property purchase?",
+    "Yes, you can get help from banks, mortgage brokers, or financial advisors to find the best loan options for your purchase.",
+  ],
+  [
+    "What are the benefits of hiring a property management service?",
+    "Property management services handle tenant screening, rent collection, maintenance, and ensure your investment property is well-managed.",
+  ],
+];
 ---
-<Base>
-  <Banner />
-  <!-- Company Brands Logo -->
-   <section class="section-sm bg-primary rounded-t-3xl z-50 relative -mt-10">
-        <div
-          data-aos="fade-up"
-          data-aos-duration="1000"
-          class="container flex flex-col xl:flex-row items-center justify-between"
-        >
-          {brands_logo?.title && (
-            <p class="text-text-dark text-xl text-center mb-10 xl:mb-0">
-              {brands_logo?.title}
-            </p>
-          )}
-          {brands_logo?.logos.length > 0 && (
-            <div class="flex flex-row items-center justify-center gap-6 md:gap-10">
-              {brands_logo?.logos.map((img, i) => (
-                  <ImageMod
-                    src={img}
-                    height={48}
-                    width={142}
-                    alt={`Brand ${i + 1}`}
-                    class="w-full rounded"
-                    loading="lazy"
-                    format="webp"
-                  />
-              ))}
-            </div>
-          )}
-        </div>
-   </section>
-  <!-- Listing Section -->
-  <Listing listing={listing} />
-  <!-- Author info -->
-  <section data-aos="fade-up" data-aos-duration="1000" class="section-sm pb-28">
-    <div class="container relative w-full max-w-4xl mx-auto text-center">
-      <h1 class="leading-15 mb-4">{ceoinfo?.title}</h1>
-      <p class="leading-7 max-w-[755px] mx-auto text-text/80">
-        {ceoinfo?.description}
-      </p>
-      <div class="relative mt-14 max-w-[1100px] mx-auto">
-        <!-- Video -->
-        <video
-          id="ceoVideo"
-          src={ceoinfo?.vediolink ?? ""}
-          class="w-full rounded-3xl"
-          playsinline
-          muted
-          style="display: none;"></video>
 
-        <!-- Cover Image & Overlay -->
-        <div id="ceoCoverWrapper" class="relative w-full">
-          <img
-            id="ceoCover"
-            src={ceoinfo?.img}
-            alt="CEO Cover"
-            class="w-full rounded-3xl object-cover"
-          />
-
-          <div
-            class="absolute bottom-10 text-light bg-opacity-50 rounded-lg flex items-center justify-between w-full px-10"
-          >
-            <div class="text-left">
-              <h5 class="mb-2">{ceoinfo?.heading}</h5>
-              <div
-                class="flex items-center text-lg md:leading-8 text-text-light/60 gap-4"
-              >
-                <p class="">{ceoinfo?.ceoname ?? "CEO Name"}</p>
-                <li class="">{ceoinfo?.designation ?? "CEO"}</li>
-              </div>
-            </div>
-            <button
-              id="playButton"
-              class="mt-4 w-20 h-20 flex items-center justify-center bg-light rounded-xl text-dark text-3xl hover:scale-110 transition-transform shadow-lg cursor-pointer"
-            >
-              <FaPlay />
-            </button>
-          </div>
+<Base title="HomeQuest">
+  <div class="home-page">
+    <section class="home-hero" aria-labelledby="home-hero-title">
+      <img src="/images/banner.avif" alt="Modern HomeQuest residence" />
+      <div class="home-hero__shade"></div>
+      <div
+        class="home-hero__content"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+      >
+        <h1 id="home-hero-title">
+          Turning Your Real Estate Dreams into Reality
+        </h1>
+        <p>
+          Forget clunky application forms. We offer a modern, user-friendly
+          platform that makes applying for a job a breeze.
+        </p>
+        <div class="home-search" data-search-trigger>
+          <input
+            type="text"
+            placeholder="Search with a location"
+            aria-label="Search with a location"
+          /><button type="button">Search Home</button>
         </div>
       </div>
-    </div>
-  </section>
-  <!-- Call To Action -->
-  <CallToAction call_to_action={call_to_action} />
-  <!-- Property Section -->
-  <PropertySection property={property} />
-  <!-- Testimonials -->
-  <Testimonial testimonial={testimonial} />
-  <ContactSection contactsection={contactsection} />
-  <!-- <FAQSection faq_section={faq_section} /> -->
-  <!--  -->
-  <section
-    class="relative section pt-40 pb-52 bg-no-repeat bg-center bg-cover bg-gradient rounded-t-3xl"
-    style={`background-image: url('${getintouch?.img}');`}>
-    <div
-      data-aos="fade-up"
-      data-aos-duration="1000"
-      class="container text-center"
-    >
-      <h1
-        set:html={markdownify(getintouch?.title ?? "")}
-        class="mb-[10px] text-text-light md:col-6 col-12 mx-auto leading-15"
-      />
-      <p
-        set:html={markdownify(getintouch?.description ?? "")}
-        class="col-12 md:col-6 text-lg mx-auto mb-10 leading-8 text-text-light/70"
-      />
-      <a class="btn btn-primary rounded-full" href="/">{getintouch?.btn}</a>
-    </div>
-    <div class="h-5 bg-light absolute w-full bottom-0 rounded-t-3xl"></div>
-  </section>
-</Base>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const playButton = document.getElementById("playButton");
-    const video = document.getElementById(
-      "ceoVideo",
-    ) as HTMLVideoElement | null;
-    const coverWrapper = document.getElementById("ceoCoverWrapper");
+    </section>
 
-    if (playButton && video && coverWrapper) {
-      playButton.addEventListener("click", () => {
-        coverWrapper.style.display = "none";
+    <section class="home-brands" aria-label="Trusted companies">
+      <div data-aos="fade-up" data-aos-duration="1000">
+        <p>Trusted by leading company</p><div class="home-brands__logos">
+          {
+            brands.map((brand, i) => (
+              <img
+                src={`/images/brand/${brand}.svg`}
+                alt={`Trusted brand ${i + 1}`}
+                loading="eager"
+              />
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="home-listings" aria-labelledby="home-listings-title">
+      <div class="home-container" data-aos="fade-up" data-aos-duration="1000">
+        <h2 id="home-listings-title">Exclusive properties by HomeQuest</h2>
+        <div class="home-listings__grid">
+          {
+            properties.map(
+              ([slug, title, price, area, bed, bath, image, tag]) => (
+                <a class="home-listing-card" href={`/properties/${slug}`}>
+                  <>
+                    <div class="home-listing-card__image">
+                      <>
+                        <img
+                          src={`/images/listing/${image}.avif`}
+                          alt={title}
+                          loading="eager"
+                        />
+                        <span>{tag}</span>
+                      </>
+                    </div>
+                    <div class="home-listing-card__body">
+                      <>
+                        <p class="home-listing-card__price">{price}</p>
+                        <h3>{title}</h3>
+                        <div class="home-listing-card__facts">
+                          <>
+                            <span>
+                              <BsArrowsFullscreen /> {area} sq. ft.
+                            </span>
+                            <span>
+                              <LuBedSingle /> {bed} Bed
+                            </span>
+                            <span>
+                              <BiBath /> {bath} Bath
+                            </span>
+                          </>
+                        </div>
+                      </>
+                    </div>
+                  </>
+                </a>
+              ),
+            )
+          }
+        </div>
+        <a class="home-button home-button--dark" href="/properties"
+          >Explore All Listings</a
+        >
+      </div>
+    </section>
+
+    <section class="home-ceo" aria-labelledby="home-ceo-title">
+      <div class="home-ceo__intro" data-aos="fade-up" data-aos-duration="1000">
+        <h2 id="home-ceo-title">A message from our CEO</h2><p>
+          With years of experience in the real estate industry, we are dedicated
+          to helping individuals and families discover the perfect property that
+          aligns with their lifestyle and needs.
+        </p>
+      </div>
+      <div class="home-ceo__media" data-aos="fade-up" data-aos-duration="1000">
+        <video
+          id="home-ceo-video"
+          src="https://videos.pexels.com/video-files/6561920/6561920-uhd_2560_1440_25fps.mp4"
+          playsinline
+          muted></video><img
+          id="home-ceo-cover"
+          src="/images/ceo.avif"
+          alt="Sarah Thompson, HomeQuest CEO"
+          loading="eager"
+        /><div id="home-ceo-caption" class="home-ceo__caption">
+          <div class="home-ceo__copy">
+            <h3>Owning a home is a keystone of wealth...</h3><p>
+              Sarah Thompson <span>•</span> CEO &amp; Founder
+            </p>
+          </div><button
+            id="home-ceo-play"
+            type="button"
+            aria-label="Play CEO message"
+            aria-pressed="false"
+            ><span class="home-ceo__play-icon"><FaPlay /></span><span
+              class="home-ceo__pause-icon"><FaPause /></span
+            ></button
+          >
+        </div>
+      </div>
+    </section>
+
+    <section class="home-benefits" aria-labelledby="home-benefits-title">
+      <img
+        src="/images/call-to-action.avif"
+        alt="Happy family moving into a new home"
+        loading="eager"
+      /><div
+        class="home-benefits__panel"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+      >
+        <h2 id="home-benefits-title">
+          Turning your real estate dreams true!
+        </h2><p>
+          Have questions or ready to take the next step? Whether you’re buying,
+          selling, or just exploring options.
+        </p><a href="/contact">Get a Quote</a><div class="home-benefits__list">
+          {
+            benefits.map(([title, description], i) => (
+              <article class:list={["home-benefit", { "is-open": i === 0 }]}>
+                <>
+                  <button
+                    type="button"
+                    aria-expanded={i === 0 ? "true" : "false"}
+                  >
+                    <>
+                      <span>{String(i + 1).padStart(2, "0")}</span>
+                      <strong>{title}</strong>
+                    </>
+                  </button>
+                  <div>
+                    <p>{description}</p>
+                  </div>
+                </>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="home-services" aria-labelledby="home-services-title">
+      <div class="home-container" data-aos="fade-up" data-aos-duration="1000">
+        <h2 id="home-services-title">Your trusted real estate partner</h2><div
+          class="home-services__grid"
+        >
+          {
+            services.map(([slug, title, price, image]) => (
+              <a class="home-service-card" href={`/service/${slug}`}>
+                <>
+                  <img
+                    src={`/images/property/${image}.avif`}
+                    alt={title}
+                    loading="eager"
+                  />
+                  <span class="home-service-card__arrow">
+                    <FaArrowUp />
+                    <FaArrowUp />
+                  </span>
+                  <div>
+                    <>
+                      <img src="/images/property/icon.svg" alt="" />
+                      <span>
+                        <>
+                          <strong>{title}</strong>
+                          <small>{price}</small>
+                        </>
+                      </span>
+                    </>
+                  </div>
+                </>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="home-testimonials"
+      aria-labelledby="home-testimonials-title"
+    >
+      <div class="home-testimonials__heading">
+        <h2 id="home-testimonials-title">Your Trusted Real Estate Partner</h2><a
+          href="/reviews">Read all stories <MdKeyboardArrowRight /></a
+        >
+      </div><div class="home-testimonials__window">
+        <div class="home-testimonials__track" data-home-testimonials-track>
+          {
+            testimonials.map(([name, role, image, quote]) => (
+              <article class="home-testimonial-card">
+                <>
+                  <img
+                    src={`/images/company/testimonial-${image}.avif`}
+                    alt={name}
+                    loading="eager"
+                  />
+                  <blockquote>“{quote}”</blockquote>
+                  <h3>{name}</h3>
+                  <p>{role}</p>
+                </>
+              </article>
+            ))
+          }
+        </div>
+      </div><div class="home-testimonials__controls">
+        <button
+          type="button"
+          aria-label="Previous testimonial"
+          data-home-testimonials-prev><FaArrowLeft /></button
+        ><button
+          type="button"
+          aria-label="Next testimonial"
+          data-home-testimonials-next><FaArrowRight /></button
+        >
+      </div>
+    </section>
+
+    <section class="home-contact" aria-labelledby="home-contact-title">
+      <div class="home-contact__inner">
+        <div
+          class="home-contact__copy"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+        >
+          <h2 id="home-contact-title">
+            <span>Let’s Find Your</span><span>Perfect Property</span>
+          </h2><p>
+            Have questions or ready to take the next step? Whether you’re
+            buying, selling, or just exploring options.
+          </p><div class="home-contact__details">
+            <div>
+              <span>Email Address</span><a href="mailto:support@homequest.com"
+                >support@homequest.com</a
+              >
+            </div><div>
+              <span>Phone Call</span><a href="tel:+0291801920">+0291801920,</a
+              ><a href="tel:+982771882">+982771882</a>
+            </div>
+          </div>
+        </div>
+        <form
+          class="home-contact__form"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+        >
+          <label
+            >Your name<input
+              type="text"
+              name="name"
+              placeholder="First and last name"
+            /></label
+          ><label
+            >What do you want?<span
+              ><select name="intent"
+                ><option>Buy a house</option><option>Modern 3-Bedroom</option
+                ><option>Luxury 4-Bedroom</option><option
+                  >Luxury 2-Bedroom</option
+                ><option>Chic 1-Bedroom</option></select
+              ><MdKeyboardArrowDown /></span
+            ></label
+          ><label
+            >Your preferred location<span
+              ><select name="location"
+                ><option>New York</option><option>Amsterdam</option><option
+                  >Barcelona</option
+                ></select
+              ><MdKeyboardArrowDown /></span
+            ></label
+          ><label
+            >Your desired budget<input
+              type="number"
+              name="budget"
+              placeholder="$900,000"
+            /></label
+          ><label
+            >Your email address<input
+              type="email"
+              name="email"
+              placeholder="youremail@homequest.com"
+            /></label
+          ><label
+            >Your phone number<input
+              type="tel"
+              name="phone"
+              placeholder="+021 9029 9202"
+            /></label
+          ><button type="submit">Get a Quote</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="home-faq" aria-labelledby="home-faq-title">
+      <div class="home-faq__inner" data-aos="fade-up" data-aos-duration="1000">
+        <h2 id="home-faq-title">Hear from Our Happy Homeowners</h2><div
+          class="home-faq__list"
+        >
+          {
+            faqs.map(([question, answer], i) => (
+              <article class:list={["home-faq__item", { "is-open": i === 0 }]}>
+                <>
+                  <button
+                    type="button"
+                    aria-expanded={i === 0 ? "true" : "false"}
+                  >
+                    <>
+                      <span>{question}</span>
+                      <MdKeyboardArrowRight />
+                    </>
+                  </button>
+                  <div>
+                    <p>{answer}</p>
+                  </div>
+                </>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="home-final-cta" aria-labelledby="home-final-title">
+      <img
+        src="/images/getintouch.avif"
+        alt="Modern property at dusk"
+        loading="eager"
+      /><div class="home-final-cta__shade"></div><div
+        class="home-final-cta__content"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+      >
+        <h2 id="home-final-title">
+          <span>Ready to Make a</span><span>Move? Contact Us Now!</span>
+        </h2><p>
+          Contact us today to discuss your property needs and choose the right
+          plan. We’re here to guide you through every step of the process.
+        </p><a href="/contact">Get Your Home</a>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<script>
+  const bindHomePage = () => {
+    const page = document.querySelector<HTMLElement>(".home-page");
+    if (!page || page.dataset.homeBound === "true") return;
+    page.dataset.homeBound = "true";
+
+    const play = document.querySelector<HTMLButtonElement>("#home-ceo-play");
+    const video = document.querySelector<HTMLVideoElement>("#home-ceo-video");
+    const cover = document.querySelector<HTMLElement>("#home-ceo-cover");
+    const caption = document.querySelector<HTMLElement>("#home-ceo-caption");
+    const copy = document.querySelector<HTMLElement>(".home-ceo__copy");
+    const setPlayingState = (playing: boolean) => {
+      caption?.classList.toggle("is-playing", playing);
+      copy?.setAttribute("aria-hidden", String(playing));
+      play?.setAttribute(
+        "aria-label",
+        playing ? "Pause CEO message" : "Play CEO message",
+      );
+      play?.setAttribute("aria-pressed", String(playing));
+    };
+    play?.addEventListener("click", async () => {
+      if (!video || !cover || !caption) return;
+      if (video.style.display !== "block") {
+        cover.hidden = true;
         video.style.display = "block";
-        video.play().catch((err) => console.error("Video play error:", err));
+      }
+
+      if (video.paused) {
+        await video.play().catch(() => undefined);
+        setPlayingState(!video.paused);
+      } else {
+        video.pause();
+        setPlayingState(false);
+      }
+    });
+    video?.addEventListener("ended", () => setPlayingState(false));
+    document.querySelectorAll<HTMLElement>(".home-benefit").forEach((item) =>
+      item.querySelector("button")?.addEventListener("click", () =>
+        document
+          .querySelectorAll<HTMLElement>(".home-benefit")
+          .forEach((other) => {
+            const open = other === item && !other.classList.contains("is-open");
+            other.classList.toggle("is-open", open);
+            other
+              .querySelector("button")
+              ?.setAttribute("aria-expanded", String(open));
+          }),
+      ),
+    );
+    document.querySelectorAll<HTMLElement>(".home-faq__item").forEach((item) =>
+      item.querySelector("button")?.addEventListener("click", () => {
+        const open = !item.classList.contains("is-open");
+        document
+          .querySelectorAll<HTMLElement>(".home-faq__item")
+          .forEach((other) => {
+            other.classList.toggle("is-open", other === item && open);
+            other
+              .querySelector("button")
+              ?.setAttribute("aria-expanded", String(other === item && open));
+          });
+      }),
+    );
+    const track = document.querySelector<HTMLElement>(
+      "[data-home-testimonials-track]",
+    );
+    const cards = Array.from(
+      document.querySelectorAll<HTMLElement>(".home-testimonial-card"),
+    );
+    let current = 0;
+    const update = () => {
+      if (!track || !cards[0]) return;
+      const mobile = matchMedia("(max-width: 767px)").matches;
+      const width = cards[0].getBoundingClientRect().width;
+      const leading = mobile ? 20 : (innerWidth - 1499) / 2;
+      track.style.transform = `translateX(${leading - current * (width + (mobile ? 20 : 24))}px)`;
+    };
+    document
+      .querySelector("[data-home-testimonials-prev]")
+      ?.addEventListener("click", () => {
+        current = (current - 1 + cards.length) % cards.length;
+        update();
       });
-    }
-  });
+    document
+      .querySelector("[data-home-testimonials-next]")
+      ?.addEventListener("click", () => {
+        current = (current + 1) % cards.length;
+        update();
+      });
+    addEventListener("resize", update, { passive: true });
+    update();
+    document
+      .querySelector<HTMLFormElement>(".home-contact__form")
+      ?.addEventListener("submit", (event) => event.preventDefault());
+  };
+  document.addEventListener("astro:page-load", bindHomePage);
+  bindHomePage();
 </script>
+
+<style>
+  :global(body:has(.home-page)) {
+    overflow-x: clip;
+  }
+  .home-page {
+    --lime: #dbfb1e;
+    --green: #1f4938;
+    color: #0a0915;
+    background: #fff;
+  }
+  .home-page h1,
+  .home-page h2,
+  .home-page h3,
+  .home-page p,
+  .home-page blockquote {
+    margin: 0;
+  }
+  .home-container {
+    width: min(1205px, calc(100% - 60px));
+    margin-inline: auto;
+  }
+  .home-hero {
+    position: relative;
+    height: 866.531px;
+    overflow: hidden;
+    color: #fff;
+  }
+  .home-hero > img,
+  .home-final-cta > img,
+  .home-benefits > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .home-hero__shade,
+  .home-final-cta__shade {
+    position: absolute;
+    inset: 0;
+    background: rgba(22, 56, 72, 0.48);
+  }
+  .home-hero__content {
+    position: absolute;
+    top: 190px;
+    left: max(30px, calc(50% - 602.5px));
+    width: 843.5px;
+  }
+  .home-hero h1 {
+    width: 767.578px;
+    font-family: var(--font-secondary), sans-serif;
+    font-size: 80px;
+    font-weight: 400;
+    line-height: 92px;
+    letter-spacing: -3.5px;
+  }
+  .home-hero__content > p {
+    width: 620px;
+    margin-top: 14px;
+    color: #ffffffd1;
+    font-size: 18px;
+    line-height: 36px;
+  }
+  .home-search {
+    display: flex;
+    width: 598px;
+    height: 72.797px;
+    margin-top: 38px;
+    padding: 12px 12px 12px 24px;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 16px;
+    background: #fff;
+    cursor: pointer;
+  }
+  .home-search input {
+    width: 286.609px;
+    padding: 0;
+    border: 0;
+    color: #0a0915;
+    background: transparent;
+    font-size: 16px;
+    line-height: 28.8px;
+    box-shadow: none;
+  }
+  .home-search button {
+    min-width: 147.063px;
+    height: 48.797px;
+    padding: 10px 24px;
+    border-radius: 12px;
+    color: #fff;
+    background: #203f30;
+    font-family: var(--font-secondary), sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 28.8px;
+  }
+  .home-brands {
+    position: relative;
+    z-index: 2;
+    height: 160px;
+    margin-top: -40px;
+    border-radius: 24px 24px 0 0;
+    background: var(--lime);
+  }
+  .home-brands > div {
+    display: flex;
+    width: min(1205px, calc(100% - 60px));
+    height: 100%;
+    margin: auto;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .home-brands p {
+    font-size: 18px;
+  }
+  .home-brands__logos {
+    display: flex;
+    gap: 42px;
+    align-items: center;
+  }
+  .home-brands__logos img {
+    width: 142px;
+    max-height: 48px;
+  }
+  .home-listings {
+    height: 1455.516px;
+    padding-top: 120px;
+  }
+  .home-listings h2,
+  .home-ceo h2,
+  .home-benefits h2,
+  .home-services h2,
+  .home-testimonials h2,
+  .home-faq h2,
+  .home-contact h2,
+  .home-final-cta h2 {
+    font-family: var(--font-secondary), sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: -1.8px;
+  }
+  .home-listings h2 {
+    text-align: center;
+  }
+  .home-listings__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin: 114px 18px 0;
+  }
+  .home-listing-card {
+    height: 519.359px;
+    color: #0a0915;
+  }
+  .home-listing-card__image {
+    position: relative;
+    height: 306.578px;
+    overflow: hidden;
+    border-radius: 16px;
+  }
+  .home-listing-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .home-listing-card:hover img {
+    transform: scale(1.1);
+  }
+  .home-listing-card__image span {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 5px 12px;
+    border-radius: 9px;
+    background: #fff;
+    color: #62626a;
+    font-size: 14px;
+  }
+  .home-listing-card__body {
+    padding-top: 24px;
+  }
+  .home-listing-card__price {
+    color: #6d6c72;
+    font-size: 14px;
+    line-height: 25px;
+  }
+  .home-listing-card h3 {
+    min-height: 56px;
+    margin-top: 5px;
+    font-family: var(--font-primary), sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 28px;
+  }
+  .home-listing-card__facts {
+    display: flex;
+    gap: 18px;
+    margin-top: 14px;
+    color: #66666b;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  .home-listing-card__facts span {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+  }
+  .home-listing-card__facts svg {
+    color: #b8d818;
+  }
+  .home-button {
+    display: flex;
+    width: max-content;
+    min-height: 48px;
+    margin-inline: auto;
+    padding: 0 24px;
+    align-items: center;
+    border-radius: 12px;
+  }
+  .home-button--dark {
+    margin-top: 24px;
+    color: #fff;
+    background: var(--green);
+  }
+  .home-ceo {
+    height: 1069.594px;
+    padding-top: 60px;
+  }
+  .home-ceo__intro {
+    width: min(1000px, calc(100% - 40px));
+    margin: auto;
+    text-align: center;
+  }
+  .home-ceo__intro p {
+    width: 770px;
+    margin: 14px auto 0;
+    color: #6d6c72;
+    line-height: 28.8px;
+  }
+  .home-ceo__media {
+    position: relative;
+    width: min(1096px, calc(100% - 60px));
+    height: 700px;
+    margin: 105px auto 0;
+    overflow: hidden;
+    border-radius: 22px;
+    color: #fff;
+  }
+  .home-ceo__media > img,
+  .home-ceo__media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .home-ceo__media video {
+    display: none;
+  }
+  .home-ceo__caption {
+    position: absolute;
+    right: 37px;
+    bottom: 35px;
+    left: 37px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .home-ceo__copy {
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+  }
+  .home-ceo__caption.is-playing .home-ceo__copy {
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+  }
+  .home-ceo__caption h3 {
+    font-family: var(--font-primary), sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .home-ceo__caption p {
+    margin-top: 10px;
+    color: #ffffffb8;
+  }
+  .home-ceo__caption p span {
+    margin-inline: 8px;
+  }
+  .home-ceo__caption button {
+    display: grid;
+    width: 76px;
+    height: 76px;
+    place-items: center;
+    border-radius: 12px;
+    background: #fff;
+    color: #0a0915;
+    box-shadow: 0 4px 28px rgb(0 0 0 / 16%);
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .home-ceo__caption button span {
+    display: grid;
+    place-items: center;
+  }
+  .home-ceo__caption button svg {
+    width: 16px;
+    height: 16px;
+  }
+  .home-ceo__pause-icon,
+  .home-ceo__caption.is-playing .home-ceo__play-icon {
+    display: none !important;
+  }
+  .home-ceo__caption.is-playing .home-ceo__pause-icon {
+    display: grid !important;
+  }
+  .home-ceo__caption button:hover,
+  .home-ceo__caption button:focus-visible {
+    transform: scale(1.05);
+  }
+  .home-benefits {
+    position: relative;
+    height: 913.203px;
+    overflow: hidden;
+    border-radius: 24px 24px 0 0;
+  }
+  .home-benefits__panel {
+    position: absolute;
+    top: 72px;
+    left: max(30px, calc(50% - 602.5px));
+    width: 560px;
+    min-height: 714.203px;
+    padding: 48px 40px 34px;
+    border-radius: 16px;
+    background: #ffffffe8;
+    backdrop-filter: blur(4px);
+  }
+  .home-benefits__panel h2 {
+    width: 480px;
+  }
+  .home-benefits__panel > p {
+    margin-top: 18px;
+    color: #62626a;
+    font-size: 16px;
+    line-height: 28.8px;
+  }
+  .home-benefits__panel > a {
+    display: flex;
+    width: max-content;
+    height: 44px;
+    margin-top: 30px;
+    padding: 0 22px;
+    align-items: center;
+    border: 1px solid #dedede;
+    border-radius: 999px;
+    color: #0a0915;
+  }
+  .home-benefits__list {
+    margin-top: 72px;
+  }
+  .home-benefit {
+    border-bottom: 1px solid #ddd;
+  }
+  .home-benefit button {
+    display: grid;
+    width: 100%;
+    min-height: 62px;
+    grid-template-columns: 34px 1fr;
+    gap: 30px;
+    align-items: center;
+    text-align: left;
+  }
+  .home-benefit button span {
+    color: #999;
+  }
+  .home-benefit button strong {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .home-benefit > div {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+  }
+  .home-benefit > div > p {
+    min-height: 0;
+    overflow: hidden;
+    margin-left: 64px;
+    color: #777;
+    line-height: 28px;
+  }
+  .home-benefit.is-open > div {
+    grid-template-rows: 1fr;
+  }
+  .home-benefit.is-open > div > p {
+    padding-bottom: 18px;
+  }
+  .home-services {
+    height: 859.188px;
+    padding-top: 80px;
+    border-radius: 24px 24px 0 0;
+    background: #f7f6f4;
+  }
+  .home-services h2 {
+    text-align: center;
+  }
+  .home-services__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 114px;
+  }
+  .home-service-card {
+    position: relative;
+    height: 511.188px;
+    overflow: hidden;
+    border-radius: 16px;
+    color: #fff;
+  }
+  .home-service-card > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .home-service-card:hover > img {
+    transform: scale(1.1);
+  }
+  .home-service-card__arrow {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: grid;
+    width: 48px;
+    height: 48px;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 50%;
+    color: #0a0915;
+    background: #fff;
+  }
+  .home-service-card__arrow svg {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .home-service-card__arrow svg:first-child {
+    transform: translate(0, 0) rotate(45deg);
+  }
+  .home-service-card__arrow svg:last-child {
+    transform: translate(-28px, 28px) rotate(45deg);
+  }
+  .home-service-card:hover .home-service-card__arrow svg:first-child,
+  .home-service-card:focus-visible .home-service-card__arrow svg:first-child {
+    transform: translate(28px, -28px) rotate(45deg);
+  }
+  .home-service-card:hover .home-service-card__arrow svg:last-child,
+  .home-service-card:focus-visible .home-service-card__arrow svg:last-child {
+    transform: translate(0, 0) rotate(45deg);
+  }
+  .home-service-card > div {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    min-height: 124px;
+    gap: 18px;
+    padding: 25px;
+    align-items: center;
+    background: #212324d1;
+    backdrop-filter: blur(5px);
+  }
+  .home-service-card > div img {
+    width: 48px;
+    height: 48px;
+    padding: 12px;
+    border-radius: 50%;
+    background: #ffffff38;
+  }
+  .home-service-card strong,
+  .home-service-card small {
+    display: block;
+  }
+  .home-service-card strong {
+    font-size: 20px;
+  }
+  .home-service-card small {
+    margin-top: 5px;
+    color: #ffffffad;
+    font-size: 14px;
+  }
+  .home-testimonials {
+    position: relative;
+    height: 945px;
+    overflow: hidden;
+  }
+  .home-testimonials__heading {
+    display: flex;
+    width: min(1205px, calc(100% - 60px));
+    margin: 80px auto 0;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .home-testimonials__heading a {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    color: var(--green);
+    font-weight: 600;
+  }
+  .home-testimonials__window {
+    margin-top: 74px;
+    overflow: hidden;
+  }
+  .home-testimonials__track {
+    display: flex;
+    width: max-content;
+    gap: 24px;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .home-testimonial-card {
+    width: 352.531px;
+    height: 551px;
+    padding: 48px 32px 32px;
+    border-radius: 20px;
+    background: #f7f6f4;
+  }
+  .home-testimonial-card > img {
+    display: block;
+    width: 104px;
+    height: 104px;
+    margin: auto;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .home-testimonial-card blockquote {
+    height: 242px;
+    margin-top: 46px;
+    color: #68676e;
+    font-size: 18px;
+    line-height: 32.4px;
+  }
+  .home-testimonial-card h3 {
+    font-family: var(--font-primary), sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .home-testimonial-card p {
+    margin-top: 2px;
+    color: #8a8990;
+  }
+  .home-testimonials__controls {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    margin-top: 34px;
+  }
+  .home-testimonials__controls button {
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+  }
+  .home-contact {
+    height: 737.406px;
+    padding-top: 134.281px;
+    border-radius: 24px 24px 0 0;
+    color: #fff;
+    background: var(--green);
+  }
+  .home-contact__inner {
+    display: grid;
+    width: min(1205px, calc(100% - 60px));
+    margin: auto;
+    grid-template-columns: 482px 1fr;
+    gap: 50px;
+  }
+  .home-contact__copy h2 span,
+  .home-final-cta h2 span {
+    display: block;
+  }
+  .home-contact__copy > p {
+    width: 420px;
+    margin-top: 18px;
+    color: #ffffffb8;
+    font-size: 16px;
+    line-height: 28.8px;
+  }
+  .home-contact__details {
+    display: flex;
+    gap: 78px;
+    margin-top: 112px;
+  }
+  .home-contact__details div {
+    display: flex;
+    flex-direction: column;
+  }
+  .home-contact__details span {
+    margin-bottom: 5px;
+    color: #ffffff9e;
+  }
+  .home-contact__details a {
+    color: #fff;
+    font-weight: 600;
+  }
+  .home-contact__form {
+    display: grid;
+    height: 453px;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 24px;
+    padding: 42px 32px;
+    border-radius: 16px;
+    color: #0a0915;
+    background: #f7f6f4;
+  }
+  .home-contact__form label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 14px;
+  }
+  .home-contact__form input,
+  .home-contact__form select {
+    width: 100%;
+    height: 38px;
+    padding: 0 0 8px;
+    border: 0;
+    border-bottom: 1px solid #c8c8c8;
+    border-radius: 0;
+    color: #0a0915;
+    background: transparent;
+    font-size: 14px;
+    box-shadow: none;
+  }
+  .home-contact__form label > span {
+    position: relative;
+  }
+  .home-contact__form label > span svg {
+    position: absolute;
+    top: 10px;
+    right: 0;
+  }
+  .home-contact__form button {
+    width: max-content;
+    height: 46px;
+    padding: 0 24px;
+    border-radius: 999px;
+    background: var(--lime);
+    font-weight: 600;
+  }
+  .home-faq {
+    height: 810.422px;
+    padding-top: 80px;
+    border-radius: 24px 24px 0 0;
+  }
+  .home-faq__inner {
+    width: min(1205px, calc(100% - 40px));
+    margin: auto;
+  }
+  .home-faq h2 {
+    text-align: center;
+  }
+  .home-faq__list {
+    width: 700px;
+    margin: 70px auto 0;
+  }
+  .home-faq__item {
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+  .home-faq__item > button {
+    display: flex;
+    width: 100%;
+    min-height: 64px;
+    padding: 0 16px;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 12px;
+    background: #f7f6f4;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+  }
+  .home-faq__item > button svg {
+    color: #777;
+    transition: transform 0.3s ease;
+  }
+  .home-faq__item.is-open > button svg {
+    transform: rotate(90deg);
+  }
+  .home-faq__item > div {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s ease;
+  }
+  .home-faq__item > div > p {
+    min-height: 0;
+    overflow: hidden;
+    padding-inline: 16px;
+    color: #666;
+    line-height: 28.8px;
+  }
+  .home-faq__item.is-open > div {
+    grid-template-rows: 1fr;
+  }
+  .home-faq__item.is-open > div > p {
+    padding-block: 12px 18px;
+  }
+  .home-final-cta {
+    position: relative;
+    height: 624.609px;
+    overflow: hidden;
+    border-radius: 24px 24px 0 0;
+    color: #fff;
+  }
+  .home-final-cta__shade {
+    background: #1836485c;
+  }
+  .home-final-cta__content {
+    position: absolute;
+    top: 88px;
+    right: max(20px, calc(50% - 373.547px));
+    left: max(20px, calc(50% - 373.547px));
+    text-align: center;
+  }
+  .home-final-cta__content > p {
+    width: 620px;
+    margin: 18px auto 0;
+    color: #ffffffb8;
+    font-size: 16px;
+    line-height: 28.8px;
+  }
+  .home-final-cta__content > a {
+    display: flex;
+    width: max-content;
+    height: 48px;
+    margin: 30px auto 0;
+    padding: 0 24px;
+    align-items: center;
+    border-radius: 999px;
+    color: #0a0915;
+    background: var(--lime);
+  }
+  @media (max-width: 767px) {
+    .home-container {
+      width: calc(100% - 40px);
+    }
+    .home-hero {
+      height: 561.984px;
+    }
+    .home-hero__content {
+      top: 100px;
+      right: 20px;
+      left: 20px;
+      width: auto;
+      text-align: center;
+    }
+    .home-hero h1 {
+      width: 100%;
+      font-size: 40px;
+      line-height: 46px;
+      letter-spacing: -1.7px;
+    }
+    .home-hero__content > p {
+      width: 100%;
+      margin-top: 18px;
+      font-size: 16px;
+      line-height: 28.8px;
+    }
+    .home-search {
+      display: grid;
+      width: 100%;
+      height: 110px;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 27px;
+      padding: 0;
+      justify-content: stretch;
+      background: transparent;
+    }
+    .home-search input,
+    .home-search button {
+      width: 100%;
+      min-width: 0;
+      height: 50px;
+      box-sizing: border-box;
+      border-radius: 12px;
+      text-align: center;
+    }
+    .home-search input {
+      padding: 0 15px;
+      background: #fff;
+    }
+    .home-brands {
+      height: 332.031px;
+      margin-top: -40px;
+      border-radius: 16px 16px 0 0;
+    }
+    .home-brands > div {
+      display: block;
+      width: calc(100% - 40px);
+      padding-top: 40px;
+      text-align: center;
+    }
+    .home-brands p {
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .home-brands__logos {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px 18px;
+      margin-top: 30px;
+    }
+    .home-brands__logos img {
+      width: 100%;
+      height: 46px;
+    }
+    .home-brands__logos img:last-child {
+      grid-column: 1/-1;
+      width: 142px;
+      margin: auto;
+    }
+    .home-listings {
+      height: 3369.109px;
+      padding-top: 110px;
+    }
+    .home-listings h2,
+    .home-ceo h2,
+    .home-services h2,
+    .home-testimonials h2,
+    .home-faq h2 {
+      font-size: 36px;
+      line-height: 45px;
+      letter-spacing: -1.2px;
+    }
+    .home-listings__grid {
+      display: block;
+      margin: 64px 0 0;
+    }
+    .home-listing-card {
+      display: block;
+      width: 100%;
+      height: 487.719px;
+      margin-bottom: 24px;
+    }
+    .home-listing-card__image {
+      height: 274.938px;
+    }
+    .home-listing-card h3 {
+      font-size: 19px;
+    }
+    .home-listing-card__facts {
+      gap: 12px;
+      font-size: 13px;
+    }
+    .home-button--dark {
+      margin-top: -1px;
+    }
+    .home-ceo {
+      height: 637.766px;
+      padding-top: 80px;
+    }
+    .home-ceo__intro {
+      width: calc(100% - 40px);
+      text-align: left;
+    }
+    .home-ceo__intro p {
+      width: 100%;
+      margin-top: 18px;
+      line-height: 28.8px;
+    }
+    .home-ceo__media {
+      width: calc(100% - 40px);
+      height: 268px;
+      margin-top: 30px;
+      border-radius: 16px;
+    }
+    .home-ceo__caption {
+      right: 20px;
+      bottom: 20px;
+      left: 20px;
+    }
+    .home-ceo__caption h3 {
+      font-size: 15px;
+    }
+    .home-ceo__caption p {
+      font-size: 13px;
+    }
+    .home-ceo__caption button {
+      width: 48px;
+      height: 48px;
+    }
+    .home-benefits {
+      height: 947.969px;
+      border-radius: 16px 16px 0 0;
+    }
+    .home-benefits__panel {
+      top: 110px;
+      right: 20px;
+      left: 20px;
+      width: auto;
+      min-height: 797.969px;
+      padding: 30px 20px;
+    }
+    .home-benefits__panel h2 {
+      width: 100%;
+      padding-right: 35px;
+      font-size: 36px;
+      line-height: 45px;
+      letter-spacing: -1.2px;
+    }
+    .home-benefits__panel > p {
+      margin-top: 18px;
+    }
+    .home-benefits__panel > a {
+      margin-top: 26px;
+    }
+    .home-benefits__list {
+      margin-top: 58px;
+    }
+    .home-benefit button {
+      grid-template-columns: 32px 1fr;
+      gap: 14px;
+    }
+    .home-benefit button strong {
+      font-size: 18px;
+    }
+    .home-benefit > div > p {
+      margin-left: 46px;
+    }
+    .home-services {
+      height: 1610.094px;
+      padding-top: 70px;
+      border-radius: 16px 16px 0 0;
+    }
+    .home-services h2 {
+      text-align: left;
+    }
+    .home-services__grid {
+      display: block;
+      margin-top: 30px;
+    }
+    .home-service-card {
+      display: block;
+      width: 100%;
+      height: 444.031px;
+      margin-bottom: 24px;
+    }
+    .home-service-card > div {
+      min-height: 104px;
+      padding: 20px;
+    }
+    .home-testimonials {
+      height: 861.797px;
+    }
+    .home-testimonials__heading {
+      display: block;
+      width: calc(100% - 40px);
+      margin-top: 70px;
+    }
+    .home-testimonials__heading h2 {
+      width: 295px;
+      margin-inline: 20px;
+    }
+    .home-testimonials__heading a {
+      display: none;
+    }
+    .home-testimonials__window {
+      margin-top: 25px;
+    }
+    .home-testimonials__track {
+      gap: 20px;
+    }
+    .home-testimonial-card {
+      width: 335px;
+      height: 557px;
+      padding: 48px 32px 32px;
+    }
+    .home-testimonial-card blockquote {
+      height: 248px;
+    }
+    .home-testimonials__controls {
+      margin-top: 24px;
+    }
+    .home-contact {
+      height: 1123.641px;
+      padding-top: 90px;
+      border-radius: 16px 16px 0 0;
+    }
+    .home-contact__inner {
+      display: block;
+      width: calc(100% - 40px);
+    }
+    .home-contact__copy h2 {
+      font-size: 36px;
+      line-height: 45px;
+      letter-spacing: -1.2px;
+    }
+    .home-contact__copy > p {
+      width: 100%;
+      margin-top: 18px;
+    }
+    .home-contact__details {
+      gap: 34px;
+      margin-top: 56px;
+    }
+    .home-contact__details div {
+      flex: 1;
+    }
+    .home-contact__form {
+      height: 580px;
+      margin-top: 54px;
+      grid-template-columns: 1fr;
+      gap: 17px;
+      padding: 30px 20px;
+    }
+    .home-contact__form button {
+      margin-top: 3px;
+    }
+    .home-faq {
+      height: 977.656px;
+      padding-top: 70px;
+      border-radius: 16px 16px 0 0;
+    }
+    .home-faq__inner {
+      width: calc(100% - 40px);
+    }
+    .home-faq h2 {
+      text-align: left;
+    }
+    .home-faq__list {
+      width: 100%;
+      margin-top: 48px;
+    }
+    .home-faq__item > button {
+      min-height: 72px;
+    }
+    .home-final-cta {
+      height: 506.422px;
+      border-radius: 16px 16px 0 0;
+    }
+    .home-final-cta__content {
+      top: 60px;
+      right: 20px;
+      left: 20px;
+    }
+    .home-final-cta h2 {
+      font-size: 36px;
+      line-height: 45px;
+      letter-spacing: -1.2px;
+    }
+    .home-final-cta__content > p {
+      width: 100%;
+      margin-top: 18px;
+      line-height: 28.8px;
+    }
+    .home-final-cta__content > a {
+      margin-top: 28px;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .home-hero__content {
+      width: 70%;
+    }
+    .home-listings,
+    .home-services,
+    .home-testimonials,
+    .home-contact,
+    .home-faq {
+      height: auto;
+      padding-bottom: 100px;
+    }
+    .home-listings__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .home-services__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .home-contact__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .home-page *,
+    .home-page *::before,
+    .home-page *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+</style>

@@ -1,178 +1,223 @@
-import searchData from ".json/search.json";
-import React, { useEffect, useState } from "react";
-import SearchResult, { type ISearchItem } from "./SearchResult";
+import { properties } from "@/data/properties";
+import { serviceDetails } from "@/data/service-details";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import SearchResult, { type SearchEntry } from "./SearchResult";
+
+const mainPages: SearchEntry[] = [
+  {
+    title: "Home",
+    href: "/",
+    keywords: "real estate home house buying selling",
+  },
+  {
+    title: "About Us",
+    href: "/company",
+    keywords: "company homequest story team",
+  },
+  {
+    title: "Properties",
+    href: "/properties",
+    keywords: "homes houses apartments villas listings",
+  },
+  {
+    title: "Services",
+    href: "/service",
+    keywords: "property buying selling renting valuation management",
+  },
+  { title: "Contact Us", href: "/contact", keywords: "contact quote help" },
+  {
+    title: "Testimonials",
+    href: "/reviews",
+    keywords: "reviews stories homeowners",
+  },
+  { title: "Blog", href: "/blog", keywords: "articles news insights" },
+  { title: "Agents", href: "/agent", keywords: "agent team experts" },
+  {
+    title: "How It Works",
+    href: "/how-it-works",
+    keywords: "process buying selling",
+  },
+  {
+    title: "FAQs",
+    href: "/faq",
+    keywords: "questions answers help",
+  },
+];
+
+const serviceSearchPriority = [
+  "property-selling",
+  "property-buying",
+  "property-valuation",
+  "property-services",
+  "property-selling-services",
+  "rental-management",
+  "investment-consulting",
+  "renting-services",
+];
+
+const searchableServices = [...serviceDetails].sort(
+  (a, b) =>
+    serviceSearchPriority.indexOf(a.slug) -
+    serviceSearchPriority.indexOf(b.slug),
+);
+
+const searchEntries: SearchEntry[] = [
+  ...mainPages,
+  ...searchableServices.map(({ title, slug }) => ({
+    title,
+    href: `/service/${slug}`,
+    keywords: `service property ${title}`,
+  })),
+  ...properties.map(({ title, slug, status, type }) => ({
+    title,
+    href: `/properties/${slug}`,
+    keywords: `property ${status} ${type} ${title}`,
+  })),
+];
+
+const SearchIcon = () => (
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path
+      d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeWidth="2"
+    />
+  </svg>
+);
+
+const CloseIcon = () => (
+  <svg viewBox="0 0 20 20" aria-hidden="true">
+    <circle cx="10" cy="10" r="8" fill="currentColor" />
+    <path
+      d="m7.25 7.25 5.5 5.5m0-5.5-5.5 5.5"
+      fill="none"
+      stroke="white"
+      strokeLinecap="round"
+      strokeWidth="1.5"
+    />
+  </svg>
+);
 
 const SearchModal = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const [searchString, setSearchString] = useState("");
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  // handle input change
-  const handleSearch = (e: React.FormEvent<HTMLInputElement>) => {
-    setSearchString(e.currentTarget.value.replace("\\", "").toLowerCase());
-  };
+  const searchResult = useMemo(() => {
+    const query = searchString.trim().toLowerCase();
+    if (!query) return [];
 
-  // generate search result
-  const doSearch = (searchData: ISearchItem[]) => {
-    const regex = new RegExp(`${searchString}`, "gi");
-    if (searchString === "") {
-      return [];
-    } else {
-      const searchResult = searchData.filter((item) => {
-        const title = item.frontmatter.title.toLowerCase().match(regex);
-        const description = item.frontmatter.description
-          ?.toLowerCase()
-          .match(regex);
-        const categories = item.frontmatter.categories
-          ?.join(" ")
-          .toLowerCase()
-          .match(regex);
-        const tags = item.frontmatter.tags
-          ?.join(" ")
-          .toLowerCase()
-          .match(regex);
-        const content = item.content.toLowerCase().match(regex);
-
-        if (title || content || description || categories || tags) {
-          return item;
-        }
-      });
-      return searchResult;
-    }
-  };
-
-  // get search result
-  const startTime = performance.now();
-  const searchResult = doSearch(searchData);
-  const endTime = performance.now();
-  const totalTime = ((endTime - startTime) / 1000).toFixed(3);
-
-  // search dom manipulation
-  useEffect(() => {
-    const searchModal = document.getElementById("searchModal");
-    const searchInput = document.getElementById("searchInput");
-    const searchModalOverlay = document.getElementById("searchModalOverlay");
-    const searchResultItems = document.querySelectorAll("#searchItem");
-    const searchModalTriggers = document.querySelectorAll(
-      "[data-search-trigger]",
-    );
-
-    // search modal open
-    searchModalTriggers.forEach((button) => {
-      button.addEventListener("click", function () {
-        const searchModal = document.getElementById("searchModal");
-        searchModal!.classList.add("show");
-        searchInput!.focus();
-      });
-    });
-
-    // search modal close
-    searchModalOverlay!.addEventListener("click", function () {
-      searchModal!.classList.remove("show");
-    });
-
-    // keyboard navigation
-    let selectedIndex = -1;
-
-    const updateSelection = () => {
-      searchResultItems.forEach((item, index) => {
-        if (index === selectedIndex) {
-          item.classList.add("search-result-item-active");
-        } else {
-          item.classList.remove("search-result-item-active");
-        }
-      });
-
-      searchResultItems[selectedIndex]?.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-      });
-    };
-
-    document.addEventListener("keydown", function (event) {
-      if ((event.metaKey || event.ctrlKey) && event.key === "k") {
-        searchModal!.classList.add("show");
-        searchInput!.focus();
-        updateSelection();
-      }
-
-      if (event.key === "ArrowUp" || event.key === "ArrowDown") {
-        event.preventDefault();
-      }
-
-      if (event.key === "Escape") {
-        searchModal!.classList.remove("show");
-      }
-
-      if (event.key === "ArrowUp" && selectedIndex > 0) {
-        selectedIndex--;
-      } else if (
-        event.key === "ArrowDown" &&
-        selectedIndex < searchResultItems.length - 1
-      ) {
-        selectedIndex++;
-      } else if (event.key === "Enter") {
-        const activeLink = document.querySelector(
-          ".search-result-item-active a",
-        ) as HTMLAnchorElement;
-        if (activeLink) {
-          activeLink?.click();
-        }
-      }
-
-      updateSelection();
-    });
+    return searchEntries
+      .filter(({ title, keywords = "" }) =>
+        `${title} ${keywords}`.toLowerCase().includes(query),
+      )
+      .slice(0, 12);
   }, [searchString]);
 
+  useEffect(() => {
+    const triggers = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-search-trigger]"),
+    );
+    const openModal = (event: Event) => {
+      event.preventDefault();
+      setIsOpen(true);
+    };
+
+    triggers.forEach((trigger) => trigger.addEventListener("click", openModal));
+    return () =>
+      triggers.forEach((trigger) =>
+        trigger.removeEventListener("click", openModal),
+      );
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    requestAnimationFrame(() => inputRef.current?.focus());
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+        return;
+      }
+
+      if (!searchResult.length) return;
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        setSelectedIndex((index) => (index + 1) % searchResult.length);
+      } else if (event.key === "ArrowUp") {
+        event.preventDefault();
+        setSelectedIndex(
+          (index) => (index - 1 + searchResult.length) % searchResult.length,
+        );
+      } else if (event.key === "Enter") {
+        event.preventDefault();
+        window.location.assign(searchResult[selectedIndex]?.href ?? "/");
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, searchResult, selectedIndex]);
+
+  useEffect(() => setSelectedIndex(0), [searchString]);
+
   return (
-    <div id="searchModal" className="search-modal">
-      <div id="searchModalOverlay" className="search-modal-overlay" />
-      <div className="search-wrapper">
-        <div className="search-wrapper-header">
-          <label
-            htmlFor="searchInput"
-            className="absolute left-7 top-[calc(50%-7px)]"
-          >
-            <span className="sr-only">search icon</span>
-            {searchString ? (
-              <svg
-                onClick={() => setSearchString("")}
-                viewBox="0 0 512 512"
-                height="18"
-                width="18"
-                className="hover:text-red-500 cursor-pointer -mt-0.5"
-              >
-                <title>close icon</title>
-                <path
-                  fill="currentcolor"
-                  d="M256 512A256 256 0 10256 0a256 256 0 100 512zM175 175c9.4-9.4 24.6-9.4 33.9.0l47 47 47-47c9.4-9.4 24.6-9.4 33.9.0s9.4 24.6.0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6.0 33.9s-24.6 9.4-33.9.0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9.0s-9.4-24.6.0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6.0-33.9z"
-                ></path>
-              </svg>
-            ) : (
-              <svg
-                viewBox="0 0 512 512"
-                height="18"
-                width="18"
-                className="-mt-0.5"
-              >
-                <title>search icon</title>
-                <path
-                  fill="currentcolor"
-                  d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8.0 45.3s-32.8 12.5-45.3.0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9.0 208S93.1.0 208 0 416 93.1 416 208zM208 352a144 144 0 100-288 144 144 0 100 288z"
-                ></path>
-              </svg>
-            )}
-          </label>
+    <div
+      id="searchModal"
+      className={`search-modal${isOpen ? " show" : ""}`}
+      role="presentation"
+      aria-hidden={!isOpen}
+    >
+      <button
+        id="searchModalOverlay"
+        className="search-modal-overlay"
+        type="button"
+        aria-label="Close search"
+        onClick={() => setIsOpen(false)}
+      />
+      <div className="search-wrapper" role="dialog" aria-modal="true">
+        <div className="search-wrapper-header" role="search">
+          <span className="search-wrapper-header-icon">
+            <SearchIcon />
+          </span>
           <input
+            ref={inputRef}
             id="searchInput"
             placeholder="Search..."
             className="search-wrapper-header-input"
-            type="input"
+            type="search"
             name="search"
             value={searchString}
-            onChange={handleSearch}
+            onChange={(event) => setSearchString(event.currentTarget.value)}
             autoComplete="off"
+            aria-label="Search HomeQuest"
           />
+          {searchString && (
+            <button
+              className="search-wrapper-clear"
+              type="button"
+              aria-label="Clear search"
+              onClick={() => setSearchString("")}
+            >
+              <CloseIcon />
+            </button>
+          )}
         </div>
-        <SearchResult searchResult={searchResult} searchString={searchString} />
+        <SearchResult
+          searchResult={searchResult}
+          searchString={searchString}
+          selectedIndex={selectedIndex}
+          onSelect={setSelectedIndex}
+        />
       </div>
     </div>
   );

@@ -17,5 +17,6 @@
   @import "./components.css";
   @import "./navigation.css";
   @import "./buttons.css";
+  /* HomeQuest search overlay */
   @import "./search.css";
 }
