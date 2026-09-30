@@ -248,9 +248,9 @@ const faqs = [
       <div class="home-ceo__media" data-aos="fade-up" data-aos-duration="1000">
         <video
           id="home-ceo-video"
-          src="https://videos.pexels.com/video-files/6561920/6561920-uhd_2560_1440_25fps.mp4"
+          src="/videos/home-ceo.mp4"
           poster="/images/ceo.avif"
-          preload="auto"
+          preload="metadata"
           loop
           playsinline
           muted></video><img
@@ -530,6 +530,13 @@ const faqs = [
     const copy = document.querySelector<HTMLElement>(".home-ceo__copy");
     const media = document.querySelector<HTMLElement>(".home-ceo__media");
     let playPending = false;
+    let playTimeout: number | undefined;
+
+    const clearPlayTimeout = () => {
+      if (playTimeout === undefined) return;
+      window.clearTimeout(playTimeout);
+      playTimeout = undefined;
+    };
 
     const setPlayingState = (playing: boolean, loading = false) => {
       media?.classList.toggle("is-playing", playing);
@@ -549,13 +556,19 @@ const faqs = [
     };
 
     const recoverVideo = () => {
+      clearPlayTimeout();
       playPending = false;
       video?.pause();
       setPlayingState(false);
     };
 
     play?.addEventListener("click", async () => {
-      if (!video || !cover || !caption || playPending) return;
+      if (!video || !cover || !caption) return;
+
+      if (playPending) {
+        recoverVideo();
+        return;
+      }
 
       if (!video.paused) {
         video.pause();
@@ -564,21 +577,31 @@ const faqs = [
 
       playPending = true;
       setPlayingState(false, true);
+      clearPlayTimeout();
+      playTimeout = window.setTimeout(() => {
+        if (playPending) recoverVideo();
+      }, 8000);
 
       try {
         await video.play();
       } catch {
         recoverVideo();
       } finally {
+        clearPlayTimeout();
         playPending = false;
         if (!video.paused) setPlayingState(true);
       }
     });
     video?.addEventListener("playing", () => {
+      clearPlayTimeout();
       playPending = false;
       setPlayingState(true);
     });
-    video?.addEventListener("pause", () => setPlayingState(false));
+    video?.addEventListener("pause", () => {
+      clearPlayTimeout();
+      playPending = false;
+      setPlayingState(false);
+    });
     video?.addEventListener("error", recoverVideo);
     video?.addEventListener("emptied", recoverVideo);
     setPlayingState(false);

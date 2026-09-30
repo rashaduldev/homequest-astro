@@ -1,0 +1,528 @@
+---
+import type { AgentSummary } from "@/data/agents";
+
+interface Props {
+  agent: AgentSummary;
+}
+
+const { agent } = Astro.props;
+const experienceLabel = `${agent.experience} Years`;
+---
+
+<article class="agent-detail">
+  <header class="agent-detail__hero">
+    <img
+      src="/images/agent/details/hero.png"
+      alt="Modern HomeQuest residence"
+      fetchpriority="high"
+    />
+    <div class="agent-detail__hero-shade"></div>
+    <h1 data-aos="fade-up" data-aos-duration="900">{agent.name}</h1>
+  </header>
+
+  <section class="agent-profile" aria-labelledby="agent-profile-name">
+    <div class="agent-profile__grid">
+      <div
+        class="agent-profile__portrait"
+        data-aos="fade-up"
+        data-aos-duration="900"
+      >
+        <img
+          src={agent.detailImage}
+          alt={`${agent.name}, ${agent.role}`}
+          width="561"
+          height="652"
+        />
+      </div>
+
+      <div
+        class="agent-profile__details"
+        data-aos="fade-up"
+        data-aos-delay="80"
+        data-aos-duration="900"
+      >
+        <div class="agent-profile__summary">
+          <div class="agent-profile__heading">
+            <h2 id="agent-profile-name">{agent.name}</h2>
+            <p>{agent.role}</p>
+          </div>
+
+          <p class="agent-profile__bio">
+            With 5 years of experience in the real estate market, Sarah Thompson
+            is <br class="agent-profile__desktop-break" />dedicated to helping
+            clients achieve their property goals. Specializing in
+            <br class="agent-profile__desktop-break" />buying, selling, renting,
+            he has a deep understanding of the local
+            <br class="agent-profile__desktop-break" />market.
+          </p>
+
+          <address class="agent-profile__contact">
+            <a href="mailto:framerbite@gmail.com">
+              <span class="agent-profile__contact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" role="img">
+                  <path
+                    d="M3.75 5.75h16.5v12.5H3.75V5.75Zm.7 1.5 7.55 5.6 7.55-5.6"
+                  ></path>
+                </svg>
+              </span>
+              <span>alexthompson@homequest.com</span>
+            </a>
+            <a href="tel:123-456-7890">
+              <span class="agent-profile__contact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" role="img">
+                  <path
+                    d="M7.12 3.42 9.4 8.36 7.95 9.82c.7 1.56 1.97 2.83 3.53 3.53l1.46-1.45 4.94 2.28-.78 4.12c-.13.7-.74 1.2-1.45 1.2C9.5 19.5 4.5 14.5 4.5 8.35c0-.71.5-1.32 1.2-1.45l1.42-3.48Z"
+                  ></path>
+                </svg>
+              </span>
+              <span>+358 042 187 8080,</span>
+            </a>
+          </address>
+        </div>
+
+        <div class="agent-profile__stats">
+          <div class="agent-stat">
+            <img
+              src="/images/agent/details/experience.svg"
+              alt=""
+              width="48"
+              height="48"
+            />
+            <div>
+              <p>Experience</p>
+              <h3>{experienceLabel}</h3>
+            </div>
+          </div>
+          <div class="agent-stat">
+            <img
+              src="/images/agent/details/rating.svg"
+              alt=""
+              width="48"
+              height="48"
+            />
+            <div>
+              <p>Service Rating</p>
+              <h3>{agent.rating.toFixed(1)}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="agent-detail__cta" aria-labelledby="agent-detail-cta-title">
+    <img
+      src="/images/company/cta.avif"
+      alt="Modern property at dusk"
+      loading="lazy"
+    />
+    <div class="agent-detail__cta-shade"></div>
+    <div
+      class="agent-detail__cta-content"
+      data-aos="fade-up"
+      data-aos-duration="1000"
+    >
+      <h2 id="agent-detail-cta-title">
+        <span>Ready to Make a</span>
+        <span>Move? Contact Us Now!</span>
+      </h2>
+      <p>
+        Contact us today to discuss your property needs and choose the right
+        plan. We’re here to guide you through every step of the process.
+      </p>
+      <a href="/contact">Get Your Home</a>
+    </div>
+  </section>
+</article>
+
+<style>
+  .agent-detail {
+    --hq-green: #1f4938;
+    --hq-lime: #dbfb1e;
+    --hq-warm: #f7f6f4;
+    color: #0a0915;
+    background: #fff;
+  }
+
+  .agent-detail h1,
+  .agent-detail h2,
+  .agent-detail h3,
+  .agent-detail p {
+    margin: 0;
+  }
+
+  .agent-detail__hero {
+    position: relative;
+    height: 453px;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  .agent-detail__hero > img,
+  .agent-detail__hero-shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .agent-detail__hero > img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .agent-detail__hero-shade {
+    background: rgba(22, 54, 71, 0.2);
+  }
+
+  .agent-detail__hero h1 {
+    position: absolute;
+    top: 205px;
+    right: 30px;
+    left: 30px;
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 80px;
+    font-weight: 400;
+    line-height: 92px;
+    letter-spacing: -3.5px;
+    text-align: center;
+  }
+
+  .agent-profile {
+    padding: 80px 30px 130px;
+  }
+
+  .agent-profile__grid {
+    display: flex;
+    width: min(1205px, 100%);
+    align-items: flex-start;
+    gap: 62px;
+    margin-inline: auto;
+  }
+
+  .agent-profile__portrait {
+    width: 46%;
+    flex: 0 0 auto;
+    aspect-ratio: 0.9354;
+    overflow: hidden;
+    border-radius: 24px;
+    background: #efedeb;
+  }
+
+  .agent-profile__portrait img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 550ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .agent-profile__portrait:hover img {
+    transform: scale(1.025);
+  }
+
+  .agent-profile__details {
+    display: flex;
+    width: 48%;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 72px;
+  }
+
+  .agent-profile__summary {
+    width: 90%;
+  }
+
+  .agent-profile__heading {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .agent-profile__heading h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 62.4px;
+    letter-spacing: -1.8px;
+  }
+
+  .agent-profile__heading p,
+  .agent-profile__contact a {
+    font-size: 20px;
+    line-height: 36px;
+    letter-spacing: -0.5px;
+  }
+
+  .agent-profile__heading p,
+  .agent-profile__bio {
+    color: #52525a;
+  }
+
+  .agent-profile__bio {
+    margin-top: 45px !important;
+    font-size: 16px;
+    line-height: 28.8px;
+    letter-spacing: -0.4px;
+  }
+
+  .agent-profile__contact {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 40px;
+    font-style: normal;
+  }
+
+  .agent-profile__contact a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #0a0915;
+  }
+
+  .agent-profile__contact-icon {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    place-items: center;
+    background: var(--hq-warm);
+  }
+
+  .agent-profile__contact-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--hq-green);
+    stroke: var(--hq-green);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 0.5;
+  }
+
+  .agent-profile__stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .agent-stat {
+    display: flex;
+    min-width: 0;
+    height: 209.594px;
+    flex-direction: column;
+    gap: 32px;
+    padding: 24px;
+    border: 1px solid #e8e8e8;
+    border-radius: 16px;
+    box-sizing: border-box;
+  }
+
+  .agent-stat > img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .agent-stat > div {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .agent-stat p {
+    color: #52525a;
+    font-size: 16px;
+    line-height: 28.8px;
+    letter-spacing: -0.4px;
+  }
+
+  .agent-stat h3 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 44.8px;
+    letter-spacing: -1.5px;
+  }
+
+  .agent-detail__cta {
+    position: relative;
+    height: 624.609px;
+    overflow: hidden;
+    border-radius: 24px 24px 0 0;
+    color: #fff;
+  }
+
+  .agent-detail__cta > img,
+  .agent-detail__cta-shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .agent-detail__cta > img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .agent-detail__cta-shade {
+    background: linear-gradient(
+      180deg,
+      rgba(24, 55, 75, 0.46),
+      rgba(9, 25, 33, 0.02)
+    );
+  }
+
+  .agent-detail__cta-content {
+    position: relative;
+    z-index: 1;
+    width: min(748px, calc(100% - 40px));
+    margin: 0 auto;
+    padding-top: 88px;
+    text-align: center;
+  }
+
+  .agent-detail__cta h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: -2.5px;
+  }
+
+  .agent-detail__cta h2 span {
+    display: block;
+  }
+
+  .agent-detail__cta-content > p {
+    max-width: 598px;
+    margin: 16px auto 32px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 16px;
+    line-height: 32.4px;
+    letter-spacing: -0.2px;
+  }
+
+  .agent-detail__cta-content > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 24px;
+    border-radius: 32px;
+    color: #050505;
+    background: var(--hq-lime);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 28.8px;
+    transition:
+      transform 180ms ease,
+      filter 180ms ease;
+  }
+
+  .agent-detail__cta-content > a:hover,
+  .agent-detail__cta-content > a:focus-visible {
+    filter: brightness(0.95);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 767px) {
+    .agent-detail__hero {
+      height: 236px;
+    }
+
+    .agent-detail__hero h1 {
+      top: 100px;
+      right: 20px;
+      left: 20px;
+      font-size: 40px;
+      line-height: 46px;
+      letter-spacing: -1px;
+    }
+
+    .agent-profile {
+      padding: 60px 20px;
+    }
+
+    .agent-profile__grid {
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .agent-profile__portrait,
+    .agent-profile__details {
+      width: 100%;
+    }
+
+    .agent-profile__details {
+      gap: 24px;
+    }
+
+    .agent-profile__summary {
+      width: 100%;
+    }
+
+    .agent-profile__heading h2 {
+      font-size: 36px;
+      line-height: 46.8px;
+      letter-spacing: -1px;
+      text-align: center;
+    }
+
+    .agent-profile__heading p {
+      text-align: center;
+    }
+
+    .agent-profile__bio {
+      margin-top: 24px !important;
+    }
+
+    .agent-profile__desktop-break {
+      display: none;
+    }
+
+    .agent-profile__contact {
+      margin-top: 24px;
+    }
+
+    .agent-profile__stats {
+      gap: 16px;
+    }
+
+    .agent-stat {
+      padding: 24px;
+    }
+
+    .agent-detail__cta {
+      height: 506.422px;
+      border-radius: 24px 24px 0 0;
+    }
+
+    .agent-detail__cta-content {
+      width: calc(100% - 40px);
+      padding-top: 60px;
+    }
+
+    .agent-detail__cta h2 {
+      font-size: 36px;
+      line-height: 45px;
+      letter-spacing: -1.8px;
+    }
+
+    .agent-detail__cta-content > p {
+      margin-top: 16px;
+      font-size: 16px;
+      line-height: 32.4px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .agent-detail *,
+    .agent-detail *::before,
+    .agent-detail *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+</style>

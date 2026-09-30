@@ -1,0 +1,14 @@
+---
+import { termsConditions } from "@/data/legal-pages";
+import Base from "@/layouts/Base.astro";
+import LegalPage from "@/layouts/LegalPage.astro";
+---
+
+<Base
+  title={termsConditions.title}
+  meta_title="Terms & Conditions | HomeQuest"
+  description={termsConditions.description}
+  image="/images/agent/details/hero.png"
+>
+  <LegalPage page={termsConditions} />
+</Base>

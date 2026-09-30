@@ -1,0 +1,14 @@
+---
+import { privacyPolicy } from "@/data/legal-pages";
+import Base from "@/layouts/Base.astro";
+import LegalPage from "@/layouts/LegalPage.astro";
+---
+
+<Base
+  title={privacyPolicy.title}
+  meta_title="Privacy Policy | HomeQuest"
+  description={privacyPolicy.description}
+  image="/images/agent/details/hero.png"
+>
+  <LegalPage page={privacyPolicy} />
+</Base>

@@ -1,0 +1,23 @@
+---
+import { agents, type AgentSummary } from "@/data/agents";
+import AgentDetail from "@/layouts/AgentDetail.astro";
+import Base from "@/layouts/Base.astro";
+
+export function getStaticPaths() {
+  return agents.map((agent) => ({
+    params: { slug: agent.slug },
+    props: { agent },
+  }));
+}
+
+const { agent } = Astro.props as { agent: AgentSummary };
+---
+
+<Base
+  title={agent.name}
+  meta_title={`${agent.name} | HomeQuest Agent`}
+  description={`Meet ${agent.name}, ${agent.role} at HomeQuest. Explore their experience and get expert help with your property goals.`}
+  image={agent.detailImage}
+>
+  <AgentDetail agent={agent} />
+</Base>

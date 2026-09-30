@@ -10,12 +10,14 @@ export async function getStaticPaths() {
 
   const pages = await getSinglePage(COLLECTION_FOLDER);
 
-  const paths = pages.map((page) => ({
-    params: {
-      regular: page.id,
-    },
-    props: { page },
-  }));
+  const paths = pages
+    .filter((page) => page.id !== "privacy-policy")
+    .map((page) => ({
+      params: {
+        regular: page.id,
+      },
+      props: { page },
+    }));
   return paths;
 }
 
