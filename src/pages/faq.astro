@@ -1,0 +1,652 @@
+---
+import Base from "@/layouts/Base.astro";
+
+interface Benefit {
+  number: string;
+  text: string;
+}
+
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface SocialLink {
+  label: string;
+  href: string;
+  icon: string;
+}
+
+const benefits: Benefit[] = [
+  { number: "1", text: "Experienced team with local market expertise" },
+  { number: "2", text: "Personalized service for each client’s needs" },
+  { number: "3", text: "Transparent pricing with no hidden fees" },
+];
+
+const faqs: FaqItem[] = [
+  {
+    question: "How long does it take to buy or sell a property?",
+    answer:
+      "The time it takes to buy or sell a property depends on several factors, including market conditions, property type, and the buyer's/seller's readiness. On average, it takes 1 to 3 months from listing a property to closing a sale.",
+  },
+  {
+    question: "What fees are involved in buying or selling a home?",
+    answer:
+      "AI image editor is a cutting-edge tool that harnesses the power of artificial intelligence to streamline and enhance the photo editing process.",
+  },
+  {
+    question: "How is the value of my home determined?",
+    answer:
+      "One of the most popular in the remarkable features of AI image editors is their ability to enhance image quality.",
+  },
+  {
+    question: "Can I get assistance with financing a property purchase?",
+    answer:
+      "For portrait photography, AI image editors excel at skin retouching, wrinkle reduction, and blemish removal.",
+  },
+  {
+    question: "What are the benefits of hiring a property management service?",
+    answer:
+      "Product photography is another area where AI image editors shine. By accurately removing backgrounds and enhancing product details.",
+  },
+];
+
+const socialLinks: SocialLink[] = [
+  {
+    label: "Facebook",
+    href: "https://facebook.com",
+    icon: "/images/faq/facebook.svg",
+  },
+  {
+    label: "X",
+    href: "https://x.com",
+    icon: "/images/faq/x.svg",
+  },
+  {
+    label: "Instagram",
+    href: "https://instagram.com",
+    icon: "/images/faq/instagram.svg",
+  },
+  {
+    label: "Threads",
+    href: "https://threads.com",
+    icon: "/images/faq/threads.svg",
+  },
+];
+---
+
+<Base
+  title="FAQs"
+  meta_title="FAQs | HomeQuest"
+  description="Find answers to common questions about buying, selling, financing, valuing, and managing real estate with HomeQuest."
+  image="/images/company/hero.avif"
+>
+  <div class="faq-page">
+    <section class="faq-hero" aria-labelledby="faq-page-title">
+      <img
+        src="/images/company/hero.avif"
+        alt="Modern HomeQuest residence"
+        fetchpriority="high"
+      />
+      <div class="faq-hero__shade"></div>
+      <h1 id="faq-page-title" data-aos="fade-up" data-aos-duration="900">
+        FAQs
+      </h1>
+    </section>
+
+    <section class="faq-main" aria-labelledby="faq-content-title">
+      <div class="faq-main__inner">
+        <div
+          class="faq-introduction"
+          data-aos="fade-up"
+          data-aos-duration="900"
+        >
+          <div class="faq-introduction__copy">
+            <h2 id="faq-content-title">Have Any Questions?</h2>
+            <p>
+              The time it takes to buy or sell a property depends on several
+              factors, including market conditions, property type, and the
+              buyer's/seller's readiness.
+            </p>
+          </div>
+
+          <div class="benefit-list">
+            {
+              benefits.map((benefit) => (
+                <div class="benefit-row">
+                  <span>{benefit.number}</span>
+                  <p>{benefit.text}</p>
+                </div>
+              ))
+            }
+          </div>
+
+          <div class="social-row">
+            <p>Social Handle</p>
+            <div>
+              {
+                socialLinks.map((social) => (
+                  <a
+                    href={social.href}
+                    aria-label={social.label}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <img
+                      src={social.icon}
+                      alt=""
+                      width="21"
+                      height="21"
+                      loading="lazy"
+                    />
+                  </a>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="faq-accordion"
+          data-aos="fade-up"
+          data-aos-delay="100"
+          data-aos-duration="900"
+        >
+          {
+            faqs.map((item, index) => (
+              <article class:list={["faq-item", { "is-open": index === 0 }]}>
+                <button
+                  type="button"
+                  class="faq-trigger"
+                  aria-expanded={index === 0 ? "true" : "false"}
+                >
+                  <span>{item.question}</span>
+                  <span class="faq-chevron" aria-hidden="true">
+                    ›
+                  </span>
+                </button>
+                <div class="faq-answer">
+                  <div>
+                    <p>{item.answer}</p>
+                  </div>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-cta" aria-labelledby="faq-cta-title">
+      <img
+        src="/images/company/cta.avif"
+        alt="Modern property at dusk"
+        loading="lazy"
+      />
+      <div class="faq-cta__shade"></div>
+      <div class="faq-cta__content" data-aos="fade-up" data-aos-duration="1000">
+        <h2 id="faq-cta-title">
+          <span>Ready to Make a</span>
+          <span>Move? Contact Us Now!</span>
+        </h2>
+        <p>
+          Contact us today to discuss your property needs and choose the right
+          plan. We’re here to guide you through every step of the process.
+        </p>
+        <a href="/contact">Get Your Home</a>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<script>
+  const initializeFaqPage = () => {
+    const page = document.querySelector<HTMLElement>(".faq-page");
+    if (!page || page.dataset.initialized === "true") return;
+    page.dataset.initialized = "true";
+
+    page
+      .querySelectorAll<HTMLButtonElement>(".faq-trigger")
+      .forEach((trigger) => {
+        trigger.addEventListener("click", () => {
+          const current = trigger.closest<HTMLElement>(".faq-item");
+          page.querySelectorAll<HTMLElement>(".faq-item").forEach((item) => {
+            const shouldOpen =
+              item === current && !item.classList.contains("is-open");
+            item.classList.toggle("is-open", shouldOpen);
+            item
+              .querySelector<HTMLButtonElement>(".faq-trigger")
+              ?.setAttribute("aria-expanded", String(shouldOpen));
+          });
+        });
+      });
+  };
+
+  document.addEventListener("astro:page-load", initializeFaqPage);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeFaqPage, {
+      once: true,
+    });
+  } else {
+    initializeFaqPage();
+  }
+</script>
+
+<style>
+  .faq-page {
+    --hq-green: #1f4938;
+    --hq-lime: #dbfb1e;
+    --hq-warm: #f7f6f4;
+    color: #0a0915;
+    background: #fff;
+  }
+
+  .faq-page h1,
+  .faq-page h2,
+  .faq-page p {
+    margin: 0;
+  }
+
+  .faq-hero {
+    position: relative;
+    height: 453px;
+    color: #fff;
+  }
+
+  .faq-hero > img,
+  .faq-hero__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 473px;
+  }
+
+  .faq-hero > img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .faq-hero__shade {
+    background: linear-gradient(
+      180deg,
+      rgba(12, 42, 56, 0.2),
+      rgba(15, 35, 45, 0.26)
+    );
+  }
+
+  .faq-hero h1 {
+    position: absolute;
+    top: 205px;
+    right: 30px;
+    left: 30px;
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 80px;
+    font-weight: 400;
+    line-height: 92px;
+    letter-spacing: -3.5px;
+    text-align: center;
+  }
+
+  .faq-main {
+    position: relative;
+    z-index: 1;
+    height: 858.797px;
+    margin-top: -11px;
+    padding: 111px 30px 134px;
+    border-radius: 24px 24px 0 0;
+    background: #fff;
+    box-sizing: border-box;
+  }
+
+  .faq-main__inner {
+    display: grid;
+    width: min(1205px, 100%);
+    grid-template-columns: 506.094px 590.438px;
+    gap: 108.468px;
+    margin-inline: auto;
+  }
+
+  .faq-introduction h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 62.4px;
+    letter-spacing: -2.5px;
+  }
+
+  .faq-introduction__copy > p {
+    margin-top: 16px;
+    color: rgba(10, 9, 21, 0.65);
+    font-size: 16px;
+    line-height: 28.8px;
+    letter-spacing: -0.4px;
+  }
+
+  .benefit-list {
+    display: grid;
+    gap: 8px;
+    margin-top: 48px;
+  }
+
+  .benefit-row {
+    display: flex;
+    min-height: 84px;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border: 1px solid rgba(10, 9, 21, 0.16);
+    border-radius: 16px;
+    box-sizing: border-box;
+  }
+
+  .benefit-row > span {
+    display: grid;
+    width: 52px;
+    height: 52px;
+    flex: 0 0 52px;
+    place-items: center;
+    border-radius: 8px;
+    color: #fff;
+    background: var(--hq-green);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 28.8px;
+  }
+
+  .benefit-row p {
+    font-size: 16px;
+    line-height: 28.8px;
+    letter-spacing: -0.4px;
+  }
+
+  .social-row {
+    display: flex;
+    align-items: center;
+    gap: 42px;
+    margin-top: 96px;
+  }
+
+  .social-row > p {
+    font-size: 16px;
+    line-height: 28.8px;
+    letter-spacing: -0.4px;
+  }
+
+  .social-row > div {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .social-row a {
+    display: grid;
+    width: 20px;
+    height: 21px;
+    place-items: center;
+    transition: transform 180ms ease;
+  }
+
+  .social-row a:hover,
+  .social-row a:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .social-row img {
+    display: block;
+    width: 20px;
+    height: 21px;
+  }
+
+  .faq-accordion {
+    margin-top: 27.875px;
+  }
+
+  .faq-item + .faq-item {
+    margin-top: 4px;
+  }
+
+  .faq-trigger {
+    display: flex;
+    width: 100%;
+    min-height: 64.406px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 16px;
+    border-radius: 14px;
+    color: #0a0915;
+    background: var(--hq-warm);
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 32.4px;
+    letter-spacing: -0.4px;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 180ms ease;
+  }
+
+  .faq-trigger:hover,
+  .faq-trigger:focus-visible {
+    background: #f0efed;
+  }
+
+  .faq-chevron {
+    flex: 0 0 auto;
+    color: #777;
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 1;
+    transition: transform 240ms ease;
+  }
+
+  .faq-answer {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 300ms ease;
+  }
+
+  .faq-answer > div {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .faq-answer p {
+    padding: 16px 16px 24px;
+    color: rgba(10, 9, 21, 0.62);
+    font-size: 16px;
+    line-height: 28.8px;
+    letter-spacing: -0.4px;
+  }
+
+  .faq-item.is-open .faq-answer {
+    grid-template-rows: 1fr;
+  }
+
+  .faq-item.is-open .faq-chevron {
+    transform: rotate(-90deg);
+  }
+
+  .faq-cta {
+    position: relative;
+    height: 624.609px;
+    overflow: hidden;
+    border-radius: 24px 24px 0 0;
+    color: #fff;
+  }
+
+  .faq-cta > img,
+  .faq-cta__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .faq-cta > img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .faq-cta__shade {
+    background: linear-gradient(
+      180deg,
+      rgba(24, 55, 75, 0.46),
+      rgba(9, 25, 33, 0.02)
+    );
+  }
+
+  .faq-cta__content {
+    position: relative;
+    z-index: 1;
+    width: min(748px, calc(100% - 40px));
+    margin: 0 auto;
+    padding-top: 88px;
+    text-align: center;
+  }
+
+  .faq-cta h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: -2.5px;
+  }
+
+  .faq-cta h2 span {
+    display: block;
+  }
+
+  .faq-cta__content p {
+    max-width: 598px;
+    margin: 16px auto 32px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 16px;
+    line-height: 32.4px;
+    letter-spacing: -0.2px;
+  }
+
+  .faq-cta__content a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 24px;
+    border-radius: 32px;
+    color: #050505;
+    background: var(--hq-lime);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 28.8px;
+    transition:
+      transform 180ms ease,
+      filter 180ms ease;
+  }
+
+  .faq-cta__content a:hover,
+  .faq-cta__content a:focus-visible {
+    filter: brightness(0.95);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 767px) {
+    .faq-hero {
+      height: 236px;
+      overflow: hidden;
+    }
+
+    .faq-hero > img,
+    .faq-hero__shade {
+      height: 236px;
+    }
+
+    .faq-hero h1 {
+      top: 100px;
+      right: 20px;
+      left: 20px;
+      font-size: 40px;
+      line-height: 46px;
+      letter-spacing: -1px;
+    }
+
+    .faq-main {
+      height: auto;
+      margin-top: -30px;
+      padding: 50px 20px 60px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .faq-main__inner {
+      display: grid;
+      width: 100%;
+      grid-template-columns: 1fr;
+      gap: 29px;
+    }
+
+    .faq-introduction h2 {
+      font-size: 36px;
+      line-height: 46.8px;
+      letter-spacing: -1.8px;
+    }
+
+    .faq-introduction__copy > p {
+      margin-top: 16px;
+    }
+
+    .benefit-list {
+      margin-top: 30px;
+    }
+
+    .benefit-row {
+      min-height: 0;
+    }
+
+    .social-row {
+      gap: 31px;
+      margin-top: 30px;
+    }
+
+    .social-row > div {
+      gap: 20px;
+    }
+
+    .faq-accordion {
+      margin-top: 0;
+    }
+
+    .faq-trigger {
+      min-height: 96.812px;
+    }
+
+    .faq-cta {
+      height: 506.422px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .faq-cta__content {
+      width: calc(100% - 40px);
+      padding-top: 60px;
+    }
+
+    .faq-cta h2 {
+      font-size: 36px;
+      line-height: 45px;
+      letter-spacing: -1.8px;
+    }
+
+    .faq-cta__content p {
+      margin-top: 20px;
+      font-size: 14px;
+      line-height: 25.2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq-page *,
+    .faq-page *::before,
+    .faq-page *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+</style>

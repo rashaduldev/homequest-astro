@@ -1,0 +1,853 @@
+---
+import { blogPosts, type BlogPostSummary } from "@/data/blog-posts";
+
+interface Props {
+  post: BlogPostSummary;
+}
+
+const { post } = Astro.props;
+const relatedPosts = blogPosts.slice(-3);
+
+const socialLinks = [
+  {
+    label: "Facebook",
+    href: "https://facebook.com",
+    icon: "/images/faq/facebook.svg",
+  },
+  { label: "X", href: "https://x.com", icon: "/images/faq/x.svg" },
+  {
+    label: "Instagram",
+    href: "https://instagram.com",
+    icon: "/images/faq/instagram.svg",
+  },
+  {
+    label: "LinkedIn",
+    href: "https://linkedin.com",
+    icon: "/images/blog/linkedin.svg",
+  },
+  {
+    label: "Threads",
+    href: "https://threads.com",
+    icon: "/images/faq/threads.svg",
+  },
+];
+---
+
+<article class="blog-detail">
+  <header class="article-hero">
+    <img src={post.image} alt="" fetchpriority="high" />
+    <div class="article-hero__shade"></div>
+    <h1 data-aos="fade-up" data-aos-duration="900">{post.title}</h1>
+  </header>
+
+  <div class="article-container">
+    <div class="article-meta" data-aos="fade-up" data-aos-duration="900">
+      <div class="article-meta__date">
+        <span>Publish Date</span>
+        <time datetime={post.dateTime}>{post.date}</time>
+      </div>
+      <div class="article-meta__social">
+        <span>Social Handle</span>
+        <div>
+          {
+            socialLinks.map((social) => (
+              <a
+                href={social.href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={social.label}
+              >
+                <img src={social.icon} alt="" width="20" height="21" />
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="article-content">
+      <h2 class="article-lead" data-aos="fade-up" data-aos-duration="900">
+        Unique. Original. Remarkable. It’s difficult to develop real estate
+        marketing <br class="article-lead__break" />ideas day in and day out
+        that meet each of these criteria — especially
+        <br class="article-lead__break" />when you spend much of your time on
+        the road meeting with clients and
+        <br class="article-lead__break" />leads.
+      </h2>
+
+      <section aria-labelledby="time-management-title">
+        <h3 id="time-management-title">The Importance of Time Management:</h3>
+        <p>
+          The success of your real estate business depends on how well your
+          online marketing funnel attracts new home buyers. 44% of all home
+          buyers and 99% of Millennials go to the Internet first when finding
+          properties for sale. As a real estate professional, you need a
+          professional website if you expect to increase revenue over time.
+        </p>
+        <p>
+          Home buyers expect quality as they search for homes and the REALTOR®
+          that best fits their needs. Your website should showcase your property
+          listings, brand and expertise. Tools that help you stand out include:
+        </p>
+        <ul>
+          <li>Branded messaging and images</li>
+          <li>Responsive design</li>
+          <li>IDX integration</li>
+          <li>Blog content</li>
+          <li>Lead capture landing pages</li>
+          <li>Area pages</li>
+        </ul>
+      </section>
+
+      <img
+        class="article-image"
+        src="/images/blog/article-moving-family.png"
+        alt="Family moving into a new home"
+        width="1280"
+        height="731"
+        loading="lazy"
+        data-aos="fade-up"
+        data-aos-duration="900"
+      />
+
+      <section aria-labelledby="practical-tips-title">
+        <h3 id="practical-tips-title">
+          Practical Tips for Improving Time Management:
+        </h3>
+        <ol>
+          <li>
+            If you’ve ever checked out BuzzFeed before, then you know people
+            like to take quizzes on just about any subject. Test your audience
+            with a short, multiple-choice quiz on something of interest. See if
+            they know things like which famous people grew up in the area and
+            tidbits about your town’s history. The questions or topics can even
+            be created around broader subjects unrelated to your market, like
+            music, movies, or some other facet of pop culture.
+          </li>
+          <li>
+            Creating a website provides a digital hub for interested buyers to
+            learn more about available properties. They’ll also be able to learn
+            about your real estate agency or agent who is representing them.
+          </li>
+          <li>
+            Pro tip: Whether you work at a brokerage or have your own firm,
+            creating a website is a great way to grow your personal brand, show
+            positive reviews from clients you’ve helped, and continue bringing
+            in more qualified leads.
+          </li>
+          <li>
+            A blog allows you to demonstrate industry expertise, establishing
+            credibility with potential clients. Blogs also create an outlet for
+            sharing industry news, events, and advice for potential clients. You
+            can stay top of mind for your audience, so they think of you when
+            it's time to buy.
+          </li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="email-campaign-title">
+        <h3 id="email-campaign-title">Develop email marketing campaigns.</h3>
+        <ol>
+          <li>
+            Send a monthly newsletter roundup of your blog content, and reach
+            out to contacts when new property listings are available. Include
+            images of the properties that link to the full listing, a video
+            walkthrough of the property, or a virtual staging of the home.
+          </li>
+          <li>
+            Creating email marketing campaigns lets you connect with past and
+            potential clients in real estate marketing. By keeping in touch,
+            agents can stay top of mind with their audience, increasing the
+            chances of receiving referrals or securing repeat business.
+          </li>
+          <li>
+            Virtual buyers can envision themselves in a potential new home
+            before visiting the property. By presenting a virtual representation
+            of a furnished property, they can better understand how to use the
+            space and what it would look like if they lived there.
+          </li>
+        </ol>
+      </section>
+
+      <img
+        class="article-image"
+        src="/images/blog/article-home-research.png"
+        alt="Couple researching their new home"
+        width="1280"
+        height="731"
+        loading="lazy"
+        data-aos="fade-up"
+        data-aos-duration="900"
+      />
+
+      <div class="article-callouts">
+        <p>
+          Paid Instagram promotions allow agents to target their ideal audience
+          with precision. Instagram ads can target specific demographics,
+          ensuring the most relevant audience sees the ad.
+        </p>
+        <p>
+          Pro tip: Video ads on Instagram or TikTok aren’t just great for
+          promoting listings — they also give you a chance to show your
+          personality and build credibility with potential clients.
+        </p>
+      </div>
+
+      <section class="article-conclusion" aria-labelledby="conclusion-title">
+        <h3 id="conclusion-title">Conclusion</h3>
+        <p>
+          Make yourself and your knowledge available to the community by hosting
+          mini-seminars. Consider providing a basic 101 seminar about the basics
+          of home buying and mortgages.
+        </p>
+        <p>
+          Remember, marketing today is all about inbound, and that doesn’t just
+          apply online. Users want you to share some of your knowledge for free
+          before investing time and money in you. A home buying seminar is the
+          local equivalent of a webinar. Yes, it will take time and energy, but
+          attendees will walk away impressed and will have established a
+          relationship with you. That relationship will be worth its weight in
+          gold when they’re ready to shop for a home.
+        </p>
+      </section>
+    </div>
+  </div>
+
+  <section class="similar-posts" aria-labelledby="similar-posts-title">
+    <div class="similar-posts__inner">
+      <div class="similar-posts__header">
+        <h2 id="similar-posts-title">Similar Blog &amp; Insights</h2>
+        <a href="/blog">Read all stories <span aria-hidden="true">›</span></a>
+      </div>
+      <div class="similar-posts__grid">
+        {
+          relatedPosts.map((related, index) => (
+            <a
+              class="related-card"
+              href={`/blog/${related.slug}`}
+              data-aos="fade-up"
+              data-aos-delay={String(index * 80)}
+              data-aos-duration="900"
+            >
+              <div class="related-card__image">
+                <img
+                  src={related.image}
+                  alt=""
+                  width="848"
+                  height="440"
+                  loading="lazy"
+                />
+              </div>
+              <div class="related-card__content">
+                <h3>{related.title}</h3>
+                <div>
+                  <time>{related.date}</time>
+                  <p>by {related.author}</p>
+                </div>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="blog-detail-cta" aria-labelledby="blog-detail-cta-title">
+    <img
+      src="/images/company/cta.avif"
+      alt="Modern property at dusk"
+      loading="lazy"
+    />
+    <div class="blog-detail-cta__shade"></div>
+    <div
+      class="blog-detail-cta__content"
+      data-aos="fade-up"
+      data-aos-duration="1000"
+    >
+      <h2 id="blog-detail-cta-title">
+        <span>Ready to Make a</span>
+        <span>Move? Contact Us Now!</span>
+      </h2>
+      <p>
+        Contact us today to discuss your property needs and choose the right
+        plan. We’re here to guide you through every step of the process.
+      </p>
+      <a href="/contact">Get Your Home</a>
+    </div>
+  </section>
+</article>
+
+<style>
+  .blog-detail {
+    --hq-green: #1f4938;
+    --hq-lime: #dbfb1e;
+    --hq-warm: #f7f6f4;
+    color: #0a0915;
+    background: #fff;
+  }
+
+  .blog-detail h1,
+  .blog-detail h2,
+  .blog-detail h3,
+  .blog-detail p,
+  .blog-detail ul,
+  .blog-detail ol {
+    margin: 0;
+  }
+
+  .article-hero {
+    position: relative;
+    height: 565px;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  .article-hero > img,
+  .article-hero__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .article-hero > img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .article-hero__shade {
+    background: rgba(10, 9, 21, 0.32);
+  }
+
+  .article-hero h1 {
+    position: absolute;
+    top: 221px;
+    right: 30px;
+    left: 30px;
+    max-width: 1000.14px;
+    margin-inline: auto;
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 80px;
+    font-weight: 400;
+    line-height: 92px;
+    letter-spacing: -3.5px;
+    text-align: center;
+  }
+
+  .article-container {
+    width: min(1000.14px, calc(100% - 60px));
+    margin-inline: auto;
+  }
+
+  .article-content {
+    width: 100%;
+    margin-inline: auto;
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 70px;
+  }
+
+  .article-meta__date,
+  .article-meta__social {
+    display: flex;
+    align-items: center;
+  }
+
+  .article-meta__date {
+    gap: 18px;
+  }
+
+  .article-meta__date > span,
+  .article-meta__social > span {
+    font-size: 16px;
+    line-height: 28.8px;
+    letter-spacing: -0.4px;
+  }
+
+  .article-meta__date time {
+    padding: 10px 16px;
+    border-radius: 32px;
+    background: var(--hq-warm);
+    font-size: 16px;
+    line-height: 28.8px;
+    letter-spacing: -0.4px;
+  }
+
+  .article-meta__social {
+    gap: 32px;
+  }
+
+  .article-meta__social > div {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .article-meta__social a {
+    display: grid;
+    width: 20px;
+    height: 21px;
+    place-items: center;
+    transition: transform 180ms ease;
+  }
+
+  .article-meta__social a:hover,
+  .article-meta__social a:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .article-meta__social img {
+    width: 20px;
+    height: 21px;
+  }
+
+  .article-content {
+    padding: 82px 0 110px;
+  }
+
+  .article-lead {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 44.8px;
+    letter-spacing: -1.5px;
+  }
+
+  .article-content section {
+    margin-top: 36px;
+  }
+
+  .article-content h3 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 33.6px;
+    letter-spacing: -1px;
+  }
+
+  .article-content section > p,
+  .article-content li {
+    color: #52525a;
+    font-size: 20px;
+    line-height: 36px;
+    letter-spacing: -0.5px;
+  }
+
+  .article-content section > p,
+  .article-content section > ol,
+  .article-content section > ul {
+    margin-top: 36px;
+  }
+
+  .article-content section > p + p {
+    margin-top: 36px;
+  }
+
+  .article-content ul,
+  .article-content ol {
+    padding-left: 32px;
+  }
+
+  .article-content li {
+    padding-left: 8px;
+  }
+
+  .article-image {
+    display: block;
+    width: 990px;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 1280 / 731;
+    margin: 36px 0 0;
+    object-fit: cover;
+    border-radius: 16px;
+  }
+
+  .article-callouts {
+    display: grid;
+    gap: 36px;
+    margin-top: 36px;
+  }
+
+  .article-callouts p {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 32px;
+    line-height: 44.8px;
+    letter-spacing: -1.5px;
+  }
+
+  .article-conclusion {
+    margin-top: 36px !important;
+  }
+
+  .similar-posts {
+    min-height: 801px;
+    padding: 130px 30px 120px;
+    border-radius: 24px 24px 0 0;
+    background: var(--hq-warm);
+    box-sizing: border-box;
+  }
+
+  .similar-posts__inner {
+    width: min(1168.641px, 100%);
+    margin-inline: auto;
+  }
+
+  .similar-posts__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .similar-posts__header h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: -2.5px;
+  }
+
+  .similar-posts__header > a {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    color: var(--hq-green);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 28.8px;
+  }
+
+  .similar-posts__header > a span {
+    font-size: 28px;
+    font-weight: 300;
+  }
+
+  .similar-posts__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 64px;
+  }
+
+  .related-card {
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 16px;
+    color: #0a0915;
+    background: #fff;
+    transition:
+      transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 300ms ease;
+  }
+
+  .related-card__image {
+    aspect-ratio: 848 / 440;
+    overflow: hidden;
+  }
+
+  .related-card__image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 550ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .related-card__content {
+    padding: 24px 16px 16px;
+  }
+
+  .related-card h3 {
+    min-height: 67.2px;
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 33.6px;
+    letter-spacing: -1px;
+  }
+
+  .related-card__content > div {
+    min-height: 82.406px;
+    margin-top: 10px;
+    padding: 16px;
+    border-radius: 10px;
+    background: var(--hq-warm);
+    box-sizing: border-box;
+  }
+
+  .related-card time,
+  .related-card__content p {
+    font-size: 14px;
+    line-height: 25.2px;
+    letter-spacing: -0.2px;
+  }
+
+  .related-card time {
+    color: var(--hq-green);
+    font-weight: 500;
+  }
+
+  .related-card__content p {
+    color: #52525a;
+  }
+
+  .related-card:hover,
+  .related-card:focus-visible {
+    box-shadow: 0 18px 44px rgba(15, 44, 32, 0.12);
+    transform: translateY(-4px);
+  }
+
+  .related-card:hover .related-card__image img,
+  .related-card:focus-visible .related-card__image img {
+    transform: scale(1.045);
+  }
+
+  .blog-detail-cta {
+    position: relative;
+    height: 624.609px;
+    overflow: hidden;
+    border-radius: 24px 24px 0 0;
+    color: #fff;
+  }
+
+  .blog-detail-cta > img,
+  .blog-detail-cta__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .blog-detail-cta > img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .blog-detail-cta__shade {
+    background: linear-gradient(
+      180deg,
+      rgba(24, 55, 75, 0.46),
+      rgba(9, 25, 33, 0.02)
+    );
+  }
+
+  .blog-detail-cta__content {
+    position: relative;
+    z-index: 1;
+    width: min(748px, calc(100% - 40px));
+    margin: 0 auto;
+    padding-top: 88px;
+    text-align: center;
+  }
+
+  .blog-detail-cta h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: -2.5px;
+  }
+
+  .blog-detail-cta h2 span {
+    display: block;
+  }
+
+  .blog-detail-cta__content > p {
+    max-width: 598px;
+    margin: 16px auto 32px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 16px;
+    line-height: 32.4px;
+    letter-spacing: -0.2px;
+  }
+
+  .blog-detail-cta__content > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 24px;
+    border-radius: 32px;
+    color: #050505;
+    background: var(--hq-lime);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 28.8px;
+    transition:
+      transform 180ms ease,
+      filter 180ms ease;
+  }
+
+  .blog-detail-cta__content > a:hover,
+  .blog-detail-cta__content > a:focus-visible {
+    filter: brightness(0.95);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 767px) {
+    .article-hero {
+      height: 328px;
+    }
+
+    .article-hero h1 {
+      top: 100px;
+      right: 20px;
+      left: 20px;
+      font-size: 40px;
+      line-height: 46px;
+      letter-spacing: -1px;
+    }
+
+    .article-container {
+      width: calc(100% - 40px);
+    }
+
+    .article-content {
+      width: 100%;
+    }
+
+    .article-meta {
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 60px;
+    }
+
+    .article-meta__date,
+    .article-meta__social {
+      justify-content: center;
+    }
+
+    .article-meta__date {
+      gap: 16px;
+    }
+
+    .article-meta__date time {
+      padding: 6px 12px;
+    }
+
+    .article-meta__social {
+      gap: 24px;
+      min-height: 37px;
+    }
+
+    .article-meta__social > div {
+      gap: 20px;
+    }
+
+    .article-content {
+      padding: 30px 0 100px;
+    }
+
+    .article-lead,
+    .article-callouts p {
+      font-size: 32px;
+      line-height: 44.8px;
+      letter-spacing: -1.5px;
+    }
+
+    .article-lead__break {
+      display: none;
+    }
+
+    .article-callouts p:first-child {
+      min-height: 403.172px;
+    }
+
+    .article-content section {
+      margin-top: 36px;
+    }
+
+    .article-content section > p,
+    .article-content li {
+      font-size: 20px;
+      line-height: 36px;
+    }
+
+    .article-content section > p,
+    .article-content section > ol,
+    .article-content section > ul {
+      margin-top: 36px;
+    }
+
+    .article-content ul,
+    .article-content ol {
+      padding-left: 30px;
+    }
+
+    .article-image {
+      width: 100%;
+      margin-top: 36px;
+      border-radius: 16px;
+    }
+
+    .similar-posts {
+      min-height: 0;
+      padding: 70px 20px 80px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .similar-posts__header {
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .similar-posts__header h2 {
+      width: 100%;
+      font-size: 36px;
+      line-height: 45px;
+      letter-spacing: -1.8px;
+      text-align: center;
+    }
+
+    .similar-posts__header > a {
+      flex: 0 0 auto;
+      font-size: 14px;
+    }
+
+    .similar-posts__grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-top: 50px;
+    }
+
+    .related-card h3 {
+      min-height: 0;
+    }
+
+    .blog-detail-cta {
+      height: 506.422px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .blog-detail-cta__content {
+      width: calc(100% - 40px);
+      padding-top: 60px;
+    }
+
+    .blog-detail-cta h2 {
+      font-size: 36px;
+      line-height: 45px;
+      letter-spacing: -1.8px;
+    }
+
+    .blog-detail-cta__content > p {
+      margin-top: 20px;
+      font-size: 14px;
+      line-height: 25.2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .blog-detail *,
+    .blog-detail *::before,
+    .blog-detail *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+</style>

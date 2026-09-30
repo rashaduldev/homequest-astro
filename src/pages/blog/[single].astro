@@ -1,30 +1,23 @@
 ---
+import { blogPosts, type BlogPostSummary } from "@/data/blog-posts";
 import Base from "@/layouts/Base.astro";
-import PostSingle from "@/layouts/PostSingle.astro";
-import { getSinglePage } from "@/lib/contentParser.astro";
+import BlogDetail from "@/layouts/BlogDetail.astro";
 
-export async function getStaticPaths() {
-  const BLOG_FOLDER = "blog";
-  const posts = await getSinglePage(BLOG_FOLDER);
-
-  const paths = posts.map((post) => ({
-    params: {
-      single: post.id,
-    },
+export function getStaticPaths() {
+  return blogPosts.map((post) => ({
+    params: { single: post.slug },
     props: { post },
   }));
-  return paths;
 }
 
-const { post } = Astro.props;
-const { title, meta_title, description, image } = post.data;
+const { post } = Astro.props as { post: BlogPostSummary };
 ---
 
 <Base
-  title={title}
-  meta_title={meta_title}
-  description={description}
-  image={image}
+  title={post.title}
+  meta_title={`${post.title} | HomeQuest`}
+  description={`Read HomeQuest’s guide: ${post.title}. Explore practical real estate advice for buyers, sellers, renters, and property investors.`}
+  image={post.image}
 >
-  <PostSingle post={post} />
+  <BlogDetail post={post} />
 </Base>
