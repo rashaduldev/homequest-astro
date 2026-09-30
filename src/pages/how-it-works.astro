@@ -1,0 +1,892 @@
+---
+import Base from "@/layouts/Base.astro";
+
+interface ProcessStep {
+  number: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  image: string;
+}
+
+interface Statistic {
+  value: number;
+  suffix: string;
+  label: string;
+  description: string;
+}
+
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+const steps: ProcessStep[] = [
+  {
+    number: "1",
+    eyebrow: "How to start",
+    title: "Tell Us What You Need",
+    description:
+      "Start by sharing your real estate goals with us. Whether you're buying, selling, or renting, we’ll gather all the necessary details to tailor our services to your needs. Simply fill out our contact form or give us a call.",
+    image: "/images/how-it-works/tell-us.png",
+  },
+  {
+    number: "2",
+    eyebrow: "How to Book",
+    title: "Personalized Property Solutions",
+    description:
+      "Our expert team will search for the perfect properties or buyers that match your criteria. We’ll arrange property viewings, market your listing, or connect you with tenants, handling all the details so you don’t have to.",
+    image: "/images/how-it-works/solutions.png",
+  },
+  {
+    number: "3",
+    eyebrow: "Confirmed",
+    title: "Close the Deal",
+    description:
+      "Once you’ve found the right match, we guide you through the final steps. From negotiating the best price to managing paperwork and legalities, we ensure a smooth and stress-free transaction.",
+    image: "/images/how-it-works/close-deal.png",
+  },
+];
+
+const statistics: Statistic[] = [
+  {
+    value: 5,
+    suffix: ".0",
+    label: "Client impressions",
+    description:
+      "Home value is determined by factors like location, property condition.",
+  },
+  {
+    value: 88,
+    suffix: "%",
+    label: "Improved Business",
+    description: "Health status is affected by factors like diet, lifestyle",
+  },
+  {
+    value: 1,
+    suffix: "M",
+    label: "Successful Purchase",
+    description: "Market value changes due to factors like demand, supply.",
+  },
+  {
+    value: 12,
+    suffix: "K",
+    label: "Trusted by Clients",
+    description:
+      "Product quality varies based on factors like material, design.",
+  },
+];
+
+const faqs: FaqItem[] = [
+  {
+    question: "How long does it take to buy or sell a property?",
+    answer:
+      "The time it takes to buy or sell a property depends on several factors, including market conditions, property type, and the buyer's/seller's readiness. On average, it takes 1 to 3 months from listing a property to closing a sale.",
+  },
+  {
+    question: "What fees are involved in buying or selling a home?",
+    answer:
+      "AI image editor is a cutting-edge tool that harnesses the power of artificial intelligence to streamline and enhance the photo editing process.",
+  },
+  {
+    question: "How is the value of my home determined?",
+    answer:
+      "One of the most popular in the remarkable features of AI image editors is their ability to enhance image quality.",
+  },
+  {
+    question: "Can I get assistance with financing a property purchase?",
+    answer:
+      "For portrait photography, AI image editors excel at skin retouching, wrinkle reduction, and blemish removal.",
+  },
+  {
+    question: "What are the benefits of hiring a property management service?",
+    answer:
+      "Product photography is another area where AI image editors shine. By accurately removing backgrounds and enhancing product details.",
+  },
+];
+---
+
+<Base
+  title="How it Works"
+  meta_title="How it Works | HomeQuest"
+  description="See how HomeQuest helps you define your goals, find the right property solution, and close your real estate deal."
+  image="/images/company/hero.avif"
+>
+  <div class="how-page">
+    <section class="how-hero" aria-labelledby="how-page-title">
+      <img
+        src="/images/company/hero.avif"
+        alt="Modern HomeQuest residence"
+        fetchpriority="high"
+      />
+      <div class="how-hero__shade"></div>
+      <h1 id="how-page-title" data-aos="fade-up" data-aos-duration="900">
+        How it Works
+      </h1>
+    </section>
+
+    <section class="process" aria-label="How HomeQuest works">
+      <div class="process__inner">
+        {
+          steps.map((step, index) => (
+            <article class="process-step">
+              <div
+                class="process-step__marker"
+                data-aos="fade-up"
+                data-aos-duration="900"
+              >
+                <span>{step.number}</span>
+                {index < steps.length - 1 && <i aria-hidden="true" />}
+              </div>
+              <div
+                class="process-step__copy"
+                data-aos="fade-up"
+                data-aos-delay="80"
+                data-aos-duration="900"
+              >
+                <p class="process-step__eyebrow">{step.eyebrow}</p>
+                <h2>{step.title}</h2>
+                <p class="process-step__description">{step.description}</p>
+              </div>
+              <img
+                src={step.image}
+                alt=""
+                width="896"
+                height="836"
+                loading={index === 0 ? "eager" : "lazy"}
+                data-aos="fade-up"
+                data-aos-delay="140"
+                data-aos-duration="900"
+              />
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="investment" aria-labelledby="investment-title">
+      <div
+        class="investment__image"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+      >
+        <img
+          src="/images/company/story-house.webp"
+          alt="Contemporary HomeQuest property"
+          loading="lazy"
+        />
+      </div>
+      <div class="investment__panel">
+        <div class="investment__intro page-container">
+          <h2 id="investment-title">
+            Don’t wait to buy real estate. Buy real estate and wait
+          </h2>
+          <p>
+            Home value is determined by factors like location, property
+            condition, recent sales of similar homes, and current market trends.
+          </p>
+        </div>
+        <div class="statistics page-container">
+          {
+            statistics.map((item) => (
+              <article class="statistic">
+                <p class="statistic__number">
+                  <span data-how-counter={item.value}>0</span>
+                  {item.suffix}
+                </p>
+                <h3>{item.label}</h3>
+                <p>{item.description}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="how-faq" aria-labelledby="how-faq-title">
+      <div class="faq-inner" data-aos="fade-up" data-aos-duration="1000">
+        <h2 id="how-faq-title">Hear from Our Happy Homeowners</h2>
+        <div class="faq-list">
+          {
+            faqs.map((item, index) => (
+              <article class:list={["faq-item", { "is-open": index === 0 }]}>
+                <button
+                  class="faq-trigger"
+                  type="button"
+                  aria-expanded={index === 0 ? "true" : "false"}
+                >
+                  <span>{item.question}</span>
+                  <span class="faq-chevron" aria-hidden="true">
+                    ›
+                  </span>
+                </button>
+                <div class="faq-answer">
+                  <div>
+                    <p>{item.answer}</p>
+                  </div>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="how-cta" aria-labelledby="how-cta-title">
+      <img
+        src="/images/company/cta.avif"
+        alt="Modern property at dusk"
+        loading="lazy"
+      />
+      <div class="how-cta__shade"></div>
+      <div class="how-cta__content" data-aos="fade-up" data-aos-duration="1000">
+        <h2 id="how-cta-title">
+          <span>Ready to Make a</span>
+          <span>Move? Contact Us Now!</span>
+        </h2>
+        <p>
+          Contact us today to discuss your property needs and choose the right
+          plan. We’re here to guide you through every step of the process.
+        </p>
+        <a href="/contact">Get Your Home</a>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<script>
+  const initializeHowItWorks = () => {
+    const page = document.querySelector<HTMLElement>(".how-page");
+    if (!page || page.dataset.initialized === "true") return;
+    page.dataset.initialized = "true";
+
+    const counters =
+      document.querySelectorAll<HTMLElement>("[data-how-counter]");
+    const counterObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const element = entry.target as HTMLElement;
+          const target = Number(element.dataset.howCounter ?? 0);
+          const start = performance.now();
+          const duration = 900;
+          const update = (time: number) => {
+            const progress = Math.min((time - start) / duration, 1);
+            element.textContent = String(
+              Math.round(target * (1 - Math.pow(1 - progress, 3))),
+            );
+            if (progress < 1) requestAnimationFrame(update);
+          };
+          requestAnimationFrame(update);
+          observer.unobserve(element);
+        });
+      },
+      { threshold: 0.45 },
+    );
+    counters.forEach((counter) => counterObserver.observe(counter));
+
+    document
+      .querySelectorAll<HTMLButtonElement>(".how-page .faq-trigger")
+      .forEach((trigger) => {
+        trigger.addEventListener("click", () => {
+          const current = trigger.closest<HTMLElement>(".faq-item");
+          document
+            .querySelectorAll<HTMLElement>(".how-page .faq-item")
+            .forEach((item) => {
+              const shouldOpen =
+                item === current && !item.classList.contains("is-open");
+              item.classList.toggle("is-open", shouldOpen);
+              item
+                .querySelector<HTMLButtonElement>(".faq-trigger")
+                ?.setAttribute("aria-expanded", String(shouldOpen));
+            });
+        });
+      });
+  };
+
+  document.addEventListener("astro:page-load", initializeHowItWorks);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeHowItWorks, {
+      once: true,
+    });
+  } else {
+    initializeHowItWorks();
+  }
+</script>
+
+<style>
+  .how-page {
+    --hq-green: #1f4938;
+    --hq-lime: #dbfb1e;
+    --hq-warm: #f7f6f4;
+    color: #0a0915;
+    background: #fff;
+  }
+
+  .how-page h1,
+  .how-page h2,
+  .how-page h3,
+  .how-page p {
+    margin: 0;
+  }
+
+  .page-container {
+    width: min(100% - 60px, 1320px);
+    margin-inline: auto;
+  }
+
+  .how-hero {
+    position: relative;
+    height: 453px;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  .how-hero > img,
+  .how-hero__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .how-hero > img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .how-hero__shade {
+    background: linear-gradient(
+      180deg,
+      rgba(12, 42, 56, 0.2),
+      rgba(15, 35, 45, 0.26)
+    );
+  }
+
+  .how-hero h1 {
+    position: absolute;
+    top: 205px;
+    right: 30px;
+    left: 30px;
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 80px;
+    font-weight: 400;
+    line-height: 92px;
+    letter-spacing: -3.5px;
+    text-align: center;
+  }
+
+  .process {
+    padding: 190px 30px 120px;
+    background: #fff;
+  }
+
+  .process__inner {
+    width: min(996px, 100%);
+    margin-inline: auto;
+  }
+
+  .process-step {
+    display: grid;
+    grid-template-columns: 52px 423.64px 408.36px;
+    gap: 0 32px;
+    align-items: center;
+    min-height: 381px;
+  }
+
+  .process-step + .process-step {
+    margin-top: 80px;
+  }
+
+  .process-step__marker {
+    position: relative;
+    align-self: stretch;
+    padding-top: 71px;
+  }
+
+  .process-step__marker span {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    width: 52px;
+    height: 52px;
+    place-items: center;
+    border-radius: 8px;
+    background: var(--hq-lime);
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 28.8px;
+  }
+
+  .process-step__marker i {
+    position: absolute;
+    top: 141px;
+    left: 25px;
+    width: 2px;
+    height: 334px;
+    background: #0a0915;
+  }
+
+  .process-step__copy {
+    position: relative;
+    top: -12.4px;
+    align-self: center;
+  }
+
+  .process-step__eyebrow {
+    color: rgba(10, 9, 21, 0.7);
+    font-size: 16px;
+    line-height: 28.8px;
+    letter-spacing: -0.2px;
+  }
+
+  .process-step h2 {
+    margin-top: 10px;
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 44.8px;
+    letter-spacing: -0.8px;
+  }
+
+  .process-step__description {
+    margin-top: 16px !important;
+    color: rgba(10, 9, 21, 0.58);
+    font-size: 16px;
+    line-height: 28.8px;
+    letter-spacing: -0.4px;
+  }
+
+  .process-step > img {
+    position: relative;
+    left: 48px;
+    width: 408.36px;
+    height: 381px;
+    object-fit: cover;
+    border-radius: 24px;
+  }
+
+  .investment__image {
+    height: 880px;
+    overflow: hidden;
+    border-radius: 24px 24px 0 0;
+  }
+
+  .investment__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .investment__panel {
+    height: 850.8px;
+    padding: 80px 0 80px;
+    border-radius: 24px 24px 0 0;
+    background: #fff;
+    box-sizing: border-box;
+  }
+
+  .investment__intro {
+    display: grid;
+    grid-template-columns: 554px 1fr;
+    gap: 120px;
+    align-items: start;
+  }
+
+  .investment__intro h2,
+  .faq-inner > h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: -2.5px;
+  }
+
+  .investment__intro > p {
+    max-width: 465px;
+    padding-top: 16px;
+    color: rgba(10, 9, 21, 0.58);
+    font-size: 16px;
+    line-height: 32.4px;
+    letter-spacing: -0.2px;
+  }
+
+  .statistics {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 42px;
+    margin-top: 104px;
+  }
+
+  .statistic__number {
+    color: rgba(31, 73, 56, 0.56);
+    font-family: var(--font-secondary), "Geist", sans-serif !important;
+    font-size: 76px !important;
+    line-height: 92px !important;
+    letter-spacing: -4px !important;
+  }
+
+  .statistic h3 {
+    margin-top: 17px;
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 28.8px;
+  }
+
+  .statistic > p:last-child {
+    margin-top: 70px;
+    color: rgba(10, 9, 21, 0.45);
+    font-size: 14px;
+    line-height: 28px;
+  }
+
+  .how-faq {
+    min-height: 793.42px;
+    padding: 63px 0 80px;
+    background: #fff;
+    box-sizing: border-box;
+  }
+
+  .faq-inner {
+    width: min(700px, calc(100% - 40px));
+    margin-inline: auto;
+  }
+
+  .faq-inner > h2 {
+    text-align: center;
+  }
+
+  .faq-list {
+    margin-top: 76px;
+  }
+
+  .faq-item + .faq-item {
+    margin-top: 4px;
+  }
+
+  .faq-trigger {
+    display: flex;
+    width: 100%;
+    min-height: 64px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 16px;
+    border-radius: 14px;
+    background: var(--hq-warm);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 28px;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .faq-trigger:hover,
+  .faq-trigger:focus-visible {
+    background: #f0efed;
+  }
+
+  .faq-chevron {
+    color: #777;
+    font-size: 28px;
+    font-weight: 300;
+    transition: transform 240ms ease;
+  }
+
+  .faq-answer {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 300ms ease;
+  }
+
+  .faq-answer > div {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .faq-answer p {
+    padding: 20px 16px 28px;
+    color: #66666d;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .faq-item.is-open .faq-answer {
+    grid-template-rows: 1fr;
+  }
+
+  .faq-item.is-open .faq-chevron {
+    transform: rotate(-90deg);
+  }
+
+  .how-cta {
+    position: relative;
+    height: 624.609px;
+    overflow: hidden;
+    border-radius: 24px 24px 0 0;
+    color: #fff;
+  }
+
+  .how-cta > img,
+  .how-cta__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .how-cta > img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .how-cta__shade {
+    background: linear-gradient(
+      180deg,
+      rgba(24, 55, 75, 0.46),
+      rgba(9, 25, 33, 0.02)
+    );
+  }
+
+  .how-cta__content {
+    position: relative;
+    z-index: 1;
+    width: min(748px, calc(100% - 40px));
+    margin: 0 auto;
+    padding-top: 88px;
+    text-align: center;
+  }
+
+  .how-cta h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: -2.5px;
+  }
+
+  .how-cta h2 span {
+    display: block;
+  }
+
+  .how-cta__content p {
+    max-width: 598px;
+    margin: 16px auto 32px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 16px;
+    line-height: 32.4px;
+    letter-spacing: -0.2px;
+  }
+
+  .how-cta__content a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 24px;
+    border-radius: 32px;
+    color: #050505;
+    background: var(--hq-lime);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 28.8px;
+    transition:
+      transform 180ms ease,
+      filter 180ms ease;
+  }
+
+  .how-cta__content a:hover,
+  .how-cta__content a:focus-visible {
+    filter: brightness(0.95);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 767px) {
+    .page-container {
+      width: calc(100% - 40px);
+    }
+
+    .how-hero {
+      height: 236px;
+    }
+
+    .how-hero h1 {
+      top: 100px;
+      right: 20px;
+      left: 20px;
+      font-size: 40px;
+      line-height: 46px;
+      letter-spacing: -1px;
+    }
+
+    .process {
+      padding: 39px 20px 60px;
+    }
+
+    .process-step {
+      display: block;
+      min-height: 0;
+    }
+
+    .process-step + .process-step {
+      margin-top: 19px;
+    }
+
+    .process-step__marker {
+      padding: 0;
+    }
+
+    .process-step__marker span {
+      width: 48px;
+      height: 48px;
+    }
+
+    .process-step__marker i {
+      display: none;
+    }
+
+    .process-step__copy {
+      top: 0;
+      margin-top: 55px;
+    }
+
+    .process-step h2 {
+      margin-top: 10px;
+      font-size: 32px;
+      line-height: 44.8px;
+      letter-spacing: -0.8px;
+    }
+
+    .process-step__description {
+      margin-top: 12px !important;
+    }
+
+    .process-step > img {
+      left: 0;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 896 / 836;
+      margin-top: 30px;
+      border-radius: 16px;
+    }
+
+    .investment__image {
+      height: 600px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .investment__image img {
+      object-position: 61% center;
+    }
+
+    .investment__panel {
+      height: 1195px;
+      padding: 70px 0 60px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .investment__intro {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+      text-align: center;
+    }
+
+    .investment__intro h2,
+    .faq-inner > h2 {
+      font-size: 36px;
+      line-height: 45px;
+      letter-spacing: -1.8px;
+    }
+
+    .investment__intro > p {
+      padding-top: 0;
+      font-size: 14px;
+      line-height: 25.2px;
+    }
+
+    .statistics {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      margin-top: 48px;
+      text-align: center;
+    }
+
+    .statistic__number {
+      font-size: 40px !important;
+      line-height: 46px !important;
+      letter-spacing: -1px !important;
+    }
+
+    .statistic h3 {
+      margin-top: 18px;
+      font-size: 14px;
+      line-height: 25.2px;
+    }
+
+    .statistic > p:last-child {
+      max-width: 270px;
+      margin: 15px auto 0;
+      font-size: 14px;
+      line-height: 25.2px;
+    }
+
+    .how-faq {
+      height: 912.844px;
+      min-height: 0;
+      padding: 70px 0 80px;
+      overflow: hidden;
+    }
+
+    .faq-inner {
+      width: calc(100% - 40px);
+    }
+
+    .faq-inner > h2 {
+      text-align: left;
+    }
+
+    .faq-list {
+      margin-top: 54px;
+    }
+
+    .faq-trigger {
+      min-height: 96px;
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .how-cta {
+      height: 506.422px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .how-cta__content {
+      width: calc(100% - 40px);
+      padding-top: 60px;
+    }
+
+    .how-cta h2 {
+      font-size: 36px;
+      line-height: 45px;
+      letter-spacing: -1.8px;
+    }
+
+    .how-cta__content p {
+      margin-top: 20px;
+      font-size: 14px;
+      line-height: 25.2px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .how-page *,
+    .how-page *::before,
+    .how-page *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+</style>
