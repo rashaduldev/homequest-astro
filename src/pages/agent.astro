@@ -1,0 +1,382 @@
+---
+import { agents } from "@/data/agents";
+import Base from "@/layouts/Base.astro";
+---
+
+<Base
+  title="Agent Listing"
+  meta_title="Agent Listing | HomeQuest"
+  description="Meet HomeQuest’s experienced property consultants, buyer’s agents, leasing specialists, and real estate investment advisors."
+  image="/images/company/hero.avif"
+>
+  <div class="agent-page">
+    <section class="agent-hero" aria-labelledby="agent-page-title">
+      <img
+        src="/images/company/hero.avif"
+        alt="Modern HomeQuest residence"
+        fetchpriority="high"
+      />
+      <div class="agent-hero__shade"></div>
+      <h1 id="agent-page-title" data-aos="fade-up" data-aos-duration="900">
+        Agent Listing
+      </h1>
+    </section>
+
+    <section class="agent-directory" aria-label="HomeQuest agents">
+      <div class="agent-grid">
+        {
+          agents.map((agent, index) => (
+            <a
+              class="agent-card"
+              href={`/agent/${agent.slug}`}
+              data-aos="fade-up"
+              data-aos-delay={String((index % 3) * 80)}
+              data-aos-duration="900"
+            >
+              <img
+                src={agent.image}
+                alt=""
+                width="848"
+                height="984"
+                loading={index < 3 ? "eager" : "lazy"}
+              />
+              <div class="agent-card__content">
+                <div>
+                  <h2>{agent.name}</h2>
+                  <p>{agent.role}</p>
+                </div>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="agent-cta" aria-labelledby="agent-cta-title">
+      <img
+        src="/images/company/cta.avif"
+        alt="Modern property at dusk"
+        loading="lazy"
+      />
+      <div class="agent-cta__shade"></div>
+      <div
+        class="agent-cta__content"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+      >
+        <h2 id="agent-cta-title">
+          <span>Ready to Make a</span>
+          <span>Move? Contact Us Now!</span>
+        </h2>
+        <p>
+          Contact us today to discuss your property needs and choose the right
+          plan. We’re here to guide you through every step of the process.
+        </p>
+        <a href="/contact">Get Your Home</a>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .agent-page {
+    --hq-lime: #dbfb1e;
+    color: #0a0915;
+    background: #fff;
+  }
+
+  .agent-page h1,
+  .agent-page h2,
+  .agent-page p {
+    margin: 0;
+  }
+
+  .agent-hero {
+    position: relative;
+    height: 453px;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  .agent-hero > img,
+  .agent-hero__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .agent-hero > img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .agent-hero__shade {
+    background: linear-gradient(
+      180deg,
+      rgba(12, 42, 56, 0.2),
+      rgba(15, 35, 45, 0.26)
+    );
+  }
+
+  .agent-hero h1 {
+    position: absolute;
+    top: 205px;
+    right: 30px;
+    left: 30px;
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 80px;
+    font-weight: 400;
+    line-height: 92px;
+    letter-spacing: -3.5px;
+    text-align: center;
+  }
+
+  .agent-directory {
+    position: relative;
+    z-index: 1;
+    padding: 80px 30px 130px;
+    background: #fff;
+  }
+
+  .agent-grid {
+    display: grid;
+    width: min(1205px, 100%);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin-inline: auto;
+  }
+
+  .agent-card {
+    position: relative;
+    height: 492px;
+    overflow: hidden;
+    border-radius: 24px;
+    color: #fff;
+    background: #e4e5e5;
+    isolation: isolate;
+    transition:
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 320ms ease;
+  }
+
+  .agent-card > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .agent-card__content {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    padding: 24px;
+    border-radius: 0 0 24px 24px;
+    background: rgba(10, 9, 21, 0.3);
+    backdrop-filter: blur(5px);
+    transition: background-color 300ms ease;
+  }
+
+  .agent-card__content > div {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .agent-card h2 {
+    color: #fff;
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 36px;
+    letter-spacing: -0.2px;
+  }
+
+  .agent-card p {
+    color: rgba(255, 255, 255, 0.8);
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 28.8px;
+    letter-spacing: -0.4px;
+  }
+
+  .agent-card:hover,
+  .agent-card:focus-visible {
+    box-shadow: 0 18px 44px rgba(15, 44, 32, 0.16);
+    transform: translateY(-4px);
+  }
+
+  .agent-card:hover > img,
+  .agent-card:focus-visible > img {
+    transform: scale(1.045);
+  }
+
+  .agent-card:hover .agent-card__content,
+  .agent-card:focus-visible .agent-card__content {
+    background: rgba(10, 9, 21, 0.42);
+  }
+
+  .agent-cta {
+    position: relative;
+    height: 624.609px;
+    overflow: hidden;
+    border-radius: 24px 24px 0 0;
+    color: #fff;
+  }
+
+  .agent-cta > img,
+  .agent-cta__shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .agent-cta > img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .agent-cta__shade {
+    background: linear-gradient(
+      180deg,
+      rgba(24, 55, 75, 0.46),
+      rgba(9, 25, 33, 0.02)
+    );
+  }
+
+  .agent-cta__content {
+    position: relative;
+    z-index: 1;
+    width: min(748px, calc(100% - 40px));
+    margin: 0 auto;
+    padding-top: 88px;
+    text-align: center;
+  }
+
+  .agent-cta h2 {
+    font-family: var(--font-secondary), "Geist", sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: -2.5px;
+  }
+
+  .agent-cta h2 span {
+    display: block;
+  }
+
+  .agent-cta__content p {
+    max-width: 598px;
+    margin: 16px auto 32px;
+    color: rgba(255, 255, 255, 0.8);
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 32.4px;
+    letter-spacing: -0.2px;
+  }
+
+  .agent-cta__content a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 24px;
+    border-radius: 32px;
+    color: #050505;
+    background: var(--hq-lime);
+    font-family: var(--font-primary), "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 28.8px;
+    transition:
+      transform 180ms ease,
+      filter 180ms ease;
+  }
+
+  .agent-cta__content a:hover,
+  .agent-cta__content a:focus-visible {
+    filter: brightness(0.95);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 767px) {
+    .agent-hero {
+      height: 236px;
+    }
+
+    .agent-hero h1 {
+      top: 100px;
+      right: 20px;
+      left: 20px;
+      font-size: 40px;
+      line-height: 46px;
+      letter-spacing: -1px;
+    }
+
+    .agent-directory {
+      padding: 60px 20px;
+    }
+
+    .agent-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .agent-card {
+      height: auto;
+      aspect-ratio: 848 / 984;
+    }
+
+    .agent-card h2 {
+      font-size: 18px;
+      line-height: 32.4px;
+    }
+
+    .agent-card p {
+      font-size: 14px;
+      line-height: 25.2px;
+      letter-spacing: -0.2px;
+    }
+
+    .agent-card__content > div {
+      gap: 0;
+    }
+
+    .agent-cta {
+      height: 506.422px;
+      border-radius: 24px 24px 0 0;
+    }
+
+    .agent-cta__content {
+      width: calc(100% - 40px);
+      padding-top: 60px;
+    }
+
+    .agent-cta h2 {
+      font-size: 36px;
+      line-height: 45px;
+      letter-spacing: -1.8px;
+    }
+
+    .agent-cta__content p {
+      margin-top: 16px;
+      font-size: 16px;
+      line-height: 32.4px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .agent-page *,
+    .agent-page *::before,
+    .agent-page *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+</style>
